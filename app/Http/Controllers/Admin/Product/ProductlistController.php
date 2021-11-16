@@ -27,7 +27,17 @@ class ProductlistController extends Controller
      */
     public function create()
     {
-        //
+        $form = [
+            'checkbox' => 1,
+            'items' => [
+                [
+                    'price' => null,
+                ]
+            ],
+        ];
+        return response()->json([
+            'form' => $form
+        ]);
     }
 
     /**

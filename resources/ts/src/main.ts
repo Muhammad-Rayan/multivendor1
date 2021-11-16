@@ -19,6 +19,8 @@ import VueProgressBar from "@aacassandra/vue3-progressbar";
 import Toast, { PluginOptions } from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 import "@/core/plugins/keenthemes";
 import "@/core/plugins/prismjs";
@@ -26,6 +28,7 @@ import "bootstrap";
 import '@/lib/filters'
 
 const app = createApp(App);
+app.component('QuillEditor', QuillEditor)
 const toastoption: PluginOptions = {
     // You can set your default options here
 };
