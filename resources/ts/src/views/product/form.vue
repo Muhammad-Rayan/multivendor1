@@ -19,6 +19,7 @@
                         placeholder="Enter Product Name"
                         ></el-input>
                   </el-form-item>
+                  <error-text :error="error.name"></error-text>
                 </div>
                 <div class="col-12">
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -26,13 +27,15 @@
                     </label>
                     <typeahead :initial="form.category" :url="categoryURL" @input="onCategoryUpdate">
                     </typeahead>
+                    <error-text :error="error.category_id"></error-text>
                 </div>
                 <div class="col-12">
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                         <span class="required">Brand</span>
                     </label>
-                    <typeahead :initial="form.category" :url="categoryURL" @input="onCategoryUpdate">
+                    <typeahead :initial="form.brand" :url="brandURL" @input="onBrandUpdate">
                     </typeahead>
+                    <error-text :error="error.brand_id"></error-text>
                 </div>
                 <div class="col-12">
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -44,6 +47,7 @@
                         placeholder="Enter Unit"
                         ></el-input>
                   </el-form-item>
+                  <error-text :error="error.packing"></error-text>
                 </div>
                 <div class="col-12">
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -52,10 +56,11 @@
                     <el-form-item prop="targetTitle">
                         <el-input
                         type="number"
-                        v-model="form.minimum_purchase_qty"
+                        v-model="form.minimum_purch_qty"
                         placeholder="Enter Minimum Purchase Qty"
                         ></el-input>
                   </el-form-item>
+                  <error-text :error="error.minimum_purch_qty"></error-text>
                 </div>
                 <div class="col-12">
                     <!--begin::Label-->
@@ -75,6 +80,7 @@
                     >
                     </el-select>
                   </el-form-item>
+                  <error-text :error="error.tags"></error-text>
                 </div>
                 <div class="col-6">
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -82,10 +88,11 @@
                     </label>
                     <el-form-item prop="targetTitle">
                         <el-input
-                        v-model="form.packing"
+                        v-model="form.barcode"
                         placeholder="Enter Barcode"
                       ></el-input>
                   </el-form-item>
+                  <error-text :error="error.barcode"></error-text>
                 </div>
                 <div class="col-2">
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -122,7 +129,7 @@
             <!--begin::Header-->
             <div class="card-header border-0 pt-5">
                 <h3 class="card-title align-items-start flex-column">
-                    <span class="card-label fw-bolder fs-3 mb-1">Product Information</span>
+                    <span class="card-label fw-bolder fs-3 mb-1">Product Images</span>
                 </h3>
             </div>
             <div class="row pr-4 ml-10 px-lg-15 pt-0 pb-15">
@@ -160,10 +167,11 @@
                   </label>
                   <el-form-item prop="targetTitle">
                         <el-input
-                        v-model="form.packing"
+                        v-model="form.video_link"
                         placeholder="Enter Unit"
                         ></el-input>
                   </el-form-item>
+                  <error-text :error="error.video_link"></error-text>
                 </div>
             </div>
             <!--end::Header-->
@@ -182,6 +190,7 @@
                       <span class="required">Description</span>
                   </label>
                     <QuillEditor theme="snow" @input="onEditorChange($event)" />
+                    <error-text :error="error.description"></error-text>
                 </div>
             </div>
         </div>
@@ -202,7 +211,7 @@
                   <label class="form-check form-switch form-check-custom form-check-solid col-2">
                     <input
                       class="form-check-input"
-                      type="checkbox"
+                      type="checkbox" @change="freeShiping"
                       v-bind:true-value="1"
                       v-bind:false-value="0"
                       v-model="form.free_shipping"
@@ -216,16 +225,17 @@
                   <label class="form-check form-switch form-check-custom form-check-solid col-2" style="margin-bottom: 10px;">
                     <input
                       class="form-check-input"
-                      type="checkbox"
+                      type="checkbox" @change="shippingFlatRate"
                       v-bind:true-value="1"
                       v-bind:false-value="0"
                       v-model="form.shipping_flatrate"
                     />
                   </label>
-                  <el-input
+                  <el-input v-if="form.shipping_flatrate == 1"
                       v-model="form.shipping_costrate"
-                      placeholder="Enter Quantity"
+                      placeholder="Enter Price"
                       ></el-input>
+                      <error-text :error="error.shipping_costrate"></error-text>
               </div>
               <div class="col-12 row" style="margin-bottom: 10px;">
                   <label class="d-flex align-items-center fs-6 fw-bold mb-2 col-10">
@@ -234,7 +244,7 @@
                   <label class="form-check form-switch form-check-custom form-check-solid col-2">
                     <input
                       class="form-check-input"
-                      type="checkbox"
+                      type="checkbox" @change="shippingProductMultiply"
                       v-bind:true-value="1"
                       v-bind:false-value="0"
                       v-model="form.shipping_productmultiply"
@@ -256,9 +266,10 @@
                       <span class="required">Quantity</span>
                   </label>
                   <el-input
-                      v-model="form.packing"
+                      v-model="form.qty"
                       placeholder="Enter Quantity"
                       ></el-input>
+                      <error-text :error="error.qty"></error-text>
               </div>
             </div>
           </div>
@@ -320,9 +331,10 @@
                       <span class="required">Shipping Days</span>
                   </label>
                   <el-input
-                      v-model="form.packing"
+                      v-model="form.shippingdays"
                       placeholder="Shipping Days"
                       ></el-input>
+                      <error-text :error="error.shippingdays"></error-text>
               </div>
             </div>
           </div>
@@ -335,7 +347,7 @@
             <div class="row pr-4 ml-10 px-lg-6 pt-0 pb-4">
               <div class="col-12 row">
                   <el-form-item prop="assign">
-                    <el-select v-model="form.type">
+                    <el-select v-model="form.vat_type">
                     <el-option label="Flat" value="Flat">Flat</el-option>
                     <el-option label="Precent" value="Precent">Precent</el-option>
                     </el-select>
@@ -348,9 +360,10 @@
                   </label>
                   <el-input
                   type="number"
-                      v-model="form.packing"
+                      v-model="form.vat"
                       placeholder="Vat"
                       ></el-input>
+                      <error-text :error="error.vat"></error-text>
               </div>
               
             </div>
@@ -370,6 +383,7 @@
                   type="number"
                       v-model="form.price"
                       ></el-input>
+                      <error-text :error="error.price"></error-text>
               </div>
               <div class="col-12 row">
                   <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -379,6 +393,7 @@
                   type="number"
                       v-model="form.discount"
                       ></el-input>
+                      <error-text :error="error.discount"></error-text>
               </div>
               <div class="col-12 row">
                   <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -388,6 +403,7 @@
                   type="number"
                       v-model="form.qty"
                       ></el-input>
+                      <error-text :error="error.qty"></error-text>
               </div>
               
             </div>
@@ -396,7 +412,7 @@
       </div>
       
     </div>
-    <div class="row">
+    <div class="row" v-if="form.product_variation == 1">
       <div class="col-12">
         <div :class="widgetClasses" class="card" style="margin-bottom: 28px;">
             <div class="card-header border-0 pt-5">
@@ -410,21 +426,21 @@
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                         <span class="required">Colors</span>
                     </label>
-                      <typeahead :initial="item.category" :url="categoryURL" @input="onCategoryUpdate">
+                      <typeahead :initial="item.color" :url="colorURL" @input="onColorUpdate($event , index)">
                       </typeahead>
                   </div>
                   <div class="col-2">
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                         <span class="required">Attributes</span>
                     </label>
-                      <typeahead :initial="item.category" :url="categoryURL" @input="onCategoryUpdate">
+                      <typeahead :initial="item.attribute" :url="attributeURL" @input="onAttributeUpdate($event , index)">
                       </typeahead>
                   </div>
                   <div class="col-2">
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                         <span class="required">Attributes Items</span>
                     </label>
-                      <typeahead :initial="item.category" :url="categoryURL" @input="onCategoryUpdate">
+                      <typeahead :initial="item.attribute_items" :url="attributeItemsURL" @input="onAttributeItemsUpdate($event , index)">
                       </typeahead>
                   </div>
                   <div class="col-1">
@@ -443,7 +459,7 @@
                     </label>
                       <el-form-item prop="targetTitle">
                           <el-input
-                          v-model="item.name"
+                          v-model="item.discount"
                           ></el-input>
                       </el-form-item>
                   </div>
@@ -453,7 +469,7 @@
                     </label>
                       <el-form-item prop="targetTitle">
                           <el-input
-                          v-model="item.name"
+                          v-model="item.qty"
                           ></el-input>
                       </el-form-item>
                   </div>
@@ -500,10 +516,9 @@
                       <span class="required">Meta Title</span>
                   </label>
                       <el-form-item prop="targetTitle">
-                          <el-input
-                          v-model="form.price"
-                          ></el-input>
+                          <el-input v-model="form.meta_tittle" ></el-input>
                       </el-form-item>
+                      <error-text :error="error.meta_tittle"></error-text>
                 </div>
                 <div class="col-6">
                   <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -517,6 +532,7 @@
                       <span class="required">Description</span>
                   </label>
                     <QuillEditor theme="snow" @input="onMetaDescription($event)" />
+                    <error-text :error="error.meta_description"></error-text>
                 </div>
                 <div class="col-12" style="margin-top: 10%;">
                   <div class="text-end">
@@ -559,6 +575,10 @@ export default ({
             store: '/api/product',
             method: 'POST',
             categoryURL: '/api/product/categories',
+            brandURL: '/api/product/brand',
+            colorURL: '/api/product/color',
+            attributeURL: '/api/product/attribute',
+            attributeItemsURL: '/api/product/attribute',
         }
     },
     
@@ -603,6 +623,22 @@ export default ({
             'qty': 1
         })
     },
+    freeShiping(){
+      if(this.form.free_shipping == 1){
+        this.form.shipping_flatrate = 0;
+        this.form.shipping_productmultiply = 0;
+      }
+    },
+    shippingFlatRate(){
+      if(this.form.shipping_flatrate == 1){
+        this.form.free_shipping = 0;
+      }
+    },
+    shippingProductMultiply(){
+      if(this.form.shipping_productmultiply == 1){
+        this.form.free_shipping = 0;
+      }
+    },
     removeProduct(item, index) {
         if(this.form.items.length > 1) {
             this.form.items.splice(index, 1)
@@ -637,6 +673,24 @@ export default ({
 
         this.form.category_id = category.id;
         this.form.category = category;
+    },
+    onBrandUpdate(e) {
+        const brand = e.target.value
+
+        this.form.brand_id = brand.id;
+        this.form.brand = brand;
+    },
+    onColorUpdate(e,index){
+        const color = e.target.value
+
+        this.form.items[index].color_id = color.id;
+        this.form.items[index].color = color;
+    },
+    onAttributeUpdate(e,index){
+
+    },
+    onAttributeItemsUpdate(e,index){
+
     },
 },
   setup() {

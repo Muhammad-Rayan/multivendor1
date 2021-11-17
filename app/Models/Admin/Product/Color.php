@@ -12,4 +12,10 @@ class Color extends Model
     protected $fillable = [
         'name','code'
     ];
+
+    protected $appends = [ 'text' ];
+    public function getTextAttribute()
+    {
+        return $this->attributes['name'];
+    }
 }
