@@ -14,6 +14,7 @@ class AuthController extends Controller
      */
     public function index()
     {
+        
         return view('login');
     }
 
@@ -46,7 +47,7 @@ class AuthController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect()->route('/');
     }
 
     /**

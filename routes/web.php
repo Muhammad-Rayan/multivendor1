@@ -41,5 +41,6 @@ Route::group(['prefix' => 'api'], function() {
 });
 
 Route::group(['prefix' => '/'], function() {
-        Route::resource('login', AuthController::class);
+        Route::resource('login', AuthController::class);	
+    	Route::post('/login-data', [AuthController::class, 'show'])->name('login-data');
     });
