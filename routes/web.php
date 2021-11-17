@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Product\InhouseproductController;
 use App\Http\Controllers\Admin\Product\ProductlistController;
 use App\Http\Controllers\Admin\Product\ReviewController;
 use App\Http\Controllers\Admin\Product\SellerproductController;
+use App\Http\Controllers\Frontend\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +40,6 @@ Route::group(['prefix' => 'api'], function() {
     });
 });
 
+Route::group(['prefix' => '/'], function() {
+        Route::resource('login', AuthController::class);
+    });
