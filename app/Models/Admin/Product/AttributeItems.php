@@ -10,6 +10,12 @@ class Attribute_items extends Model
     use HasFactory;
     protected $table = 'attribute_items';
     protected $fillable = [
-        'name','attribute_id'
+        'value','attribute_id'
     ];
+
+    protected $appends = [ 'text' ];
+    public function getTextAttribute()
+    {
+        return $this->attributes['value'];
+    }
 }

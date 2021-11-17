@@ -137,15 +137,18 @@
                   <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                       <span class="required">Gallery Images</span>
                   </label>
-                  <file-upload @ready="onDocument"></file-upload>
-                  <error-text :error="error.image"></error-text>
+                  <input type="file" class="form-control" @change="onGalleryChange" multiple>
                 </div>
                 <div class="col-12">
                   <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                       <span class="required">Thumbnail Image</span>
                   </label>
-                  <file-upload @ready="onDocument"></file-upload>
-                  <error-text :error="error.image"></error-text>
+                  <input type="file" class="form-control" @change="onThumbnailChange">
+                  <!-- <input type="file" @change='upload_avatar' name="avatar">
+                        
+                    <div class="avatar img-fluid img-circle" style="margin-top:10px">
+                      <img :src="get_avatar()" v-bind:style="form.styleObject" style="width: 102px;" /> -->
+                  <!-- </div> -->
                 </div>
             </div>
             <!--end::Header-->
@@ -480,8 +483,7 @@
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                         <span class="required">Image</span>
                     </label>
-                      <file-upload @ready="onDocument"></file-upload>
-                      <error-text :error="error.image"></error-text>
+                      <input type="file" class="form-control" @change="onItemImageChange($event,index)">
                   </div>
                   <div class="col-1">
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -527,8 +529,7 @@
                   <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                       <span class="required">Meta Image</span>
                   </label>
-                    <file-upload @ready="onDocument"></file-upload>
-                    <error-text :error="error.image"></error-text>
+                    <input type="file" class="form-control" @change="onMetaImageChange">
                 </div>
                 <div class="col-12">
                   <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -581,7 +582,7 @@ export default ({
             brandURL: '/api/product/brand',
             colorURL: '/api/product/color',
             attributeURL: '/api/product/attribute',
-            attributeItemsURL: '/api/product/attribute',
+            attributeItemsURL: '/api/product/attributeitem',
         }
     },
     
@@ -620,9 +621,41 @@ export default ({
       type: [String, Number, Array]
     },
   methods: {
+    onThumbnailChange(e){
+        this.form.capture_image = e.target.files[0];
+    },
+    onMetaImageChange(e){
+        this.form.meta_image = e.target.files[0];
+    },
+    onGalleryChange(e){
+      this.form.gallery_image = e.target.files;
+    },
+    onItemImageChange(e,index){
+      this.form.items[index].capture_image = e.target.files[0];
+    },
+    upload_avatar(e){
+      let file = e.target.files[0];
+        let reader = new FileReader();  
+
+        if(file['size'] < 2111775)
+        {
+            reader.onloadend = (file) => {
+            //console.log('RESULT', reader.result)
+              this.form.capture_image = reader.result;
+            }              
+              reader.readAsDataURL(file);
+        }else{
+            alert('File size can not be bigger than 2 MB')
+        }
+    },
+    get_avatar(){
+        let photo = this.form.capture_image;
+        return photo;
+    },
     addNewLine() {
         this.form.items.push({
             'price': 0,
+            'discount': 0,
             'qty': 1
         })
     },
@@ -698,6 +731,7 @@ export default ({
     onAttributeItemsUpdate(e,index){
         const attribute_items = e.target.value
 
+        
         this.form.items[index].attribute_items_id = attribute_items.id;
         this.form.items[index].attribute_items = attribute_items;
     },

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Product\Productlist;
 use DB;
 use App\Models\Admin\Product\Tags;
+use App\Models\Admin\Product\GalleryImage;
 
 
 class ProductlistController extends Controller
@@ -52,14 +53,45 @@ class ProductlistController extends Controller
      */
     public function store(Request $request)
     {
-        
+        // if($request->items != null){
+        //     foreach($request->items as $product_items){
+        //         $color_id[] = $product_items["color_id"];
+        //         $attribute_items_id[] = $product_items["attribute_items_id"];
+        //         $attribute_id[] = $product_items["attribute_id"];
+        //     }
+        //     $color_result = array_unique($color_id);
+        //     $attr_item_result = array_unique($attribute_items_id);
+        //     $attr_result = array_unique($attribute_id);
+        //     dd($color_result);
+        // }
+
         $model = new Productlist;
         $model->fill($request->except('tags','items'));
         $model->active = 1;
         $model->deleted = 0;
         $model->slug = \Str::slug($request->name);
+        if($request->capture_image != null){
+            $imageName = time().'.'.$request->capture_image->getClientOriginalExtension();
+            $request->capture_image->move(public_path('productgallery'), $imageName);
+            $model->capture_image = $imageName;
+        }
+        if($request->meta_image != null){
+            $imageName = time().'.'.$request->meta_image->getClientOriginalExtension();
+            $request->meta_image->move(public_path('meta_gallery'), $imageName);
+            $model->meta_image = $imageName;
+        }
         $model = DB::transaction(function() use ($model, $request) {
             $model->save();
+            if($request->gallery_image != null){
+                foreach($request->gallery_image as $gallery_img){
+                    $gallery_image = new GalleryImage;
+                    $imageName = time().'.'.$gallery_img->getClientOriginalExtension();
+                    $gallery_img->move(public_path('meta_gallery'), $imageName);
+                    $gallery_image->image = $imageName;
+                    $gallery_image->product_id = $model->id;
+                    $gallery_image->save();
+                }
+            }
             if($request->tags != null){
                 foreach($request->tags as $items){
                     $tags = new Tags;
@@ -78,6 +110,9 @@ class ProductlistController extends Controller
                     $products->discount = $product_items["discount"];
                     $products->qty = $product_items["qty"];
                     $products->parent_id = $model["id"];
+                    $imageName = time().'.'.$product_items["capture_image"]->getClientOriginalExtension();
+                    $product_items["capture_image"]->move(public_path('productgallery'), $imageName);
+                    $products->capture_image = $imageName;
                     $products->save();
                 }
             }
