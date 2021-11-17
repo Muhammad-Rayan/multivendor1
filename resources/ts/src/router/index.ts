@@ -75,6 +75,11 @@ const routes: Array<RouteRecordRaw> = [
         meta: {mode: 'edit'},
         component: () => import("@/views/product/product_attribute/form.vue"),
       },
+      {
+        path: "/products/:id/attribute-item",
+        name: "product-attribute-item",
+        component: () => import("@/views/product/product_attribute/item.vue"),
+      },
       
       {
         path: "/products/color",
