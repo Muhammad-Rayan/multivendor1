@@ -139,7 +139,7 @@ export default ({
     },
   methods: {
     attribute_item(id){
-      window.location.href="/products/"+id+"/attribute-item/"
+      window.location.href="/#/products/"+id+"/attribute-item/"
     },
     setData(res) {
       this.model = res.data;

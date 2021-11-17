@@ -56,7 +56,7 @@
                   <span class="badge badge-light-danger">In Active</span>
                 </td>
                 <td>
-                  <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                  <a  @click="category(item.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                     <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                     <span class="svg-icon svg-icon-3">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -132,6 +132,10 @@ export default ({
       type: [String, Number, Array]
     },
   methods: {
+     
+    category(id){
+      window.location.href="/#/products/categories/"+id+"/edit/"
+    },
     setData(res) {
       this.model = res.data;
     }

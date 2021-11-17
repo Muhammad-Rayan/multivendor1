@@ -77,7 +77,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: "/products/:id/attribute-item",
-        name: "product-attribute-item",
+        name: "attribute-item",
         component: () => import("@/views/product/product_attribute/item.vue"),
       },
       
