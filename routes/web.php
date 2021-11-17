@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Product\ProductCategoryController;
 use App\Http\Controllers\Admin\Product\AttributeController;
+use App\Http\Controllers\Admin\Product\AttributeItemsController;
 use App\Http\Controllers\Admin\Product\BrandController;
 use App\Http\Controllers\Admin\Product\ColorController;
 use App\Http\Controllers\Admin\Product\InhouseproductController;
@@ -34,6 +35,7 @@ Route::group(['prefix' => 'api'], function() {
         Route::resource('inhouseproduct', InhouseproductController::class);
         Route::resource('review', ReviewController::class);
         Route::resource('sellerproduct', SellerproductController::class);
+        Route::resource('attributeitem', AttributeItemsController::class);
     });
 });
 
