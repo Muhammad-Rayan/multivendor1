@@ -25,9 +25,9 @@
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                         <span class="required">Category</span>
                     </label>
-                    <typeahead :initial="form.category" :url="categoryURL" @input="onCategoryUpdate">
+                    <typeahead :initial="form.cat" :url="categoryURL" @input="onCategoryUpdate">
                     </typeahead>
-                    <error-text :error="error.category_id"></error-text>
+                    <error-text :error="error.cat_id"></error-text>
                 </div>
                 <div class="col-12">
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -266,10 +266,10 @@
                       <span class="required">Quantity</span>
                   </label>
                   <el-input
-                      v-model="form.qty"
+                      v-model="form.low_qty_alert"
                       placeholder="Enter Quantity"
                       ></el-input>
-                      <error-text :error="error.qty"></error-text>
+                      <error-text :error="error.low_qty_alert"></error-text>
               </div>
             </div>
           </div>
@@ -449,6 +449,7 @@
                     </label>
                       <el-form-item prop="targetTitle">
                           <el-input
+                          type="number"
                           v-model="item.price"
                           ></el-input>
                       </el-form-item>
@@ -459,6 +460,7 @@
                     </label>
                       <el-form-item prop="targetTitle">
                           <el-input
+                          type="number"
                           v-model="item.discount"
                           ></el-input>
                       </el-form-item>
@@ -469,6 +471,7 @@
                     </label>
                       <el-form-item prop="targetTitle">
                           <el-input
+                          type="number"
                           v-model="item.qty"
                           ></el-input>
                       </el-form-item>
@@ -587,8 +590,8 @@ export default ({
   },
   created() {
       if(this.mode === 'edit') {
-          this.store = `/api/product/categories/${this.$route.params.id}?_method=PUT`
-          this.message = 'You have successfully updated category!'
+          this.store = `/api/product/${this.$route.params.id}?_method=PUT`
+          this.message = 'You have successfully updated product!'
           this.method = 'POST'
           this.title = 'Edit'
       }
@@ -651,8 +654,8 @@ export default ({
       this.form.meta_description = e.target.innerHTML;
     },
     save() {
-        this.submitMultipartForm((data) => {
-            this.$router.push(`/products/categories`)
+        this.submitMultipartForm(this.form,(data) => {
+            this.$router.push(`/product`)
         })
     },
     val() {
@@ -669,10 +672,10 @@ export default ({
       this.form = res.data.form;
     },
     onCategoryUpdate(e) {
-        const category = e.target.value
+        const cat = e.target.value
 
-        this.form.category_id = category.id;
-        this.form.category = category;
+        this.form.cat_id = cat.id;
+        this.form.cat = cat;
     },
     onBrandUpdate(e) {
         const brand = e.target.value
@@ -687,10 +690,16 @@ export default ({
         this.form.items[index].color = color;
     },
     onAttributeUpdate(e,index){
+        const attribute = e.target.value
 
+        this.form.items[index].attribute_id = attribute.id;
+        this.form.items[index].attribute = attribute;
     },
     onAttributeItemsUpdate(e,index){
+        const attribute_items = e.target.value
 
+        this.form.items[index].attribute_items_id = attribute_items.id;
+        this.form.items[index].attribute_items = attribute_items;
     },
 },
   setup() {

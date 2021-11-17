@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Product\Productlist;
+use DB;
+use App\Models\Admin\Product\Tags;
 
 
 class ProductlistController extends Controller
@@ -31,7 +33,9 @@ class ProductlistController extends Controller
             'checkbox' => 1,
             'items' => [
                 [
-                    'price' => null,
+                    'price' => 0,
+                    'discount' => 0,
+                    'qty' => 0,
                 ]
             ],
         ];
@@ -48,7 +52,39 @@ class ProductlistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $model = new Productlist;
+        $model->fill($request->except('tags','items'));
+        $model->active = 1;
+        $model->deleted = 0;
+        $model->slug = \Str::slug($request->name);
+        $model = DB::transaction(function() use ($model, $request) {
+            $model->save();
+            if($request->tags != null){
+                foreach($request->tags as $items){
+                    $tags = new Tags;
+                    $tags->name = $items;
+                    $tags->product_id = $model->id;
+                    $tags->save();
+                }
+            }
+            if($request->items != null){
+                foreach($request->items as $product_items){
+                    $products = new Productlist;
+                    $products->color_id = $product_items["color_id"];
+                    $products->attribute_id = $product_items["attribute_id"];
+                    $products->attribute_items_id = $product_items["attribute_items_id"];
+                    $products->price = $product_items["price"];
+                    $products->discount = $product_items["discount"];
+                    $products->qty = $product_items["qty"];
+                    $products->parent_id = $model["id"];
+                    $products->save();
+                }
+            }
+            
+        });
+        
+        dd($request);
     }
 
     /**

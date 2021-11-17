@@ -12,4 +12,10 @@ class Brand extends Model
     protected $fillable = [
         'name','active','deleted','image'
     ];
+    
+    protected $appends = [ 'text' ];
+    public function getTextAttribute()
+    {
+        return $this->attributes['name'];
+    }
 }

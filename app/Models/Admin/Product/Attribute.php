@@ -12,4 +12,10 @@ class Attribute extends Model
     protected $fillable = [
         'name'
     ];
+
+    protected $appends = [ 'text' ];
+    public function getTextAttribute()
+    {
+        return $this->attributes['name'];
+    }
 }
