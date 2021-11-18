@@ -132,7 +132,7 @@ class ProductlistController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -143,7 +143,11 @@ class ProductlistController extends Controller
      */
     public function edit($id)
     {
-        //
+        $form = Productlist::with(['items.color','items.attribute','items.attribute_items','tags','cat','brand','color'])->findorFail($id);
+        // dd($form);
+        return response()->json([
+            'form' => $form
+        ]);
     }
 
     /**
@@ -155,7 +159,78 @@ class ProductlistController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $model = Productlist::findorFail($id);
+        $model->fill($request->except('tags','items'));
+        $model->active = 1;
+        $model->deleted = 0;
+        $model->slug = \Str::slug($request->name);
+        if($request->capture_image != null){
+            if($request->capture_image != $model->capture_image){
+                $imageName = time().'.'.$request->capture_image->getClientOriginalExtension();
+                $request->capture_image->move(public_path('productgallery'), $imageName);
+                $model->capture_image = $imageName;
+            }
+            
+        }
+        if($request->meta_image != null){
+            if($request->meta_image != $model->meta_image){
+                $imageName = time().'.'.$request->meta_image->getClientOriginalExtension();
+                $request->meta_image->move(public_path('meta_gallery'), $imageName);
+                $model->meta_image = $imageName;
+            }
+        }
+        $model = DB::transaction(function() use ($model, $request,$id) {
+            $model->save();
+            if($request->gallery_image != null){
+                
+                    
+                    $delete_gallery_image = GalleryImage::where('product_id',$id)->delete();
+                    
+                foreach($request->gallery_image as $gallery_img){
+                    $gallery_image = new GalleryImage;
+                    
+                    $imageName = time().'.'.$gallery_img->getClientOriginalExtension();
+                    $gallery_img->move(public_path('meta_gallery'), $imageName);
+                    $gallery_image->image = $imageName;
+                    $gallery_image->product_id = $model->id;
+                    $gallery_image->save();
+                   
+                }
+            }
+            $model->updateHasMany([
+                'tags' => $request->tags,
+                'items' => $request->items
+            ]);
+            // if($request->tags != null){
+            //     foreach($request->tags as $items){
+            //         $tags = Tags::findorFail($id);
+            //         $tags->name = $items;
+            //         $tags->product_id = $model->id;
+            //         $tags->save();
+            //     }
+            // }
+            // if($request->items != null){
+            //     foreach($request->items as $product_items){
+            //         $products = Productlist::findorFail($id);
+            //         $products->color_id = $product_items["color_id"];
+            //         $products->attribute_id = $product_items["attribute_id"];
+            //         $products->attribute_items_id = $product_items["attribute_items_id"];
+            //         $products->price = $product_items["price"];
+            //         $products->discount = $product_items["discount"];
+            //         $products->qty = $product_items["qty"];
+            //         $products->parent_id = $model["id"];
+            //         $imageName = time().'.'.$product_items["capture_image"]->getClientOriginalExtension();
+            //         $product_items["capture_image"]->move(public_path('productgallery'), $imageName);
+            //         $products->capture_image = $imageName;
+            //         $products->save();
+            //     }
+            // }
+            
+        });
+        
+        return response()->json([
+            'saved' => true,
+        ]);
     }
 
     /**

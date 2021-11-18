@@ -593,7 +593,7 @@ export default ({
   },
   created() {
       if(this.mode === 'edit') {
-          this.store = `/api/product/${this.$route.params.id}?_method=PUT`
+          this.store = `/api/product/${this.$route.params.id}/update`
           this.message = 'You have successfully updated product!'
           this.method = 'POST'
           this.title = 'Edit'

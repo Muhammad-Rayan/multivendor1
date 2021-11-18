@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Support\HasManyRelation;
 use App\Models\Admin\Product\Tags;
+use App\Models\Admin\Product\ProductCategory;
+use App\Models\Admin\Product\Brand;
+use App\Models\Admin\Product\Color;
+use App\Models\Admin\Product\Attribute;
+use App\Models\Admin\Product\AttributeItems;
 
 
 class Productlist extends Model
@@ -28,5 +33,28 @@ class Productlist extends Model
     public function tags()
     {
         return $this->hasMany(Tags::class, 'product_id', 'id');
+    }
+    public function items() {
+        return $this->hasMany(static::class, 'parent_id');
+    }
+    public function cat()
+    {
+        return $this->belongsTo(ProductCategory::class, 'cat_id', 'id');
+    }
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id', 'id');
+    }
+    public function color()
+    {
+        return $this->belongsTo(Color::class, 'color_id', 'id');
+    }
+    public function attribute()
+    {
+        return $this->belongsTo(Attribute::class, 'color_id', 'id');
+    }
+    public function attribute_items()
+    {
+        return $this->belongsTo(AttributeItems::class, 'color_id', 'id');
     }
 }

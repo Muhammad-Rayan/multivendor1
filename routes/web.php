@@ -29,6 +29,8 @@ Route::get('/', function () {
 Route::group(['prefix' => 'api'], function() {
     Route::group(['prefix' => 'product'], function() {
         Route::resource('/', ProductlistController::class);
+        Route::get('/{id}/edit', [ProductlistController::class,'edit']);
+        Route::post('/{id}/update', [ProductlistController::class,'update']);
         Route::resource('categories', ProductCategoryController::class);
         Route::resource('attribute', AttributeController::class);
         Route::resource('brand', BrandController::class);

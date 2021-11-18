@@ -13,7 +13,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "dashboard",
         component: () => import("@/views/Dashboard.vue"),
       },
-      
+      // Product
       {
         path: "/products/create",
         name: "product-create",
@@ -23,6 +23,12 @@ const routes: Array<RouteRecordRaw> = [
         path: "/products",
         name: "product-list",
         component: () => import("@/views/product/index.vue"),
+      },
+      {
+        path: "/products/:id/edit",
+        name: "product-edit",
+        meta: {mode: 'edit'},
+        component: () => import("@/views/product/form.vue"),
       },
       // Category Route
       {
