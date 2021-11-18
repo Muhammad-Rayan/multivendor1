@@ -119,7 +119,9 @@ class ProductlistController extends Controller
             
         });
         
-        dd($request);
+        return response()->json([
+            'saved' => true,
+        ]);
     }
 
     /**

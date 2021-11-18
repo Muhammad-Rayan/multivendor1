@@ -53,6 +53,11 @@ class ProductCategoryController extends Controller
         $model->fill($request->all());
         $model->active = 1;
         $model->deleted = 0;
+        if($request->image != null){
+            $imageName = time().'.'.$request->image->getClientOriginalExtension();
+            $request->image->move(public_path('product_category'), $imageName);
+            $model->image = $imageName;
+        }
         $model->save();
         return response()->json([
             'saved' => true,

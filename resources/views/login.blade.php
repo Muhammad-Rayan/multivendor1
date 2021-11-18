@@ -722,7 +722,7 @@
 					<!--begin::Wrapper-->
 					<div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
 						<!--begin::Form-->
-						<form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" id="kt_sign_in_form" action="http://127.0.0.1:82/#/dashboard" >
+						<div class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" id="kt_sign_in_form">
 							<!--begin::Heading-->
 							<div class="text-center mb-10">
 								<!--begin::Title-->
@@ -764,7 +764,7 @@
 							<!--begin::Actions-->
 							<div class="text-center">
 								<!--begin::Submit button-->
-								<button type="submit"class="btn btn-lg btn-primary w-100 mb-5" >
+								<button class="btn btn-lg btn-primary w-100 mb-5" onclick="myFunction()">
                  <span class="indicator-label">Continue</span>
 									<span class="indicator-progress">Please wait...
 									<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
@@ -787,7 +787,8 @@
 								<!--end::Google link-->
 							</div>
 							<!--end::Actions-->
-						<div></div></form>
+						<div></div>
+</div>
 						<!--end::Form-->
 					</div>
 					<!--end::Wrapper-->
@@ -817,6 +818,10 @@
 		<script src="https://preview.keenthemes.com/metronic8/demo1/assets/js/custom/authentication/sign-in/general.js"></script>
 		<!--end::Page Custom Javascript-->
 		<!--end::Javascript-->
-	
+<script>
+function myFunction() {
+  window.location.href="http://127.0.0.1:82/#/dashboard";
+}
+</script>
 	<!--end::Body-->
 <svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1002"></defs><polyline id="SvgjsPolyline1003" points="0,0"></polyline><path id="SvgjsPath1004" d="M0 0 "></path></svg></body></html>

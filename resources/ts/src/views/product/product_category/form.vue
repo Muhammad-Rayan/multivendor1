@@ -41,8 +41,7 @@
                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                     <span class="required">Image</span>
                 </label>
-                <file-upload @ready="onDocument"></file-upload>
-                <error-text :error="error.image"></error-text>
+                <input type="file" class="form-control" @change="onThumbnailChange">
             </div>
             <div class="col-12">
                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -149,6 +148,9 @@ export default ({
           this.toast.success(this.message);
           this.$router.push({ name: 'product-category-list' });
         })
+    },
+    onThumbnailChange(e){
+        this.form.image = e.target.files[0];
     },
     onDocument(e) {
         console.log(e);

@@ -559,6 +559,7 @@ import Typeahead from '@/my_components/form/Typeahead.vue'
 
 import { get,byMethod } from '@/lib/api'
 import { form } from '@/lib/mixins'
+import { useToast } from "vue-toastification"
 
 function initializeUrl (to) {
     let urls = {
@@ -578,6 +579,7 @@ export default ({
         return {
             store: '/api/product',
             method: 'POST',
+            message : 'You have successfully Created product!',
             categoryURL: '/api/product/categories',
             brandURL: '/api/product/brand',
             colorURL: '/api/product/color',
@@ -688,7 +690,9 @@ export default ({
     },
     save() {
         this.submitMultipartForm(this.form,(data) => {
-            this.$router.push(`/product`)
+            this.$Progress.start();
+            this.toast.success(this.message);
+            this.$router.push({ name: 'product-list' });
         })
     },
     val() {
@@ -737,7 +741,8 @@ export default ({
     },
 },
   setup() {
-    
+    const toast = useToast();
+    return { toast }
   },
 });
 </script>

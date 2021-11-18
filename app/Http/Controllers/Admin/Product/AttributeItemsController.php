@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Admin\Product\Attribute_items;
+use App\Models\Admin\Product\AttributeItems;
 
 class AttributeItemsController extends Controller
 {
@@ -16,7 +16,7 @@ class AttributeItemsController extends Controller
      */
     public function index()
     {
-        $results = Attribute_items::get();
+        $results = AttributeItems::get();
         return response()->json([ 'results' => $results ]);  
     }
 
