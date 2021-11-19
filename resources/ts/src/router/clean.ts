@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHashHistory, RouteRecordRaw,createWebHistory } from "vue-router";
 import store from "@/store";
 import { Mutations, Actions } from "@/store/enums/StoreEnums";
 
@@ -12,27 +12,6 @@ const routes: Array<RouteRecordRaw> = [
         path: "/dashboard",
         name: "dashboard",
         component: () => import("@/views/Dashboard.vue"),
-      },
-    ],
-  },
-  {
-    path: "/",
-    component: () => import("@/views/auth/Auth.vue"),
-    children: [
-      {
-        path: "/sign-in",
-        name: "sign-in",
-        component: () => import("@/views/auth/SignIn.vue"),
-      },
-      {
-        path: "/sign-up",
-        name: "sign-up",
-        component: () => import("@/views/auth/SignUp.vue"),
-      },
-      {
-        path: "/password-reset",
-        name: "password-reset",
-        component: () => import("@/views/auth/PasswordReset.vue"),
       },
     ],
   },

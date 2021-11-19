@@ -23,7 +23,7 @@ use App\Http\Controllers\Frontend\Auth\AuthController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/admin', function () {
     return view('app');
 });
 Route::group(['prefix' => 'api'], function() {
@@ -42,7 +42,15 @@ Route::group(['prefix' => 'api'], function() {
     });
 });
 
-Route::group(['prefix' => '/'], function() {
+Route::group(['prefix' => '/test'], function() {
         Route::resource('login', AuthController::class);	
     	Route::post('/login-data', [AuthController::class, 'show'])->name('login-data');
     });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
