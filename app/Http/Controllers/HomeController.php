@@ -26,8 +26,8 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function vue()
-    {
-        return view('app');
-    }
+    // public function vue()
+    // {
+    //     return view('app');
+    // }
 }
