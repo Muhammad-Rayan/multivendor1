@@ -23,9 +23,9 @@ use App\Http\Controllers\Frontend\Auth\AuthController;
 |
 */
 
-Route::get('/admin', function () {
-    return view('app');
-});
+// Route::get('/admin', function () {
+//     return view('app');
+// });
 Route::group(['prefix' => 'api'], function() {
     Route::group(['prefix' => 'product'], function() {
         Route::resource('/', ProductlistController::class);
@@ -54,3 +54,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('{vue?}', [App\Http\Controllers\HomeController::class, 'vue'])->where('vue', '[\/\w\.-]*');

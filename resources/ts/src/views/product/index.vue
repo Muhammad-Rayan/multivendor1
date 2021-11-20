@@ -97,6 +97,34 @@
           <!--end::Table body-->
         </table>
         <!--end::Table-->
+        <div class="panel-footer">
+            <div class="pagination">
+                <div class="pagination-page">
+                    <select class="form-control form-inline form-sm"
+                        title="Items per page" @change="updatePerPage"
+                        v-model="params.per_page">
+                        <option>12</option>
+                        <option>25</option>
+                        <option>50</option>
+                        <option>100</option>
+                        <option>500</option>
+                    </select>
+                    <small class="pagination-status">
+                        Showing {{model.from}} - {{model.to}} of {{model.total}}
+                    </small>
+                </div>
+                <div class="pagination-controls">
+                    <button class="btn btn-sm" :disabled="!model.prev_page_url"
+                        @click="prevPage">
+                        &laquo; Prev
+                    </button>
+                    <button class="btn btn-sm" :disabled="!model.next_page_url"
+                        @click="nextPage">
+                        Next &raquo;
+                    </button>
+                </div>
+            </div>
+        </div>
       </div>
       <!--end::Table container-->
     </div>
@@ -109,12 +137,20 @@
 import Dropdown2 from "@/components/dropdown/Dropdown2.vue";
 
 import { get,byMethod } from '@/lib/api'
+import { copyObject } from '@/lib/helpers'
 
 export default ({
   name: "kt-widget-12",
   data() {
         return {
             model: [],
+            params: {
+              per_page: 100,
+              page: 1,
+              q: this.$route.query.q || '',
+              sort_column: this.$route.query.sort_column|| this.defaultSortColumn,
+              sort_direction: this.$route.query.sort_direction || this.defaultSortDirection
+            },
         }
     },
     beforeRouteUpdate (to, from, next) {
@@ -146,7 +182,24 @@ export default ({
   methods: {
     setData(res) {
       this.model = res.data;
-    }
+      this.params.per_page = this.model.per_page
+      this.params.page = this.model.current_page
+    },
+    updatePerPage() {
+      const query = copyObject(this.$route.query)
+
+      query.per_page = this.params.per_page
+      query.page = 1
+
+      // this.$router.push({
+      //     path: this.resource,
+      //     query: query
+      // })
+      console.log(query);
+      this.$router.push({ name: 'product-list',
+          query: query
+       });
+  },
 },
   setup() {
 

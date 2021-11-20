@@ -17,9 +17,12 @@ class ProductlistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $results = Productlist::get();
+        if(request('per_page') == null){
+            $request->per_page = 50;
+        }
+        $results = Productlist::paginate($request->per_page);
         return response()->json([ 'results' => $results ]);   
     }
 
