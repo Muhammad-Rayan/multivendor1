@@ -96,7 +96,7 @@
                   <span class="badge badge-light-danger">In Active</span>
                 </td>
                 <td>
-                  <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                  <a @click="editItems(item.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                     <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                     <span class="svg-icon svg-icon-3">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -106,7 +106,7 @@
                     </span>
                     <!--end::Svg Icon-->
                   </a>
-                  <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                  <a @click="deleteItems(item.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                     <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                     <span class="svg-icon svg-icon-3">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -178,6 +178,7 @@ import Dropdown2 from "@/components/dropdown/Dropdown2.vue";
 
 import { get,byMethod } from '@/lib/api'
 import { copyObject } from '@/lib/helpers'
+import { useToast } from "vue-toastification"
 
 export default ({
   name: "kt-widget-12",
@@ -261,9 +262,24 @@ export default ({
           this.setData(res)
       })
     },
+    deleteItems(id) {
+        byMethod('POST', `/api/product/${id}/delete`)
+        .then(({data}) => {
+            this.toast.success("Product Delete Successfully");
+            get(`/api/product`)
+            .then(res => {
+                this.setData(res)
+            })
+        })
+        .catch((err) => {})
+    },
+    editItems(id){
+      window.location.href="/admin#/products/"+id+"/edit/"
+    },
 },
   setup() {
-
+    const toast = useToast();
+    return { toast }
   },
 });
 </script>

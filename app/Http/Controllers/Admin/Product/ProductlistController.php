@@ -25,7 +25,7 @@ class ProductlistController extends Controller
         }
         $results = Productlist::when(request('q') ,function($q){
             $q->where('name','like', '%'.request('q').'%');
-        })->paginate($request->per_page);
+        })->where('deleted',0)->where('active','1')->paginate($request->per_page);
         return response()->json([ 'results' => $results ]);   
     }
 
@@ -247,6 +247,11 @@ class ProductlistController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $model = Productlist::findorFail($id);
+        $model->deleted = 1;
+        $model->save();
+        return response()->json([
+            'deleted' => true
+        ]);
     }
 }
