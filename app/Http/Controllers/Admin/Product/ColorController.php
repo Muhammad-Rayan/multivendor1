@@ -13,9 +13,14 @@ class ColorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $results = Color::get();
+        if(request('per_page') == null){
+            $request->per_page = 12;
+        }
+        $results = Color::when(request('q') ,function($q){
+            $q->where('name','like', '%'.request('q').'%');
+        })->where('deleted',0)->paginate($request->per_page);
         return response()->json([ 'results' => $results ]);   
     }
 
@@ -114,6 +119,11 @@ class ColorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $model = color::findorFail($id);
+        $model->deleted = 1;
+        $model->save();
+        return response()->json([
+            'deleted' => true
+        ]);
     }
 }

@@ -13,9 +13,14 @@ class ProductCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $results = ProductCategory::where('deleted',0)->get();
+        if(request('per_page') == null){
+            $request->per_page = 12;
+        }
+        $results = ProductCategory::when(request('q') ,function($q){
+            $q->where('name','like', '%'.request('q').'%');
+        })->where('deleted',0)->where('active','1')->paginate($request->per_page);
         return response()->json([ 'results' => $results ]);
     }
 
@@ -119,6 +124,12 @@ class ProductCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $model = ProductCategory::findorFail($id);
+        $model->deleted = 1;
+        $model->save();
+        return response()->json([
+            'deleted' => true
+        ]);
+
     }
 }

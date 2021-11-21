@@ -34,9 +34,13 @@ Route::group(['prefix' => 'api'], function() {
         Route::post('/{id}/update', [ProductlistController::class,'update']);
         Route::post('/{id}/delete', [ProductlistController::class,'destroy']);
         Route::resource('categories', ProductCategoryController::class);
+        Route::post('categories/{id}/delete', [ProductCategoryController::class,'destroy']);
         Route::resource('attribute', AttributeController::class);
+        Route::post('attribute/{id}/delete', [AttributeController::class,'destroy']);
         Route::resource('brand', BrandController::class);
+        Route::post('brand/{id}/delete', [BrandController::class,'destroy']);
         Route::resource('color', ColorController::class);
+        Route::post('color/{id}/delete', [ColorController::class,'destroy']);
         Route::resource('inhouseproduct', InhouseproductController::class);
         Route::resource('review', ReviewController::class);
         Route::resource('sellerproduct', SellerproductController::class);
