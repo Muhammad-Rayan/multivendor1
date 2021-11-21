@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Product\ProductlistController;
 use App\Http\Controllers\Admin\Product\ReviewController;
 use App\Http\Controllers\Admin\Product\SellerproductController;
 use App\Http\Controllers\Frontend\Auth\AuthController;
+use App\Http\Controllers\Admin\Order\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,11 @@ Route::group(['prefix' => 'api'], function() {
         Route::resource('review', ReviewController::class);
         Route::resource('sellerproduct', SellerproductController::class);
         Route::resource('attributeitem', AttributeItemsController::class);
+    });
+    Route::group(['prefix' => 'order'], function() {
+        Route::get('/{id}', [OrderController::class,'show']);
+        Route::resource('/', OrderController::class);
+      
     });
 });
 
