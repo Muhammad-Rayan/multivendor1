@@ -88,7 +88,7 @@ const DocMenuConfig = [
         sub: [
           {
             heading: "All Order",
-            route: "/sales/all-order",
+            route: "/all_orders",
           },
           {
             heading: "In House Order",
