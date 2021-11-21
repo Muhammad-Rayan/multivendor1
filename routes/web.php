@@ -49,6 +49,7 @@ Route::group(['prefix' => 'api'], function() {
     });
     Route::group(['prefix' => 'order'], function() {
         Route::get('/{id}', [OrderController::class,'show']);
+        Route::post('/{id}/update', [OrderController::class,'update']);
         Route::resource('/', OrderController::class);
       
     });

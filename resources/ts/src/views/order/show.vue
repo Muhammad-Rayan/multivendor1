@@ -3,23 +3,43 @@
         <!--begin::Header-->
         <div class="card-header border-0 pt-5">
             <h3 class="card-title align-items-start flex-column">
-                <span class="card-label fw-bolder fs-3 mb-1">{{title}} New Category</span>
+                <span class="card-label fw-bolder fs-3 mb-1">Order</span>
             </h3>
         </div>
         <div class="row pr-4 ml-10 px-lg-15 pt-0 pb-15">
-            <div class="col-12">
+            <div class="col-6"></div>
+            <div class="col-3">
                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                    <span class="required">Title</span>
-                </label>
-                <el-form-item prop="targetTitle">
-                    <el-input
-                    v-model="form.name"
-                    placeholder="Enter Category Title"
-                    ></el-input>
+                      <span class="required">Payment Status</span>
+                  </label>
+                  <el-form-item prop="assign">
+                    <el-select
+                        v-model="model.payment_status"
+                    >
+                    <el-option label="Unpaid" value="Unpaid"
+                      >Unpaid</el-option
+                    >
+                    <el-option label="Paid" value="Paid"
+                      >Paid</el-option
+                    >
+                  </el-select>
                 </el-form-item>
-                <error-text :error="error.name"></error-text>
             </div>
-            <div class="col-8">
+            <div class="col-3">
+                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                      <span class="required">Delivery Status</span>
+                  </label>
+                  <el-form-item prop="assign">
+                    <el-select v-model="model.delivery_status" @change="deliveryStatus()">
+                    <el-option label="Pending" value="Pending">Pending</el-option>
+                    <el-option label="Confirmed" value="Confirmed">Confirmed</el-option>
+                    <el-option label="Picked Up" value="Picked Up">Picked Up</el-option>
+                    <el-option label="On The Way" value="On The Way">On The Way</el-option>
+                    <el-option label="Delivered" value="Delivered">Delivered</el-option>
+                  </el-select>
+                </el-form-item>
+            </div>
+            <div class="col-8" style="margin-bottom: 22px;">
                 <h3>Customer</h3>
                 <p style="margin-bottom: 0px;">{{ model.customer.name }}</p>
                 <p style="margin-bottom: 0px;">number</p>
@@ -41,7 +61,7 @@
             </div>
             <div class="col-12">
                 <div class="table-responsive">
-                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+                    <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3" style="border-top: 1px solid gray;">
                         <!--begin::Table head-->
                         <thead>
                             <tr class="fw-bolder text-muted">
@@ -55,14 +75,14 @@
                         <!--end::Table head-->
 
                         <!--begin::Table body-->
-                        <tbody>
+                        <tbody style="border-bottom: 1px solid #a1a5b7;">
                             <template v-for="(item, index) in model.items" :key="index">
                             <tr>
                                 <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="item.product">{{ item.product.name }}</td>
                                 <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="item.product" v-html="item.product.description"></td>
                                 <td class="text-dark fw-bolder text-hover-primary fs-6">{{ item.qty }}</td>
                                 <td class="text-dark fw-bolder text-hover-primary fs-6">{{ item.price }}</td>
-                                <td>{{ item.total }}</td>
+                                <td>{{ item.price }}</td>
                                 
                             </tr>
                             </template>
@@ -70,6 +90,20 @@
                         <!--end::Table body-->
                         </table>
                 </div>
+            </div>
+            <div class="col-8">
+            </div>
+            <div class="col-2">
+                <p><b>Sub Total :</b></p>
+                <p><b>Tax :</b></p>
+                <p><b>Shipping :</b></p>
+                <p><b>Total :</b></p>
+            </div>
+            <div class="col-2">
+                <p>{{ totalItem }}</p>
+                <p>{{ totalTax }}</p>
+                <p>{{ model.shipping }}</p>
+                <p>{{ totalItem + totalTax + model.shipping}}</p>
             </div>
             
         </div>
@@ -101,6 +135,7 @@ export default ({
   mixins: [ form ],
   data() {
         return {
+            testlength:{},
             model: {
                 items: {
                     product:{},
@@ -110,6 +145,10 @@ export default ({
             }
         }
     },
+    created() {
+          this.store = `/api/order/${this.$route.params.id}/update`
+          this.method = 'POST'
+  },
   beforeRouteUpdate (to, from, next) {
         this.show = false
         get(`/api/order/${to.params.id}`)
@@ -126,6 +165,22 @@ export default ({
             })
             // catch 422
     },
+    computed: {
+        totalItem(){
+            let sum = 0;
+            for(let i = 0; i < this.testlength.length; i++){
+                sum += (parseFloat(this.testlength[i].price) * parseFloat(this.testlength[i].qty));
+            }
+            return sum;
+        },
+        totalTax(){
+            let sum = 0;
+            for(let i = 0; i < this.testlength.length; i++){
+                sum += (parseFloat(this.testlength[i].tax));
+            }
+            return sum;
+        }
+    },
   props: {
     widgetClasses: String,
   },
@@ -133,9 +188,20 @@ export default ({
       type: [String, Number, Array]
     },
   methods: {
+      deliveryStatus(id){
+        byMethod('POST', `/api/order/${this.model.id}/update`,this.model)
+        .then(({data}) => {
+            this.toast.success("Product Delete Successfully");
+            get(`/api/product`)
+            .then(res => {
+                this.setData(res)
+            })
+        })
+        .catch((err) => {})
+      },
     setData(res) {
       this.model = res.data.results;
-      console.log(this.model.customer)
+      this.testlength = res.data.results.items;
     },
 },
   setup() {

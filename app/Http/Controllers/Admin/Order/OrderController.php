@@ -79,8 +79,27 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
+    {   
+        $results = Order::where('id',$id)->first();
+        $results->delivery_status = $request->delivery_status;
+        $results->payment_status = $request->payment_status;
+        $results->save();
+        return response()->json([
+            'saved' => true,
+        ]);
+    }
+    public function delivery_status(Request $request, $id)
     {
-        //
+        
+        
+    }
+    public function payment_status(Request $request, $id)
+    {
+        $results = Order::where('id',$id)->first();
+        $results->payment_status = $request->delivery_status;
+        return response()->json([
+            'saved' => true,
+        ]);
     }
 
     /**
