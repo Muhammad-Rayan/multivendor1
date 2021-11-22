@@ -74,6 +74,7 @@ Route::group(['prefix' => 'api'], function() {
     });
     Route::group(['prefix' => 'support'], function() {
         Route::get('/{id}', [SupportController::class,'show']);
+        Route::post('/{id}/update', [SupportController::class,'update']);
         Route::resource('/', SupportController::class);
         
       
