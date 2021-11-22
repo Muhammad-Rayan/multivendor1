@@ -159,20 +159,26 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/sales/pickuppoint_order/index.vue"),
       },
 
+
        {
-        path: "/refund/approved-request",
+        path: "/refund/approved_request",
         name: "approved-request",
         component: () => import("@/views/refund/approved_request/index.vue"),
       },
        {
-        path: "/refund/rejected-request",
+        path: "/refund/rejected_request",
         name: "rejected-request",
         component: () => import("@/views/refund/rejected_request/index.vue"),
       },
        {
-        path: "/refund/refund-request",
+        path: "/refund/refund_request",
         name: "refund-request",
         component: () => import("@/views/refund/refund_request/index.vue"),
+      },
+      {
+        path: "/refund/:id",
+        name: "refund-show",
+        component: () => import("@/views/refund/approved_request/show.vue"),
       },
       {
         path: "/reports/inhouseproduct-sale",

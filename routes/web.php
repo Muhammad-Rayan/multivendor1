@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\Product\ReviewController;
 use App\Http\Controllers\Admin\Product\SellerproductController;
 use App\Http\Controllers\Frontend\Auth\AuthController;
 use App\Http\Controllers\Admin\Order\OrderController;
+use App\Http\Controllers\Admin\Refund\RefundController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,11 @@ Route::group(['prefix' => 'api'], function() {
         Route::get('/{id}', [OrderController::class,'show']);
         Route::post('/{id}/update', [OrderController::class,'update']);
         Route::resource('/', OrderController::class);
+      
+    });
+    Route::group(['prefix' => 'refund'], function() {
+        Route::get('/{id}', [RefundController::class,'show']);
+        Route::resource('/', RefundController::class);
       
     });
 });

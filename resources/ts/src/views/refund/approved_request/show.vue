@@ -3,31 +3,15 @@
         <!--begin::Header-->
         <div class="card-header border-0 pt-5">
             <h3 class="card-title align-items-start flex-column">
-                <span class="card-label fw-bolder fs-3 mb-1">Order</span>
+                <span class="card-label fw-bolder fs-3 mb-1">Refund</span>
             </h3>
         </div>
         <div class="row pr-4 ml-10 px-lg-15 pt-0 pb-15">
-            <div class="col-6"></div>
+            <div class="col-9"></div>
+            
             <div class="col-3">
                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                      <span class="required">Payment Status</span>
-                  </label>
-                  <el-form-item prop="assign">
-                    <el-select
-                        v-model="model.payment_status"
-                    >
-                    <el-option label="Unpaid" value="Unpaid"
-                      >Unpaid</el-option
-                    >
-                    <el-option label="Paid" value="Paid"
-                      >Paid</el-option
-                    >
-                  </el-select>
-                </el-form-item>
-            </div>
-            <div class="col-3">
-                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                      <span class="required">Delivery Status</span>
+                      <span class="required">Refund Status</span>
                   </label>
                   <el-form-item prop="assign">
                     <el-select v-model="model.delivery_status" @change="deliveryStatus()">
@@ -39,25 +23,19 @@
                   </el-select>
                 </el-form-item>
             </div>
-            <div class="col-8" style="margin-bottom: 22px;">
+            <div class="col-3" style="margin-bottom: 22px;">
                 <h3>Customer</h3>
                 <p style="margin-bottom: 0px;">{{ model.customer.name }}</p>
                 <p style="margin-bottom: 0px;">number</p>
                 <p style="margin-bottom: 0px;">address</p>
             </div>
             <div class="col-2">
-                <p style="margin-bottom: 0px;">Order #</p>
-                <p style="margin-bottom: 0px;">Order status</p>
-                <p style="margin-bottom: 0px;">Order date</p>
-                <p style="margin-bottom: 0px;">Total amount</p>
-                <p style="margin-bottom: 0px;">Payment method</p>
+                <p style="margin-bottom: 0px;"><b>Subject : </b></p>
+                <p style="margin-bottom: 0px;"><b>Description : </b></p>
             </div>
             <div class="col-2">
-                <p style="margin-bottom: 0px;">{{ model.order_number }}</p>
-                <p style="margin-bottom: 0px;">{{ model.delivery_status }}</p>
-                <p style="margin-bottom: 0px;">{{ model.created_at  }}</p>
-                <p style="margin-bottom: 0px;">{{ model.amount }}</p>
-                <p style="margin-bottom: 0px;">{{ model.payment_method }}</p>
+                <p style="margin-bottom: 0px;">{{ model.subject }}</p>
+                <p style="margin-bottom: 0px;">{{ model.description }}</p>
             </div>
             <div class="col-12">
                 <div class="table-responsive">
@@ -65,45 +43,27 @@
                         <!--begin::Table head-->
                         <thead>
                             <tr class="fw-bolder text-muted">
-                            <th>Photo</th>
-                            <th>Description</th>
-                            <th>Qty</th>
-                            <th>Price</th>
-                            <th>Total</th>
+                            <th>Product Photo</th>
+                            <th>Product Name</th>
+                            <th>Product Description</th>
+                            <th>Product Price</th>
                             </tr>
                         </thead>
                         <!--end::Table head-->
 
                         <!--begin::Table body-->
-                        <tbody style="border-bottom: 1px solid #a1a5b7;">
-                            <template v-for="(item, index) in model.items" :key="index">
+                        <tbody>
                             <tr>
-                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="item.product">{{ item.product.name }}</td>
-                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="item.product" v-html="item.product.description"></td>
-                                <td class="text-dark fw-bolder text-hover-primary fs-6">{{ item.qty }}</td>
-                                <td class="text-dark fw-bolder text-hover-primary fs-6">{{ item.price }}</td>
-                                <td>{{ item.price }}</td>
+                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="model.product">{{ model.product.photo }}</td>
+                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="model.product">{{ model.product.name }}</td>
+                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="model.product" v-html="model.product.description"></td>
+                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="model.product">{{ model.product.price }}</td>
                                 
                             </tr>
-                            </template>
                         </tbody>
                         <!--end::Table body-->
                         </table>
                 </div>
-            </div>
-            <div class="col-8">
-            </div>
-            <div class="col-2">
-                <p><b>Sub Total :</b></p>
-                <p><b>Tax :</b></p>
-                <p><b>Shipping :</b></p>
-                <p><b>Total :</b></p>
-            </div>
-            <div class="col-2">
-                <p>{{ totalItem }}</p>
-                <p>{{ totalTax }}</p>
-                <p>{{ model.shipping }}</p>
-                <p>{{ totalItem + totalTax + model.shipping}}</p>
             </div>
             
         </div>
@@ -146,12 +106,12 @@ export default ({
         }
     },
     created() {
-          this.store = `/api/order/${this.$route.params.id}/update`
+          this.store = `/api/refund/${this.$route.params.id}/update`
           this.method = 'POST'
   },
   beforeRouteUpdate (to, from, next) {
         this.show = false
-        get(`/api/order/${to.params.id}`)
+        get(`/api/refund/${to.params.id}`)
             .then(res => {
                 this.setData(res)
                 next()
@@ -159,27 +119,11 @@ export default ({
             //catch 422
     },
     beforeRouteEnter(to, from, next) {
-        get(`/api/order/${to.params.id}`)
+        get(`/api/refund/${to.params.id}`)
             .then(res => {
                 next(vm => vm.setData(res))
             })
             // catch 422
-    },
-    computed: {
-        totalItem(){
-            let sum = 0;
-            for(let i = 0; i < this.testlength.length; i++){
-                sum += (parseFloat(this.testlength[i].price) * parseFloat(this.testlength[i].qty));
-            }
-            return sum;
-        },
-        totalTax(){
-            let sum = 0;
-            for(let i = 0; i < this.testlength.length; i++){
-                sum += (parseFloat(this.testlength[i].tax));
-            }
-            return sum;
-        }
     },
   props: {
     widgetClasses: String,
@@ -189,10 +133,10 @@ export default ({
     },
   methods: {
       deliveryStatus(id){
-        byMethod('POST', `/api/order/${this.model.id}/update`,this.model)
+        byMethod('POST', `/api/refund/${this.model.id}/update`,this.model)
         .then(({data}) => {
-            this.toast.success("Order Deliver Successfully");
-            get(`/api/order`)
+            this.toast.success("Product Delete Successfully");
+            get(`/api/product`)
             .then(res => {
                 this.setData(res)
             })

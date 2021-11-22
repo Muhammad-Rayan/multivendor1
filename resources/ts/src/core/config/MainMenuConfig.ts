@@ -120,15 +120,15 @@ const DocMenuConfig = [
         sub: [
           {
             heading: "Refund Request",
-            route: "/refund/refund-request",
+            route: "/refund/refund_request",
           },
           {
             heading: "Approved Request",
-            route: "/refund/approved-request",
+            route: "/refund/approved_request",
           },
           {
             heading: "Rejected Request",
-            route: "/refund/rejected-request",
+            route: "/refund/rejected_request",
           },
           
         ],
