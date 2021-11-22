@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\Order\OrderController;
 use App\Http\Controllers\Admin\Refund\RefundController;
 use App\Http\Controllers\Admin\Support\SupportController;
 
+use App\Http\Controllers\Admin\Seller\SellerController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,6 +52,10 @@ Route::group(['prefix' => 'api'], function() {
         Route::resource('attributeitem', AttributeItemsController::class);
     });
     Route::group(['prefix' => 'order'], function() {
+        Route::get('/inhouseorder',[OrderController::class,'inhouse']);
+        Route::get('/sellerorder',[OrderController::class,'seller']);
+        Route::get('/pickuporder',[OrderController::class,'pickup']);
+     
         Route::get('/{id}', [OrderController::class,'show']);
         Route::post('/{id}/update', [OrderController::class,'update']);
         Route::resource('/', OrderController::class);
@@ -61,7 +67,11 @@ Route::group(['prefix' => 'api'], function() {
         
       
     });
-
+    Route::group(['prefix' => 'seller'], function() {
+        Route::resource('/',SellerController::class);
+        
+      
+    });
     Route::group(['prefix' => 'support'], function() {
         Route::get('/{id}', [SupportController::class,'show']);
         Route::resource('/', SupportController::class);
