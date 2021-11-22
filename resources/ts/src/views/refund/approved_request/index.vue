@@ -61,8 +61,11 @@
           <tbody>
             <template v-for="(item, index) in model.data" :key="index">
               <tr>
-                <td class="text-dark fw-bolder text-hover-primary fs-6">
+                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="item.customer">
                     {{ item.customer.name }}
+                </td>
+                  <td class="text-dark fw-bolder text-hover-primary fs-6" v-else>
+                    -
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
                     {{ item.product.name }}
