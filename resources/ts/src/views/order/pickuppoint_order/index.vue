@@ -7,7 +7,7 @@
         
           <div class="col col-2">
               <h3 class="card-title align-items-start flex-column">
-                <span class="card-label fw-bolder fs-3 mb-1">Brand</span>
+                <span class="card-label fw-bolder fs-3 mb-1">Pickup_point Orders</span>
               </h3>
           </div>
           <div class="col col-8">
@@ -31,19 +31,7 @@
 
           </div>
         
-        <div class="col col-2">
-          <div class="card-toolbar">
-            <router-link to="/products/brand/create" class="btn btn-sm btn-light btn-active-primary">
-            <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-            <span class="svg-icon svg-icon-3">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black"></rect>
-                <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black"></rect>
-              </svg>
-            </span>
-            <!--end::Svg Icon-->New Brand</router-link>
-          </div>
-        </div>
+   
       
       </div>
     </div>
@@ -59,12 +47,14 @@
         >
           <!--begin::Table head-->
           <thead>
-          <tr class="fw-bolder text-muted">
-             <th>ID</th>
-              <th>Name</th>
-              <th>Status</th>
-              <th>Image</th>
-              <th>Action</th>
+            <tr class="fw-bolder text-muted">
+              <th>Order Number</th>
+              <th>Number of Products</th>
+              <th>Customer</th>
+              <th>Amount</th>
+              <th>Delivery Status</th>
+              <th>Payment Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <!--end::Table head-->
@@ -72,29 +62,27 @@
           <!--begin::Table body-->
           <tbody>
             <template v-for="(item, index) in model.data" :key="index">
-        
               <tr>
-              <td class="text-dark fw-bolder text-hover-primary fs-6">
-                    {{ item.id }}
+                <td class="text-dark fw-bolder text-hover-primary fs-6">
+                    {{ item.order_number }}
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
-                    {{ item.name }}
-                </td>
-                <td v-if="item.active == 1">
-                  <span class="badge badge-light-primary">Active</span>
-                </td>
-                <td v-else>
-                  <span class="badge badge-light-danger">In Active</span>
+                    {{ item.number_of_product }}
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
-                    Image
+                    {{ item.customer.name }}
                 </td>
-                
-               
+                <td class="text-dark fw-bolder text-hover-primary fs-6">
+                    {{ item.amount }}
+                </td>
                 <td>
-                 <font-awesome-icon icon="user-secret" />
-
-                  <a @click="editItems(item.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                  <span class="badge badge-light-primary">{{ item.delivery_status }}</span>
+                </td>
+                <td>
+                  <span class="badge badge-light-danger">{{ item.payment_status }}</span>
+                </td>
+                <td>
+                    <a @click="showItems(item.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                     <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                     <span class="svg-icon svg-icon-3">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -104,18 +92,7 @@
                     </span>
                     <!--end::Svg Icon-->
                   </a>
-                  <a @click="deleteItems(item.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
-                    <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
-                    <span class="svg-icon svg-icon-3">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="black"></path>
-                        <path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="black"></path>
-                        <path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="black"></path>
-                      </svg>
-                    </span>
-                    <!--end::Svg Icon-->
-                  </a>
-                 
+              
                 </td>
                 
               </tr>
@@ -184,7 +161,7 @@ export default ({
   data() {
         return {
             model: [],
-            resource:'/api/product/brand',
+            resource:'/api/order/pickuporder',
             params: {
               per_page: 12,
               page: 1,
@@ -196,7 +173,7 @@ export default ({
     },
     beforeRouteUpdate (to, from, next) {
         this.show = false
-        get(`/api/product/brand`)
+        get(`/api/order/pickuporder`)
             .then(res => {
                 this.setData(res)
                 next()
@@ -204,7 +181,7 @@ export default ({
             //catch 422
     },
     beforeRouteEnter(to, from, next) {
-        get(`/api/product/brand`)
+        get(`/api/order/pickuporder`)
             .then(res => {
                 next(vm => vm.setData(res))
             })
@@ -226,14 +203,13 @@ export default ({
       this.params.per_page = this.model.per_page
       this.params.page = this.model.current_page
     },
-   
     updatePerPage() {
       const query = copyObject(this.$route.query)
       
       query.per_page = this.params.per_page
       query.page = 1
 
-      get(`/api/product/brand?per_page=${this.params.per_page}&q=${this.params.q}`)
+      get(`/api/order/pickuporder?per_page=${this.params.per_page}&q=${this.params.q}`)
       .then(res => {
           this.setData(res)
       })
@@ -241,7 +217,7 @@ export default ({
     nextPage() {
         if(this.model.next_page_url) {
             this.params.page = this.params.page ? this.params.page + 1 : 2
-            get(`/api/product/brand?per_page=${this.params.per_page}&page=${this.params.page}&q=${this.params.q}`)
+            get(`/api/order/pickuporder?per_page=${this.params.per_page}&page=${this.params.page}&q=${this.params.q}`)
             .then(res => {
                 this.setData(res)
             })
@@ -250,31 +226,31 @@ export default ({
     prevPage() {
         if(this.model.next_page_url) {
             this.params.page = this.params.page ? Number(this.params.page) - 1 : 1
-            get(`/api/product/brand?per_page=${this.params.per_page}&page=${this.params.page}&q=${this.params.q}`)
+            get(`/api/order/pickuporder?per_page=${this.params.per_page}&page=${this.params.page}&q=${this.params.q}`)
             .then(res => {
                 this.setData(res)
             })
         }
     },
     search(){
-      get(`/api/product/brand?per_page=${this.params.per_page}&q=${this.params.q}`)
+      get(`/api/order/pickuporder?per_page=${this.params.per_page}&q=${this.params.q}`)
       .then(res => {
           this.setData(res)
       })
     },
     deleteItems(id) {
-        byMethod('POST', `/api/product/brand/${id}/delete`)
+        byMethod('POST', `/api/order/pickuporder/${id}/delete`)
         .then(({data}) => {
-            this.toast.success("Product Delete Successfully");
-            get(`/api/product/brand`)
+            this.toast.success("Order Delete Successfully");
+            get(`/api/order/pickuporder`)
             .then(res => {
                 this.setData(res)
             })
         })
         .catch((err) => {})
     },
-    editItems(id){
-      window.location.href="/admin#/products/brand  /"+id+"/edit/"
+    showItems(id){
+      window.location.href="/admin#/all_orders/"+id
     },
 },
   setup() {

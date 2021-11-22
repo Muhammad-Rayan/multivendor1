@@ -92,15 +92,15 @@ const DocMenuConfig = [
           },
           {
             heading: "In House Order",
-            route: "/sales/inhouse-order",
+            route: "/orders/inhouse-orders",
           },
           {
             heading: "Seller Order",
-            route: "/sales/seller-order",
+            route: "/orders/seller-order",
           },
           {
             heading: "Pickup-point Order",
-            route: "/sales/pickuppoint-order",
+            route: "/orders/pickuppoint-order",
           },
           
         ],

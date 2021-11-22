@@ -25,6 +25,39 @@ class OrderController extends Controller
         })->paginate($request->per_page);
         return response()->json([ 'results' => $results ]);
     }
+    public function inhouse(Request $request)
+    {
+        if(request('per_page') == null){
+            $request->per_page = 12;
+        }
+        $results = Order::with(['items','customer'])
+        ->when(request('q') ,function($q){
+            $q->where('name','like', '%'.request('q').'%');
+        })->where('order_type',1)->paginate($request->per_page);
+        return response()->json([ 'results' => $results ]);
+    }
+    public function seller(Request $request)
+    {
+        if(request('per_page') == null){
+            $request->per_page = 12;
+        }
+        $results = Order::with(['items','customer'])
+        ->when(request('q') ,function($q){
+            $q->where('name','like', '%'.request('q').'%');
+        })->where('order_type',3)->paginate($request->per_page);
+        return response()->json([ 'results' => $results ]);
+    }
+    public function pickup(Request $request)
+    {
+        if(request('per_page') == null){
+            $request->per_page = 12;
+        }
+        $results = Order::with(['items','customer'])
+        ->when(request('q') ,function($q){
+            $q->where('name','like', '%'.request('q').'%');
+        })->where('order_type',2)->paginate($request->per_page);
+        return response()->json([ 'results' => $results ]);
+    }
 
     /**
      * Show the form for creating a new resource.

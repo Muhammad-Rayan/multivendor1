@@ -122,63 +122,43 @@ const routes: Array<RouteRecordRaw> = [
       },
 
       {
-        path: "/products/seller-product",
-        name: "seller-product",
-        component: () => import("@/views/product/seller_product/index.vue"),
+        path: "/orders/seller-order",
+        name: "seller-order",
+        component: () => import("@/views/order/seller_order/index.vue"),
       },
 
       {
-        path: "/products/inhouse-product",
-        name: "inhouse-product",
-        component: () => import("@/views/product/inhouse_product/index.vue"),
+        path: "/orders/inhouse-orders",
+        name: "inhouse-orders",
+        component: () => import("@/views/order/inhouse_order/index.vue"),
       },
+      {
+        path: "/orders/pickuppoint-order",
+        name: "pickuppoint-order",
+        component: () => import("@/views/order/pickuppoint_order/index.vue"),
+      },
+
       {
         path: "/customers/customer-list",
         name: "customer-list",
         component: () => import("@/views/customer/index.vue"),
       },
 
-      {
-        path: "/sales/all-order",
-        name: "all-order",
-        component: () => import("@/views/sales/all_order/index.vue"),
-      },
+      
        {
-        path: "/sales/inhouse-order",
-        name: "inhouse-order",
-        component: () => import("@/views/sales/inhouse_order/index.vue"),
-      },
-       {
-        path: "/sales/seller-order",
-        name: "seller-order",
-        component: () => import("@/views/sales/seller_order/index.vue"),
-      },
-       {
-        path: "/sales/pickuppoint-order",
-        name: "pickuppoint-order",
-        component: () => import("@/views/sales/pickuppoint_order/index.vue"),
-      },
-
-
-       {
-        path: "/refund/approved_request",
+        path: "/refund/approved-request",
         name: "approved-request",
         component: () => import("@/views/refund/approved_request/index.vue"),
       },
        {
-        path: "/refund/rejected_request",
+        path: "/refund/rejected-request",
         name: "rejected-request",
         component: () => import("@/views/refund/rejected_request/index.vue"),
       },
        {
-        path: "/refund/refund_request",
+        path: "/refund/refund-request",
         name: "refund-request",
         component: () => import("@/views/refund/refund_request/index.vue"),
-      },
-      {
-        path: "/refund/:id",
-        name: "refund-show",
-        component: () => import("@/views/refund/approved_request/show.vue"),
       },
       {
         path: "/reports/inhouseproduct-sale",
