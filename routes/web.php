@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\Product\SellerproductController;
 use App\Http\Controllers\Frontend\Auth\AuthController;
 use App\Http\Controllers\Admin\Order\OrderController;
 use App\Http\Controllers\Admin\Refund\RefundController;
+use App\Http\Controllers\Admin\Support\SupportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,13 @@ Route::group(['prefix' => 'api'], function() {
     Route::group(['prefix' => 'refund'], function() {
         Route::get('/{id}', [RefundController::class,'show']);
         Route::resource('/', RefundController::class);
+        
+      
+    });
+
+    Route::group(['prefix' => 'support'], function() {
+        Route::get('/{id}', [SupportController::class,'show']);
+        Route::resource('/', SupportController::class);
         
       
     });

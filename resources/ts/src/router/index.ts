@@ -115,6 +115,11 @@ const routes: Array<RouteRecordRaw> = [
         name: "support-list",
         component: () => import("@/views/support/index.vue"),
       },
+      {
+        path: "/support/:id",
+        name: "support-show",
+        component: () => import("@/views/support/show.vue"),
+      },
 
       // orders route
       {
