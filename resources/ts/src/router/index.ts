@@ -109,6 +109,13 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/product/product_review/index.vue"),
       },
 
+      // support 
+      {
+        path: "/support",
+        name: "support-list",
+        component: () => import("@/views/support/index.vue"),
+      },
+
       // orders route
       {
         path: "/all_orders",
@@ -144,7 +151,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/customer/index.vue"),
       },
 
-      
+      // Refund
        {
         path: "/refund/approved-request",
         name: "approved-request",
@@ -160,6 +167,13 @@ const routes: Array<RouteRecordRaw> = [
         name: "refund-request",
         component: () => import("@/views/refund/refund_request/index.vue"),
       },
+      {
+        path: "/refund/:id",
+        name: "refund-show",
+        component: () => import("@/views/refund/approved_request/show.vue"),
+      },
+
+
       {
         path: "/reports/inhouseproduct-sale",
         name: "inhouseproduct-sale",
