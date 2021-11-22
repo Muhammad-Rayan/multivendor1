@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Support\HasManyRelation;
 use App\Models\User;
+use App\Models\Admin\Support\Item;
 
 class Support extends Model
 {
@@ -22,5 +23,9 @@ class Support extends Model
     public function customer()
     {
         return $this->belongsTo(User::class, 'customer_id', 'id');
+    }
+
+    public function items() {
+        return $this->hasMany(Item::class, 'support_id', 'id');
     }
 }

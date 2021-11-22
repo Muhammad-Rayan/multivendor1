@@ -55,6 +55,8 @@ class SupportController extends Controller
      */
     public function show($id)
     {
+        $results = Support::with(['customer','items'])->findOrFail($id);
+        return response()->json([ 'results' => $results ]);
     }
 
     /**
