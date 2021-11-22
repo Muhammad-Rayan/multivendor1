@@ -57,11 +57,12 @@ Route::group(['prefix' => 'api'], function() {
     Route::group(['prefix' => 'refund'], function() {
         Route::get('/{id}', [RefundController::class,'show']);
         Route::resource('/', RefundController::class);
+        
       
     });
 });
 
-Route::group(['prefix' => '/test'], function() {
+Route::group(['prefix' => '/'], function() {
         Route::resource('login', AuthController::class);	
     	Route::post('/login-data', [AuthController::class, 'show'])->name('login-data');
     });
