@@ -25,6 +25,21 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/product/index.vue"),
       },
       {
+        path: "/products/inhouse_product",
+        name: "inhouse-product",
+        component: () => import("@/views/product/inhouse_product/index.vue"),
+      },
+      {
+        path: "/products/seller-product",
+        name: "seller-product",
+        component: () => import("@/views/product/seller_product/index.vue"),
+      },
+      {
+        path: "/products",
+        name: "product-list",
+        component: () => import("@/views/product/index.vue"),
+      },
+      {
         path: "/products/:id/edit",
         name: "product-edit",
         meta: {mode: 'edit'},
@@ -200,12 +215,7 @@ const routes: Array<RouteRecordRaw> = [
     ],
     
  },
-      {
-        path: "/seller/create",
-        name: "seller-create",
-        component: () => import("@/views/seller/index.vue"),
-      },
-  
+     
   
 ];
 
