@@ -59,7 +59,7 @@
                                     <div id="kt_signin_email">
                                         <div class="fs-6 fw-bolder mb-1" v-if="model.customer">{{ model.customer.name }}</div>
                                         <div class="fw-bold text-gray-600" v-if="model.customer">{{ model.customer.email }}</div>
-                                        <div class="fs-6 fw-bolder mb-1">{{ item.description }}</div>
+                                        <div class="fs-6 fw-bolder mb-1" v-html="item.description"></div>
                                     </div>
                                 </div>
                                 <div class="col-2">
@@ -68,9 +68,10 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="separator separator-dashed my-6"></div>
                         </template>
 
-                    <div class="separator separator-dashed my-6"></div>
+                    
                     
                 </div>
             </div>
@@ -87,6 +88,7 @@ import ErrorText from '@/my_components/form/ErrorText.vue'
 import { get,byMethod } from '@/lib/api'
 import { form } from '@/lib/mixins'
 import { useToast } from "vue-toastification";
+import { objectToFormData } from '@/lib/helpers';
 
 export default ({
   name: "kt-widget-12",
@@ -132,20 +134,22 @@ export default ({
     },
   methods: {
     save() {
-        this.submitMultipartForm(this.form,(data) => {
-            this.$Progress.start();
-            this.toast.success(this.message);
-            this.$router.push({ name: 'product-list' });
-        })
+        byMethod(this.method, this.store, objectToFormData(this.form))
+            .then(res => {
+                this.setData(res)
+            })
     },
     onSupportChange(e){
         this.form.image = e.target.files[0];
     },
-    onMetaDescription(e){
+    onDescription(e){
       this.form.description = e.target.innerHTML;
     },
     setData(res) {
+        
       this.model = res.data.results;
+      console.log(this.model);
+      this.form.customer_id = this.model.customer_id;
     },
 },
   setup() {

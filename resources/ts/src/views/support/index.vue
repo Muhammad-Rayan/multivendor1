@@ -83,7 +83,7 @@
           </tbody>
           <!--end::Table body-->
         </table>
-        <!--end::Table-->
+        <!--end::Table--> 
         <div class="panel-footer">
               <div class="row">
                 <div class="col col-1">
