@@ -31,6 +31,12 @@ class HomeController extends Controller
         if(auth()->user()->is_admin == 1){
             return redirect('/admin');
         }
+        else if(auth()->user()->is_seller == 1){
+            return redirect('/seller');
+        }
+        else{
+            return redirect('/login');
+        }
         // Redirectafter login dashboards
     }
 }

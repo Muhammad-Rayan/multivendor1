@@ -75,24 +75,23 @@ Route::group(['prefix' => 'api'], function() {
         Route::resource('/', OrderController::class);
       
     });
+
     Route::group(['prefix' => 'refund'], function() {
         Route::get('/{id}', [RefundController::class,'show']);
         Route::resource('/', RefundController::class);
-        
-      
     });
+
     Route::group(['prefix' => 'seller'], function() {
         // Route::resource('notify',SellerController::class);
         Route::get('/approve_form', [App\Http\Controllers\Admin\Seller\SellerController::class, 'index'])->name('seller');
-Route::get('/notify', [App\Http\Controllers\Admin\Seller\SellerController::class, 'message'])->name('message');
-Route::post('/seller_create', [App\Http\Controllers\Admin\Seller\SellerController::class, 'create'])->name('seller-create');
+        Route::get('/notify', [App\Http\Controllers\Admin\Seller\SellerController::class, 'message'])->name('message');
+        Route::post('/seller_create', [App\Http\Controllers\Admin\Seller\SellerController::class, 'create'])->name('seller-create');
     });
+
     Route::group(['prefix' => 'support'], function() {
         Route::get('/{id}', [SupportController::class,'show']);
         Route::post('/{id}/update', [SupportController::class,'update']);
         Route::resource('/', SupportController::class);
-        
-      
     });
 
 });
