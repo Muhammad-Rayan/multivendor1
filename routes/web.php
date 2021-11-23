@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\Product\InhouseproductController;
 use App\Http\Controllers\Admin\Product\ProductlistController;
 use App\Http\Controllers\Admin\Product\ReviewController;
 use App\Http\Controllers\Admin\Product\SellerproductController;
-use App\Http\Controllers\Frontend\Auth\AuthController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\Order\OrderController;
 use App\Http\Controllers\Admin\Refund\RefundController;
 use App\Http\Controllers\Admin\Support\SupportController;
@@ -79,7 +79,10 @@ Route::group(['prefix' => 'api'], function() {
         
       
     });
+
 });
+Route::get('/seller', [App\Http\Controllers\Admin\Seller\SellerController::class, 'index'])->name('seller');
+
 
 Route::group(['prefix' => '/'], function() {
         Route::resource('login', AuthController::class);	
