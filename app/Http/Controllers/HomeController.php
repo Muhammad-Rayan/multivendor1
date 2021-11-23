@@ -28,6 +28,9 @@ class HomeController extends Controller
 
     public function vue()
     {
+        if(auth()->user()->is_admin == 1){
+            return redirect('/admin');
+        }
         // Redirectafter login dashboards
     }
 }

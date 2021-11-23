@@ -27,10 +27,17 @@ use App\Http\Controllers\Admin\Seller\SellerController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['prefix' => '/'], function() {
+    Route::resource('login', AuthController::class);	
+    Route::post('/login-data', [AuthController::class, 'show'])->name('login-data');
+});
+
+Auth::routes();
 
 Route::get('/admin', function () {
     return view('app');
-});
+})->name('admin-dashboard');
+
 Route::group(['prefix' => 'api'], function() {
     Route::group(['prefix' => 'product'], function() {
         
@@ -84,18 +91,9 @@ Route::group(['prefix' => 'api'], function() {
 Route::get('/seller', [App\Http\Controllers\Admin\Seller\SellerController::class, 'index'])->name('seller');
 
 
-Route::group(['prefix' => '/'], function() {
-        Route::resource('login', AuthController::class);	
-    	Route::post('/login-data', [AuthController::class, 'show'])->name('login-data');
-    });
-
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 Route::get('{vue?}', [App\Http\Controllers\HomeController::class, 'vue'])->where('vue', '[\/\w\.-]*');

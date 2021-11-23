@@ -47,7 +47,7 @@ class AuthController extends Controller
      */
     public function show($id)
     {
-        return redirect()->route('/');
+        // return redirect()->route('/');
     }
 
     /**
