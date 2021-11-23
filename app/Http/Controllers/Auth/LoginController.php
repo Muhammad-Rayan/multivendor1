@@ -33,6 +33,9 @@ class LoginController extends Controller
         if($user->is_admin == 1){
             return redirect('/admin');
         }
+        else if($user->is_seller == 1){
+            return redirect('/seller');
+        }
     }
 
     /**

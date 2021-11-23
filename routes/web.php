@@ -34,10 +34,17 @@ Route::group(['prefix' => '/'], function() {
 
 Auth::routes();
 
-Route::get('/admin', function () {
-    return view('app');
-})->name('admin-dashboard');
+Route::group(['middleware' => 'AdminAuth'], function () {
+    Route::get('/admin', function () {
+        return view('app');
+    })->name('admin-dashboard');
+});
 
+Route::group(['middleware' => 'SellerAuth'], function () {
+    Route::get('/seller', function () {
+        return view('app');
+    });
+});
 Route::group(['prefix' => 'api'], function() {
     Route::group(['prefix' => 'product'], function() {
         
@@ -75,9 +82,10 @@ Route::group(['prefix' => 'api'], function() {
       
     });
     Route::group(['prefix' => 'seller'], function() {
-        Route::resource('/',SellerController::class);
-        
-      
+        // Route::resource('notify',SellerController::class);
+        Route::get('/approve_form', [App\Http\Controllers\Admin\Seller\SellerController::class, 'index'])->name('seller');
+Route::get('/notify', [App\Http\Controllers\Admin\Seller\SellerController::class, 'message'])->name('message');
+Route::post('/seller_create', [App\Http\Controllers\Admin\Seller\SellerController::class, 'create'])->name('seller-create');
     });
     Route::group(['prefix' => 'support'], function() {
         Route::get('/{id}', [SupportController::class,'show']);
@@ -88,7 +96,6 @@ Route::group(['prefix' => 'api'], function() {
     });
 
 });
-Route::get('/seller', [App\Http\Controllers\Admin\Seller\SellerController::class, 'index'])->name('seller');
 
 
 
