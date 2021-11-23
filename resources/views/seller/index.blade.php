@@ -36,7 +36,7 @@
       <!--begin::Wrapper-->
       <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
          <!--begin::Form-->
-         <form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" method="POST" action="{{ route('register') }}">
+         <form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" method="POST" action="{{ route('seller-create') }}">
             @csrf
             <!--begin::Heading-->
             <div class="mb-10 text-center">
@@ -128,7 +128,7 @@
                   <div class="row fv-row mb-7 fv-plugins-icon-container ">
                      <!--begin::Col-->
                      <label class="form-label fw-bolder text-dark fs-6">Shop Name</label>
-                     <input type="email" class="form-control form-control-lg form-control-solid " name="shopname" required>
+                     <input type="text" class="form-control form-control-lg form-control-solid " name="shopname" required>
                     
                   </div>
                </div>
@@ -136,11 +136,11 @@
                   <div class="row fv-row mb-7 fv-plugins-icon-container ">
                      <!--begin::Col-->
                      <label class="form-label fw-bolder text-dark fs-6">Shop Address</label>
-                     <input type="email" class="form-control form-control-lg form-control-solid " name="shopaddress" required>
+                     <input type="text" class="form-control form-control-lg form-control-solid " name="shopaddress" required>
                     
                   </div>
                </div>
-                
+
                <!--end::Input group-->
                <!--begin::Actions-->
                <div class="text-center">

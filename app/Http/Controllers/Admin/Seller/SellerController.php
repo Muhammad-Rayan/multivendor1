@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Seller;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Admin\Seller\Seller;
 
 class SellerController extends Controller
 {
@@ -22,9 +23,13 @@ class SellerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $model = new Seller;
+        $model->fill($request->all());
+       $model->save();
+       return redirect('login');
+    	
     }
 
     /**
@@ -44,9 +49,10 @@ class SellerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function message()
     {
-        //
+        return view('seller.message');
+    
     }
 
     /**
