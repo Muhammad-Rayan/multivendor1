@@ -199,13 +199,8 @@ const routes: Array<RouteRecordRaw> = [
 
     ],
     
-      },
-      {
-        path: "/seller/create",
-        name: "seller-create",
-        component: () => import("@/views/seller/index.vue"),
-      },
-  
+  },
+     
   
 ];
 
