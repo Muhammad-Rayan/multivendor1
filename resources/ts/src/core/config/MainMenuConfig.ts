@@ -136,6 +136,7 @@ const DocMenuConfig = [
     ],
 
   },
+ 
    {
     pages: 
     [
@@ -169,6 +170,18 @@ const DocMenuConfig = [
       {
         heading: "Support",
         route: "/support",
+        svgIcon: "media/icons/duotune/art/art002.svg",
+        fontIcon: "bi-app-indicator",
+      },
+    ],
+
+  },
+  {
+    pages: 
+    [
+      {
+        heading: "Seller",
+        route: "/all_sellers",
         svgIcon: "media/icons/duotune/art/art002.svg",
         fontIcon: "bi-app-indicator",
       },

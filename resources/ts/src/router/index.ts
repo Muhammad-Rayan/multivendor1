@@ -209,7 +209,16 @@ const routes: Array<RouteRecordRaw> = [
         name: "product-stock",
         component: () => import("@/views/reports/product-stock/index.vue"),
       },
-      
+      {
+        path: "/all_sellers",
+        name: "selller-list",
+        component: () => import("@/views/seller/index.vue"),
+      },
+      {
+        path: "/all_sellers/:id",
+        name: "selller-show",
+        component: () => import("@/views/seller/show.vue"),
+      },
       
 
     ],
