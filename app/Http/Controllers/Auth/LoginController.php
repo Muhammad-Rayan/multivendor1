@@ -27,14 +27,18 @@ class LoginController extends Controller
      *
      * @var string
      */
-    
+    protected $redirectTo;
+
+
     public function redirectTo() {
         $user = auth()->user();
         if($user->is_admin == 1){
-            return redirect('/admin');
+            $this->redirectTo = '/admin';
+            return $this->redirectTo;
         }
         else if($user->is_seller == 1){
-            return redirect('/seller');
+            $this->redirectTo = '/seller';
+            return $this->redirectTo;
         }
     }
 
