@@ -32,12 +32,26 @@ class LoginController extends Controller
 
     public function redirectTo() {
         $user = auth()->user();
-        if($user->is_admin == 1){
+        if($user->is_admin == 1 && $user->is_admin != null){
+            
             $this->redirectTo = '/admin';
             return $this->redirectTo;
         }
         else if($user->is_seller == 1){
+            
             $this->redirectTo = '/seller';
+            return $this->redirectTo;
+        }
+        else if($user->is_seller == 2){
+            
+            $this->redirectTo = '/seller/notify';
+            return $this->redirectTo;
+        }
+        else if(auth()->user()->is_seller == 3){
+            $this->redirectTo = '/seller/approve_form';
+            return $this->redirectTo;
+        }else{
+            $this->redirectTo = '/login';
             return $this->redirectTo;
         }
     }

@@ -23,9 +23,17 @@ class ProductlistController extends Controller
         if(request('per_page') == null){
             $request->per_page = 12;
         }
-        $results = Productlist::when(request('q') ,function($q){
-            $q->where('name','like', '%'.request('q').'%');
-        })->where('deleted',0)->where('active','1')->paginate($request->per_page);
+        if(auth()->user()->is_admin == 1){
+            $results = Productlist::when(request('q') ,function($q){
+                $q->where('name','like', '%'.request('q').'%');
+            })->where('deleted',0)->where('active','1')->paginate($request->per_page);
+        }else{
+            $results = Productlist::when(request('q') ,function($q){
+                $q->where('name','like', '%'.request('q').'%');
+            })->where('deleted',0)->where('active','1')->where('user_id',auth()->user()->id)->paginate($request->per_page);
+        }
+        
+        
         return response()->json([ 'results' => $results ]);   
     }
 
@@ -75,6 +83,7 @@ class ProductlistController extends Controller
         $model->fill($request->except('tags','items'));
         $model->active = 1;
         $model->deleted = 0;
+        $model->user_id = auth()->user()->id;
         $model->slug = \Str::slug($request->name);
         if($request->capture_image != null){
             $imageName = time().'.'.$request->capture_image->getClientOriginalExtension();
@@ -149,11 +158,17 @@ class ProductlistController extends Controller
      */
     public function edit($id)
     {
-        $form = Productlist::with(['items.color','items.attribute','items.attribute_items','tags','cat','brand','color'])->findorFail($id);
-        // dd($form);
+        if(auth()->user()->is_admin == 1){
+            $form = Productlist::with(['items.color','items.attribute','items.attribute_items','tags','cat','brand','color'])->findorFail($id);
+        }else{
+            $form = Productlist::with(['items.color','items.attribute','items.attribute_items','tags','cat','brand','color'])
+            ->where('user_id',auth()->user()->id)
+            ->findorFail($id);
+        }
         return response()->json([
             'form' => $form
         ]);
+        
     }
 
     /**

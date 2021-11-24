@@ -37,7 +37,7 @@
                <!--begin::Wrapper-->
                <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
                   <!--begin::Form-->
-                  <form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" method="POST" action="{{ route('register') }}">
+                  <form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" method="POST" action="{{ route('register_post') }}">
 					@csrf
                   <!--begin::Heading-->
 							<div class="mb-10 text-center">

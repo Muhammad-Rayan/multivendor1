@@ -17,11 +17,20 @@ class SellerAuth
     {
         $user = auth()->user();
         if($user == null){
-            return redirect('/login');
+            return redirect('/seller/register');
         }
         else if (auth()->user()->is_seller == 1) {
             return $next($request);
         }
-        return redirect('/login');
+        else if (auth()->user()->is_seller == 2) {
+            return redirect('/seller/notify');
+        }
+        else if (auth()->user()->is_seller == 3) {
+            return redirect('/seller/approve_form');
+        }
+        else{
+            return redirect('/login');
+        }
+        
     }
 }

@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -28,7 +28,11 @@ class HomeController extends Controller
 
     public function vue()
     {
-        if(auth()->user()->is_admin == 1){
+        $user = auth()->user();
+        if($user == null){
+            return redirect('/login');
+        }
+        else if(auth()->user()->is_admin == 1){
             return redirect('/admin');
         }
         else if(auth()->user()->is_seller == 1){

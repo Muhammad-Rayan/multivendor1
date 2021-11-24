@@ -32,24 +32,22 @@ Route::group(['prefix' => '/'], function() {
     Route::post('/login-data', [AuthController::class, 'show'])->name('login-data');
 });
 Route::group(['prefix' => 'seller'], function() {
-    // Route::resource('notify',SellerController::class);
+    Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
+    Route::post('/register_create', [App\Http\Controllers\Auth\RegisterController::class, 'create'])->name("register_post");
     Route::get('/approve_form', [App\Http\Controllers\Admin\Seller\SellerController::class, 'index'])->name('seller');
     Route::get('/notify', [App\Http\Controllers\Admin\Seller\SellerController::class, 'message'])->name('message');
     Route::post('/seller_create', [App\Http\Controllers\Admin\Seller\SellerController::class, 'create'])->name('seller-create');
 });
+
 Auth::routes();
 
-Route::group(['middleware' => 'AdminAuth'], function () {
-    Route::get('/admin', function () {
-        return view('app');
-    })->name('admin-dashboard');
-});
+// Route::group(['middleware' => 'AdminAuth'], function () {
+    Route::get('/admin', [App\Http\Controllers\Admin\DashboardController::class,'index']);
+// });
 
-Route::group(['middleware' => 'SellerAuth'], function () {
-    Route::get('/seller', function () {
-        return view('app');
-    });
-});
+// Route::group(['middleware' => 'SellerAuth'], function () {
+    Route::get('/seller', [App\Http\Controllers\Admin\DashboardController::class,'index']);
+// });
 Route::group(['prefix' => 'api'], function() {
     Route::group(['prefix' => 'product'], function() {
         
@@ -94,6 +92,11 @@ Route::group(['prefix' => 'api'], function() {
         Route::resource('/', SupportController::class);
     });
 
+    Route::group(['prefix' => 'seller'], function() {
+        Route::get('/{id}', [SellerController::class,'show']);
+        Route::get('/', [SellerController::class,'allseller']);
+    });
+
 });
 
 
@@ -103,3 +106,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::get('{vue?}', [App\Http\Controllers\HomeController::class, 'vue'])->where('vue', '[\/\w\.-]*');
+

@@ -15,7 +15,13 @@ class SellerController extends Controller
      */
     public function index()
     {
-     return view('seller.index');
+        $user = auth()->user();
+        if($user != null && $user->is_seller == 3){
+            return view('seller.index');
+        }else{
+            return redirect('/login');
+        }
+        
     }
 
     /**
@@ -25,10 +31,14 @@ class SellerController extends Controller
      */
     public function create(Request $request)
     {
+        
         $model = new Seller;
         $model->fill($request->all());
-       $model->save();
-       return redirect('login');
+        $model->save();
+        $user = User::findOrFail($model->id);
+        $user->is_seller=2;
+        $user->save();
+        return redirect('/seller/notify');
     	
     }
 
@@ -51,8 +61,12 @@ class SellerController extends Controller
      */
     public function message()
     {
-        return view('seller.message');
-    
+        $user = auth()->user();
+        if($user != null && $user->is_seller == 2){
+            return view('seller.message');
+        }else{
+            return redirect('/login');
+        }
     }
 
     /**
@@ -87,5 +101,30 @@ class SellerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function allseller(Request $request)
+    {
+        
+        if(request('per_page') == null){
+            $request->per_page = 12;
+        }
+        $results = Seller::when(request('q') ,function($q){
+            $q->where('name','like', '%'.request('q').'%');
+        })->paginate($request->per_page);
+        return response()->json([ 'results' => $results ]);
+    
+    }
+    public function show(Request $request)
+    {
+        
+        if(request('per_page') == null){
+            $request->per_page = 12;
+        }
+        $results = Seller::when(request('q') ,function($q){
+            $q->where('name','like', '%'.request('q').'%');
+        })->paginate($request->per_page);
+        return response()->json([ 'results' => $results ]);
+    
     }
 }
