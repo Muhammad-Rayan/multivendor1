@@ -24,12 +24,28 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    protected $redirectTo;
+
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    public function redirectTo() {
+        if(auth()->user()->is_seller == 3){
+            $this->redirectTo = '/seller/approve_form';
+            return $this->redirectTo;
+        }
+        else if(auth()->user()->is_seller == 2){
+            $this->redirectTo = '/seller/notify';
+            return $this->redirectTo;
+        }
+        else{
+            $this->redirectTo = '/seller';
+            return $this->redirectTo;
+        }
+        
+    }
 
     /**
      * Create a new controller instance.
@@ -68,6 +84,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'is_seller' => 3,
         ]);
     }
 }

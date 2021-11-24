@@ -31,7 +31,12 @@ Route::group(['prefix' => '/'], function() {
     Route::resource('login', AuthController::class);	
     Route::post('/login-data', [AuthController::class, 'show'])->name('login-data');
 });
-
+Route::group(['prefix' => 'seller'], function() {
+    // Route::resource('notify',SellerController::class);
+    Route::get('/approve_form', [App\Http\Controllers\Admin\Seller\SellerController::class, 'index'])->name('seller');
+    Route::get('/notify', [App\Http\Controllers\Admin\Seller\SellerController::class, 'message'])->name('message');
+    Route::post('/seller_create', [App\Http\Controllers\Admin\Seller\SellerController::class, 'create'])->name('seller-create');
+});
 Auth::routes();
 
 Route::group(['middleware' => 'AdminAuth'], function () {
@@ -81,12 +86,7 @@ Route::group(['prefix' => 'api'], function() {
         Route::resource('/', RefundController::class);
     });
 
-    Route::group(['prefix' => 'seller'], function() {
-        // Route::resource('notify',SellerController::class);
-        Route::get('/approve_form', [App\Http\Controllers\Admin\Seller\SellerController::class, 'index'])->name('seller');
-        Route::get('/notify', [App\Http\Controllers\Admin\Seller\SellerController::class, 'message'])->name('message');
-        Route::post('/seller_create', [App\Http\Controllers\Admin\Seller\SellerController::class, 'create'])->name('seller-create');
-    });
+    
 
     Route::group(['prefix' => 'support'], function() {
         Route::get('/{id}', [SupportController::class,'show']);

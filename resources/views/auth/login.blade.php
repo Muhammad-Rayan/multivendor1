@@ -82,7 +82,7 @@
                     <a href="{{ route('password.request') }}" class="link-primary fs-6 fw-bolder">
                                         {{ __('Forgot Your Password?') }} -->
                                     </a>
-                                @endif     -->
+                                @endif 
                            <!--end::Link-->
                         </div>
                         <!--end::Wrapper-->
