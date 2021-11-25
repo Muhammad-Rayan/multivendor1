@@ -210,6 +210,7 @@ export default ({
     },
   methods: {
     setData(res) {
+      console.log(this.$data.users);
       this.model = res.data.results;
       this.params.per_page = this.model.per_page
       this.params.page = this.model.current_page

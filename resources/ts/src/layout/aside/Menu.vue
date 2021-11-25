@@ -239,11 +239,33 @@ import { MenuComponent } from "@/assets/ts/components/MenuComponent";
 import { version } from "@/core/helpers/documentation";
 import { asideMenuIcons } from "@/core/helpers/config";
 import MainMenuConfig from "@/core/config/MainMenuConfig";
+import { get,byMethod } from '@/lib/api'
 
 export default defineComponent({
+  
   name: "kt-menu",
   components: {},
+  data() {
+        return {
+            users:null,
+            
+        }
+    },
+  created() {
+    get(`/home`)
+    .then(res => {
+        this.setUsers(res);
+    })
+      
+  },
+  methods: {
+    setUsers(res) {
+      this.users = res;
+    },
+  },
   setup() {
+
+    
     const { t, te } = useI18n();
     const route = useRoute();
     const scrollElRef = ref<null | HTMLElement>(null);

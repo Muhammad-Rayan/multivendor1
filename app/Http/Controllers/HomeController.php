@@ -23,7 +23,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $users = auth()->user()->id;
+        return response()->json([ 'users' => $users ]); 
     }
 
     public function vue()

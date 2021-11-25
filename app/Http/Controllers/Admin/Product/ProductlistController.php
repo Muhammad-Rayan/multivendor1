@@ -262,9 +262,14 @@ class ProductlistController extends Controller
      */
     public function destroy($id)
     {
-        $model = Productlist::findorFail($id);
+        if(auth()->user()->is_admin == 1){
+            $model = Productlist::where('user_id',auth()->user()->id)->findorFail($id);
+        }else{
+
+        }
         $model->deleted = 1;
         $model->save();
+
         return response()->json([
             'deleted' => true
         ]);
