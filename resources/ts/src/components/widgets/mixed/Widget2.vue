@@ -3,7 +3,7 @@
   <div class="card card-xxl-stretch">
     <!--begin::Header-->
     <div :class="`bg-${widgetColor}`" class="card-header border-0 py-5">
-      <h3 class="card-title fw-bolder text-white">Sales Statistics Latest</h3>
+      <h3 class="card-title fw-bolder text-white">Sales  Latest</h3>
       <div class="card-toolbar">
         <!--begin::Menu-->
         <button

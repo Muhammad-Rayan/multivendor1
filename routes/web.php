@@ -96,10 +96,12 @@ Route::group(['prefix' => 'api'], function() {
     Route::group(['prefix' => 'seller'], function() {
         Route::get('/{id}', [SellerController::class,'show']);
         Route::get('/', [SellerController::class,'allseller']);
+        Route::get('/approve', [SellerController::class,'approve']);
     });
     Route::group(['prefix' => 'account'], function() {
-        Route::get('/{id}/edit', [ProductlistController::class,'edit']);
-        Route::post('/{id}/update', [ProductlistController::class,'update']);
+        Route::post('/store', [AccountController::class,'store']);
+        Route::get('/create', [AccountController::class,'create']);
+        Route::get('/{id}/edit', [AccountController::class,'edit']);
       
         });
 

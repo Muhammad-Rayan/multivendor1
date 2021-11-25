@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class AccountController extends Controller
@@ -20,7 +22,9 @@ class AccountController extends Controller
      */
     public function create()
     {
-       
+        return response()->json([
+            'form' => User::findOrFail(auth()->user()->id)
+        ]);
     }
 
     /**
@@ -37,8 +41,9 @@ class AccountController extends Controller
             'password' => 'required',
           
         ]);
-        $model = new User;
+        $model =User::findOrFail(auth()->user()->id);
         $model->fill($request->all());
+        $model->password = Hash::make($request['password']);
         $model->save();
         return response()->json([
             'saved' => true,

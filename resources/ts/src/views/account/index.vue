@@ -86,7 +86,7 @@ export default ({
   mixins: [ form ],
   data() {
         return {
-            store: '/api/account',
+            store: '/api/account/store',
             method: 'POST',
             title: 'Create',
             message : 'You have successfully create Attribute!',
