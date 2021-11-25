@@ -219,7 +219,13 @@ const routes: Array<RouteRecordRaw> = [
         name: "selller-show",
         component: () => import("@/views/seller/show.vue"),
       },
-      
+ 
+      {
+        path: "/account/:id/edit",
+        name: "account-edit",
+        meta: {mode: 'edit'},
+        component: () => import("@/views/account/index.vue"),
+      },
 
     ],
     

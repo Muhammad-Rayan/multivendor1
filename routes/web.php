@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\Order\OrderController;
 use App\Http\Controllers\Admin\Refund\RefundController;
 use App\Http\Controllers\Admin\Support\SupportController;
+use App\Http\Controllers\Account\AccountController;
 
 use App\Http\Controllers\Admin\Seller\SellerController;
 
@@ -96,6 +97,11 @@ Route::group(['prefix' => 'api'], function() {
         Route::get('/{id}', [SellerController::class,'show']);
         Route::get('/', [SellerController::class,'allseller']);
     });
+    Route::group(['prefix' => 'account'], function() {
+        Route::get('/{id}/edit', [ProductlistController::class,'edit']);
+        Route::post('/{id}/update', [ProductlistController::class,'update']);
+      
+        });
 
 });
 
