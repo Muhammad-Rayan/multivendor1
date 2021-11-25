@@ -46,7 +46,17 @@ class DashboardController extends Controller
      */
     public function show($id)
     {
-        //
+        $results = User::with(['user_info','products','orders.items'])->findOrFail($id);
+            $data = [
+                'total_products' => $results->products->count(),
+                'total_seller' => $results->is_Seller->count(),
+                'total_orders' => $results->orders->count(),
+                'total_Category' => $results->category->count(),
+                
+            ];
+            $results["data"] = $data;
+            // dd($results);
+            return response()->json([ 'results' => $results ]);
     }
 
     /**
