@@ -4,7 +4,7 @@
       <!--begin::Card header-->
       <!--begin::Card header-->
       <!--begin::Card body-->
-      <div class="card-body p-9" v-for="(item, index) in model.data" :key="index">
+      <div class="card-body p-9">
          <!--begin::Row-->
          <div class="row g-5 g-xl-8">
             <div class="col-xl-3">
@@ -22,7 +22,7 @@
                         </svg>
                      </span>
                      <!--end::Svg Icon-->
-                     <div class="text-white fw-bolder fs-2 mb-2 mt-5">500M$</div>
+                     <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{ this.total_products }}</div>
                      <div class="fw-bold text-white">Products</div>
                   </div>
                   <!--end::Body-->
@@ -43,8 +43,8 @@
                         </svg>
                      </span>
                      <!--end::Svg Icon-->
-                     <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">+3000</div>
-                     <div class="fw-bold text-gray-100">Total Sale</div>
+                     <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">{{ this.total_orders }}</div>
+                     <div class="fw-bold text-gray-100">Total Orders</div>
                   </div>
                   <!--end::Body-->
                </a>
@@ -63,7 +63,7 @@
                         </svg>
                      </span>
                      <!--end::Svg Icon-->
-                     <div class="text-white fw-bolder fs-2 mb-2 mt-5">$50,000</div>
+                     <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{ this.total_earning }}</div>
                      <div class="fw-bold text-white">Total Earning</div>
                   </div>
                   <!--end::Body-->
@@ -83,7 +83,7 @@
                         </svg>
                      </span>
                      <!--end::Svg Icon-->
-                     <div class="text-white fw-bolder fs-2 mb-2 mt-5">$50,000</div>
+                     <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{ this.successful_order }}</div>
                      <div class="fw-bold text-white">Successful Order</div>
                   </div>
                   <!--end::Body-->
@@ -110,7 +110,7 @@
       </div>
       <!--begin::Card header-->
       <!--begin::Card body-->
-      <div class="card-body p-9" v-for="(item, index) in model.data" :key="index">
+      <div class="card-body p-9">
          <!--begin::Row-->
          <div class="row mb-7">
             <!--begin::Label-->
@@ -118,7 +118,7 @@
             <!--end::Label-->
             <!--begin::Col-->
             <div class="col-lg-8">
-               <span class="fw-bolder fs-6 text-dark">{{ item.first_name }}</span>
+               <span class="fw-bolder fs-6 text-dark" v-if="model.user_info != null">{{ model.user_info.first_name }}</span>
             </div>
             <!--end::Col-->
          </div>
@@ -130,7 +130,7 @@
             <!--end::Label-->
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-               <span class="fw-bold fs-6">{{ item.last_name }}</span>
+               <span class="fw-bold fs-6" v-if="model.user_info != null">{{ model.user_info.last_name }}</span>
             </div>
             <!--end::Col-->
          </div>
@@ -141,7 +141,7 @@
             <!--end::Label-->
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-               <span class="fw-bold fs-6">{{ item.address }}</span>
+               <span class="fw-bold fs-6" v-if="model.user_info != null">{{ model.user_info.address }}</span>
             </div>
             <!--end::Col-->
          </div>
@@ -151,7 +151,7 @@
             <!--end::Label-->
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-               <span class="fw-bold fs-6">{{ item.postal_code }}</span>
+               <span class="fw-bold fs-6" v-if="model.user_info != null">{{ model.user_info.postal_code }}</span>
             </div>
             <!--end::Col-->
          </div>
@@ -161,7 +161,7 @@
             <!--end::Label-->
             <!--begin::Col-->
             <div class="col-lg-8 fv-row">
-               <span class="fw-bold fs-6">{{ item.email }}</span>
+               <span class="fw-bold fs-6">{{ model.email }}</span>
             </div>
             <!--end::Col-->
          </div>
@@ -179,7 +179,7 @@
             <!--end::Label-->
             <!--begin::Col-->
             <div class="col-lg-8 d-flex align-items-center">
-               <span class="fw-bolder fs-6 me-2">{{ item.phone}}</span>
+               <span class="fw-bolder fs-6 me-2" v-if="model.user_info != null">{{ model.user_info.phone}}</span>
             </div>
             <!--end::Col-->
          </div>
@@ -191,7 +191,7 @@
             <!--end::Label-->
             <!--begin::Col-->
             <div class="col-lg-8 d-flex align-items-center">
-               <span class="fw-bolder fs-6 me-2">{{ item.shopname}}</span>
+               <span class="fw-bolder fs-6 me-2" v-if="model.user_info != null">{{ model.user_info.shopname}}</span>
             </div>
             <!--end::Col-->
          </div>
@@ -203,7 +203,7 @@
             <!--end::Label-->
             <!--begin::Col-->
             <div class="col-lg-8 d-flex align-items-center">
-               <span class="fw-bolder fs-6 me-2">{{ item.shopaddress}}</span>
+               <span class="fw-bolder fs-6 me-2" v-if="model.user_info != null">{{ model.user_info.shopaddress}}</span>
             </div>
             <!--end::Col-->
          </div>
@@ -236,7 +236,7 @@
 
           <!--begin::Table body-->
           <tbody>
-            <template v-for="(item, index) in model.data" :key="index">
+            <template v-for="(item, index) in model.products" :key="index">
               <tr>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
                     {{ item.id }}
@@ -245,7 +245,7 @@
                     {{ item.name }}
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
-              Color
+                     Color
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
                    Price
@@ -326,8 +326,8 @@
      data() {
            return {
                model: [],
-               resource:'/api/seller/${id}',
-               params: {
+               resource:'/api/seller',
+               params: { 
                  per_page: 12,
                  page: 1,
                  q: '',
@@ -338,7 +338,7 @@
        },
        beforeRouteUpdate (to, from, next) {
            this.show = false
-           get(`/api/seller/${id}`)
+           get(`/api/seller/${to.params.id}`)
                .then(res => {
                    this.setData(res)
                    next()
@@ -346,7 +346,7 @@
                //catch 422
        },
        beforeRouteEnter(to, from, next) {
-           get(`/api/seller/{id}`)
+           get(`/api/seller/${to.params.id}`)
                .then(res => {
                    next(vm => vm.setData(res))
                })
@@ -365,6 +365,11 @@
      methods: {
        setData(res) {
          this.model = res.data.results;
+         this.successful_order = this.model.data.successful_order
+         this.total_earning = this.model.data.total_earning
+         this.total_orders = this.model.data.total_orders
+         this.total_products = this.model.data.total_products
+         console.log(this.model.data);
          this.params.per_page = this.model.per_page
          this.params.page = this.model.current_page
        },
@@ -374,7 +379,7 @@
          query.per_page = this.params.per_page
          query.page = 1
    
-         get(`/api/seller/{id}/?per_page=${this.params.per_page}&q=${this.params.q}`)
+         get(`/api/seller/${this.params.id}/?per_page=${this.params.per_page}&q=${this.params.q}`)
          .then(res => {
              this.setData(res)
          })
@@ -382,7 +387,7 @@
        nextPage() {
            if(this.model.next_page_url) {
                this.params.page = this.params.page ? this.params.page + 1 : 2
-               get(`/api/seller/{id}/?per_page=${this.params.per_page}&page=${this.params.page}&q=${this.params.q}`)
+               get(`/api/seller/${this.params.id}/?per_page=${this.params.per_page}&page=${this.params.page}&q=${this.params.q}`)
                .then(res => {
                    this.setData(res)
                })
@@ -391,7 +396,7 @@
        prevPage() {
            if(this.model.next_page_url) {
                this.params.page = this.params.page ? Number(this.params.page) - 1 : 1
-               get(`/api/seller/{id}/?per_page=${this.params.per_page}&page=${this.params.page}&q=${this.params.q}`)
+               get(`/api/seller/${this.params.id}/?per_page=${this.params.per_page}&page=${this.params.page}&q=${this.params.q}`)
                .then(res => {
                    this.setData(res)
                })

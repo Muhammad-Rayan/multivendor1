@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Seller;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Seller\Seller;
+use App\Models\User;
+use DB;
 
 class SellerController extends Controller
 {
@@ -105,26 +107,54 @@ class SellerController extends Controller
 
     public function allseller(Request $request)
     {
-        
-        if(request('per_page') == null){
-            $request->per_page = 12;
+        if(auth()->user()->is_admin == 1){
+            if(request('per_page') == null){
+                $request->per_page = 12;
+            }
+            $results = User::with('user_info')->when(request('q') ,function($q){
+                $q->where('name','like', '%'.request('q').'%');
+            })->where('is_seller','!=',null)->paginate($request->per_page);
+            return response()->json([ 'results' => $results ]);
+        }else{
+            return redirect()->back();
         }
-        $results = Seller::when(request('q') ,function($q){
-            $q->where('name','like', '%'.request('q').'%');
-        })->paginate($request->per_page);
-        return response()->json([ 'results' => $results ]);
+        
     
     }
-    public function show(Request $request)
+    public function show(Request $request , $id)
     {
+        
+        if(auth()->user()->is_admin == 1){
+            $results = User::with(['user_info','products','orders.items'])->findOrFail($id);
+            $data = [
+                'total_products' => $results->products->count(),
+                'total_orders' => $results->orders->count(),
+                'successful_order' =>  User::with(['orders'])->whereHas('orders',function($q){
+                    $q->where('delivery_status','Approved');
+                })->count(),
+                'total_earning' => 0,
+            ];
+            $results["data"] = $data;
+            // dd($results);
+            return response()->json([ 'results' => $results ]);
+        }else{
+            return redirect()->back();
+        }
+    
+    }
+    public function approve(Request $request)
+    {
+        $id = request('id');
+        $update_seller = User::findOrFail($id);
+        $update_seller->is_seller = 1;
+        $update_seller->save();
         
         if(request('per_page') == null){
             $request->per_page = 12;
         }
-        $results = Seller::when(request('q') ,function($q){
+        $results = User::with('user_info')->when(request('q') ,function($q){
             $q->where('name','like', '%'.request('q').'%');
-        })->paginate($request->per_page);
+        })->where('is_seller','!=',null)->paginate($request->per_page);
         return response()->json([ 'results' => $results ]);
-    
     }
 }

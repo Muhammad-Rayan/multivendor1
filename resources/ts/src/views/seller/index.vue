@@ -64,19 +64,24 @@
             <template v-for="(item, index) in model.data" :key="index">
               <tr>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
-                    {{ item.first_name }}
+                    <p v-if="item.user_info != null">{{ item.user_info.first_name }}</p>
+                    <p v-else></p>
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
-                    {{ item.last_name }}
+                  <p v-if="item.user_info != null">{{ item.user_info.last_name }}</p>
+                  <p v-else></p>
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
-                    {{ item.address }}
+                  <p v-if="item.user_info != null">{{ item.user_info.address }}</p>
+                  <p v-else></p>
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
-                    {{ item.shopname }}
+                  <p v-if="item.user_info != null">{{ item.user_info.shopname }}</p>
+                  <p v-else></p>
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
-                    {{ item.phone }}
+                  <p v-if="item.user_info != null">{{ item.user_info.phone }}</p>
+                  <p v-else></p>
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
                     {{ item.email }}
@@ -89,7 +94,10 @@
               
                 </td>
                  <td>
-                    <a @click="showItems(item.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" style="margin-left: -30px;">
+                    <a v-if="item.is_seller == 2" @click="approveItems(item.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" style="margin-left: -30px;">
+                   <i class="fas fa-check-square"></i>
+                  </a>
+                  <a v-else-if="item.is_seller == 3" @click="approveItems(item.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" style="margin-left: -30px;">
                    <i class="fas fa-check-square"></i>
                   </a>
                 </td>
@@ -243,6 +251,13 @@ export default ({
     showItems(id){
       window.location.href="/admin#/all_sellers/"+id
     },
+    approveItems(id){
+      get(`/api/seller/approve?id=${id}`)
+      .then(res => {
+          this.setData(res)
+          this.toast.success("Seller Approve Successfully");
+      })
+    }
 },
   setup() {
     const toast = useToast();

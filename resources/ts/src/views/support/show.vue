@@ -148,7 +148,6 @@ export default ({
     setData(res) {
         
       this.model = res.data.results;
-      console.log(this.model);
       this.form.customer_id = this.model.customer_id;
     },
 },
