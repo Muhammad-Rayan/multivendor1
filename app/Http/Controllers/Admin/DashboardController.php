@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -15,6 +16,11 @@ class DashboardController extends Controller
     public function index()
     {
         return view('app');
+    }
+
+    public function frontend()
+    {
+        return view('frontend_app');
     }
 
     /**
@@ -44,19 +50,8 @@ class DashboardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        $results = User::with(['user_info','products','orders.items'])->findOrFail($id);
-            $data = [
-                'total_products' => $results->products->count(),
-                'total_seller' => $results->is_Seller->count(),
-                'total_orders' => $results->orders->count(),
-                'total_Category' => $results->category->count(),
-                
-            ];
-            $results["data"] = $data;
-            // dd($results);
-            return response()->json([ 'results' => $results ]);
     }
 
     /**
@@ -91,5 +86,34 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function dashboard()
+    {
+        // if(auth()->user()->is_admin == 1){
+            $results = User::with(['user_info','products','orders.items'])->findOrFail(auth()->user()["id"]);
+        //     $data = [
+        //         'total_products' => $results->products->count(),
+        //         'total_seller' => $results->is_seller->count(),
+        //         'total_orders' => $results->orders->count(),
+        //         'total_Category' => $results->category->count(),
+                
+        //     ];
+        //     $results["data"] = $data;
+        // }
+        // else{
+        //     $results = User::with(['user_info','products','orders.items'])->findOrFail(auth()->user()->id);
+        //     $data = [
+        //         'total_products' => count($results->products),
+        //         'total_seller' => $results->is_seller->count(),
+        //         'total_orders' => $results->orders->count(),
+        //         'total_Category' => $results->category->count(),
+                
+        //     ];
+        //     $results["data"] = $data;
+        // }
+        
+        //     dd($results);
+            return response()->json([ 'results' => $results ]);
     }
 }

@@ -234,6 +234,18 @@ const routes: Array<RouteRecordRaw> = [
     ],
     
  },
+ {
+    path: "/frontend",
+    redirect: "/frontend_dashboard",
+    component: () => import("@/layout/FrontLayout.vue"),
+    children: [
+      {
+        path: "/frontend_dashboard",
+        name: "dashboard",
+        component: () => import("@/frontend_views/Dashboard.vue"),
+      },
+    ],
+  },
      
   
 ];
