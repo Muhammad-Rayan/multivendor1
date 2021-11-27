@@ -15,7 +15,7 @@ use App\Http\Controllers\Admin\Order\OrderController;
 use App\Http\Controllers\Admin\Refund\RefundController;
 use App\Http\Controllers\Admin\Support\SupportController;
 use App\Http\Controllers\Account\AccountController;
-
+use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\Admin\Seller\SellerController;
 
 /*
@@ -28,7 +28,9 @@ use App\Http\Controllers\Admin\Seller\SellerController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::group(['prefix' => '/'], function() {
+    Route::resource('/', HomeController::class);	
     Route::resource('login', AuthController::class);	
     Route::post('/login-data', [AuthController::class, 'show'])->name('login-data');
 });
