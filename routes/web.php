@@ -15,8 +15,8 @@ use App\Http\Controllers\Admin\Order\OrderController;
 use App\Http\Controllers\Admin\Refund\RefundController;
 use App\Http\Controllers\Admin\Support\SupportController;
 use App\Http\Controllers\Account\AccountController;
-
 use App\Http\Controllers\Admin\Seller\SellerController;
+use App\Http\Controllers\User\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +29,11 @@ use App\Http\Controllers\Admin\Seller\SellerController;
 |
 */
 Route::group(['prefix' => '/'], function() {
-    Route::resource('login', AuthController::class);	
+    Route::resource('/', HomeController::class);	
+});
+
+Route::group(['prefix' => 'login'], function() {
+    Route::resource('/', AuthController::class);	
     Route::post('/login-data', [AuthController::class, 'show'])->name('login-data');
 });
 Route::group(['prefix' => 'seller'], function() {
@@ -44,6 +48,7 @@ Auth::routes();
 
 // Route::group(['middleware' => 'AdminAuth'], function () {
     Route::get('/admin', [App\Http\Controllers\Admin\DashboardController::class,'index']);
+ Route::get('/frontend', [App\Http\Controllers\Admin\DashboardController::class,'frontend']);
 // });
 
 // Route::group(['middleware' => 'SellerAuth'], function () {
@@ -105,6 +110,8 @@ Route::group(['prefix' => 'api'], function() {
       
         });
 
+        Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class,'dashboard']);
+
 });
 
 
@@ -113,5 +120,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
-Route::get('{vue?}', [App\Http\Controllers\HomeController::class, 'vue'])->where('vue', '[\/\w\.-]*');
+// Route::get('{vue?}', [App\Http\Controllers\HomeController::class, 'vue'])->where('vue', '[\/\w\.-]*');
 
