@@ -15,8 +15,8 @@ use App\Http\Controllers\Admin\Order\OrderController;
 use App\Http\Controllers\Admin\Refund\RefundController;
 use App\Http\Controllers\Admin\Support\SupportController;
 use App\Http\Controllers\Account\AccountController;
+
 use App\Http\Controllers\Admin\Seller\SellerController;
-use App\Http\Controllers\User\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,11 +29,7 @@ use App\Http\Controllers\User\HomeController;
 |
 */
 Route::group(['prefix' => '/'], function() {
-    Route::resource('/', HomeController::class);	
-});
-
-Route::group(['prefix' => 'login'], function() {
-    Route::resource('/', AuthController::class);	
+    Route::resource('login', AuthController::class);	
     Route::post('/login-data', [AuthController::class, 'show'])->name('login-data');
 });
 Route::group(['prefix' => 'seller'], function() {
@@ -48,7 +44,7 @@ Auth::routes();
 
 // Route::group(['middleware' => 'AdminAuth'], function () {
     Route::get('/admin', [App\Http\Controllers\Admin\DashboardController::class,'index']);
- Route::get('/frontend', [App\Http\Controllers\Admin\DashboardController::class,'frontend']);
+    Route::get('/vuepro', [App\Http\Controllers\Admin\DashboardController::class,'frontend']);
 // });
 
 // Route::group(['middleware' => 'SellerAuth'], function () {

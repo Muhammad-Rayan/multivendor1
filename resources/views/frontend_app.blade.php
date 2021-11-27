@@ -8,7 +8,7 @@
 
    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
    
-    <link rel="stylesheet" type="text/css" href="frontend_styling/all.css">
+    <link rel="stylesheet" type="text/css" href="/frontend_styling/all.css">
 </head>
 
 <body style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
@@ -187,25 +187,25 @@
     <!-- End of Quick view -->
 
     <!-- Plugin JS File -->
-    <script src="frontend_styling/vendor/jquery/jquery.min.js"></script>
-    <script src="frontend_styling/vendor/sticky/sticky.js"></script>
-    <script src="frontend_styling/vendor/jquery.plugin/jquery.plugin.min.js"></script>
-    <script src="frontend_styling/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-    <script src="frontend_styling/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script src="frontend_styling/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="frontend_styling/vendor/zoom/jquery.zoom.js"></script>
-    <script src="frontend_styling/vendor/photoswipe/photoswipe.js"></script>
-    <script src="frontend_styling/vendor/photoswipe/photoswipe-ui-default.js"></script>
+    <script src="/frontend_styling/vendor/jquery/jquery.min.js"></script>
+    <script src="/frontend_styling/vendor/sticky/sticky.js"></script>
+    <script src="/frontend_styling/vendor/jquery.plugin/jquery.plugin.min.js"></script>
+    <script src="/frontend_styling/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="/frontend_styling/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="/frontend_styling/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="/frontend_styling/vendor/zoom/jquery.zoom.js"></script>
+    <script src="/frontend_styling/vendor/photoswipe/photoswipe.js"></script>
+    <script src="/frontend_styling/vendor/photoswipe/photoswipe-ui-default.js"></script>
 
     <!-- Swiper JS -->
-    <script src="frontend_styling/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="/frontend_styling/vendor/swiper/swiper-bundle.min.js"></script>
 
    <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
-   <script src="frontend_styling/js/main.js" type="text/javascript"></script>
-   <script src="frontend_styling/js/doc.js" type="text/javascript"></script>
-   <script src="frontend_styling/js/main.min.js" type="text/javascript"></script>
-   <script src="frontend_styling/js/webfont.js" type="text/javascript"></script>
-   <script src="frontend_styling/js/webfont.min.js" type="text/javascript"></script>
+   <script src="/frontend_styling/js/main.js" type="text/javascript"></script>
+   <script src="/frontend_styling/js/doc.js" type="text/javascript"></script>
+   <script src="/frontend_styling/js/main.min.js" type="text/javascript"></script>
+   <script src="/frontend_styling/js/webfont.js" type="text/javascript"></script>
+   <script src="/frontend_styling/js/webfont.min.js" type="text/javascript"></script>
 
 </body>
 </html>
