@@ -178,7 +178,7 @@
                                     <span>Browse Categories</span>
                                 </a>
 
-                                <div class="dropdown-box">
+                                <!-- <div class="dropdown-box">
                                     <ul class="menu vertical-menu category-menu">
                                         <li>
                                             <a href="shop-fullwidth-banner.html">
@@ -564,7 +564,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
                             </div>
                             <nav class="main-nav">
                                 <ul class="menu active-underline">

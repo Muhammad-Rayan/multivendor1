@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\Refund\RefundController;
 use App\Http\Controllers\Admin\Support\SupportController;
 use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\ProductController;
 use App\Http\Controllers\Admin\Seller\SellerController;
 
 /*
@@ -30,7 +31,8 @@ use App\Http\Controllers\Admin\Seller\SellerController;
 */
 
 Route::group(['prefix' => '/'], function() {
-    Route::resource('/', HomeController::class);	
+    Route::resource('/', HomeController::class);
+    // Route::resource('/products', ProductController::class);	
     Route::resource('login', AuthController::class);	
     Route::post('/login-data', [AuthController::class, 'show'])->name('login-data');
 });
@@ -53,18 +55,27 @@ Auth::routes();
     Route::get('/seller', [App\Http\Controllers\Admin\DashboardController::class,'index']);
 // });
 Route::group(['prefix' => 'api'], function() {
+    Route::get('/users/products/{id}', [ProductController::class,'show']);	
     Route::group(['prefix' => 'product'], function() {
         
         Route::resource('/', ProductlistController::class);
         Route::get('/{id}/edit', [ProductlistController::class,'edit']);
         Route::post('/{id}/update', [ProductlistController::class,'update']);
         Route::post('/{id}/delete', [ProductlistController::class,'destroy']);
+        Route::get('/categories/typeahead', [ProductCategoryController::class,'typeahead']);
         Route::resource('categories', ProductCategoryController::class);
         Route::post('categories/{id}/delete', [ProductCategoryController::class,'destroy']);
+        
+        Route::get('/attribute/typeahead', [AttributeController::class,'typeahead']);
         Route::resource('attribute', AttributeController::class);
         Route::post('attribute/{id}/delete', [AttributeController::class,'destroy']);
+        
+        
+        Route::get('/brand/typeahead', [BrandController::class,'typeahead']);
         Route::resource('brand', BrandController::class);
         Route::post('brand/{id}/delete', [BrandController::class,'destroy']);
+        
+        Route::get('/color/typeahead', [ColorController::class,'typeahead']);
         Route::resource('color', ColorController::class);
         Route::post('color/{id}/delete', [ColorController::class,'destroy']);
         Route::resource('inhouseproduct', InhouseproductController::class);

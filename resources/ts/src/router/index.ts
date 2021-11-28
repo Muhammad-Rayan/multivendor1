@@ -242,7 +242,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/frontend_dashboard",
         name: "dashboard",
-        component: () => import("@/frontend_views/Dashboard.vue"),
+        component: () => import("@/frontend_views/Products.vue"),
       },
     ],
   },

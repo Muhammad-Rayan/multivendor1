@@ -14,6 +14,13 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function typeahead(Request $request)
+    {
+        $results = brand::where('deleted',0)->where('active','1')->get();
+        return response()->json([ 'results' => $results ]);
+    }
+
     public function index(Request $request)
     {
         if(request('per_page') == null){

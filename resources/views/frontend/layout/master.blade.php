@@ -34,7 +34,6 @@
 
 <body class="home">
 <div class="page-wrapper">
-        <h1 class="d-none">Wolmart - Responsive Marketplace HTML Template</h1>
         <!-- Start of Header -->
         @include('frontend.includes.header')
     
