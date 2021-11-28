@@ -11,7 +11,7 @@ class Seller extends Model
     protected $table = 'user_information';
     protected $fillable = [
         'user_id', 'first_name', 'last_name', 'address', 'country_id', 'city_id', 
-        'postal_code', 'phone', 'email', 'shopname', 'shopaddress', 'seller_approved', 'deleted' 
+        'postal_code', 'phone', 'email', 'shopname', 'shopaddress', 'seller_approved', 'deleted' ,'image' 
     ];
 
 }
