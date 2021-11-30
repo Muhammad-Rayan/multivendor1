@@ -1,5 +1,11 @@
 @extends('frontend.layout.master')
 @section('content')
+<style>
+    .my-account .tab-content {
+  width: 100%; 
+ 
+}
+</style>
 <main class="main">
    <section class="intro-section">
       <div class="swiper-container swiper-theme nav-inner pg-inner swiper-nav-lg animation-slider pg-xxl-hide nav-xxl-show nav-hide"
@@ -910,9 +916,9 @@
                      <figure class="product-media">
                         <a href="product-default.html">
                         <img src="{{asset('productgallery') }}/{{ $newsell->capture_image }}" alt="Product"
-                           style="width: 231px;height: 148px;" />
+                           style="width: 231px;height: 225px;" />
                         <img src="https://portotheme.com/html/wolmart/assets/images/demos/demo1/products/3-1-2.jpg" alt="Product"
-                        style="width: 231px;height: 148px;" />
+                        style="width: 231px;height: 225px;" />
                         </a>
                         <div class="product-action-vertical">
                            <a href="{{ route('add.to.cart', $newsell->id) }}" class="btn-product-icon btn-cart w-icon-cart"
@@ -952,9 +958,9 @@
                      <figure class="product-media">
                         <a href="product-default.html">
                         <img src="{{asset('productgallery') }}/{{ $bestsell->capture_image }}" alt="Product"
-                           style="width: 231px;height: 148px;" />
+                           style="width: 231px;height: 225px;" />
                         <img src="https://portotheme.com/html/wolmart/assets/images/demos/demo1/products/3-1-2.jpg" alt="Product"
-                           style="width: 231px;height: 148px;" />
+                           style="width: 231px;height: 225px;" />
                         </a>
                         <div class="product-action-vertical">
                            <a href="{{ route('add.to.cart', $bestsell->id) }}" class="btn-product-icon btn-cart w-icon-cart"
@@ -994,9 +1000,9 @@
                      <figure class="product-media">
                         <a href="product-default.html">
                         <img src="{{asset('productgallery') }}/{{ $mostpop->capture_image }}" alt="Product"
-                           style="width: 231px;height: 148px;" />
+                           style="width: 231px;height: 225px;" />
                         <img src="https://portotheme.com/html/wolmart/assets/images/demos/demo1/products/3-6-2.jpg" alt="Product"
-                           style="width: 231px;height: 148px;" />
+                           style="width: 231px;height: 225px;" />
                         </a>
                         <div class="product-action-vertical">
                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -1037,9 +1043,9 @@
                      <figure class="product-media">
                         <a href="product-default.html">
                         <img src="{{asset('productgallery') }}/{{ $feat->capture_image }}" alt="Product"
-                           style="width: 231px;height: 148px;" />
+                           style="width: 231px;height: 225px;" />
                         <img src="https://portotheme.com/html/wolmart/assets/images/demos/demo1/products/3-1-2.jpg" alt="Product"
-                           style="width: 231px;height: 148px;" />
+                           style="width: 231px;height: 225px;" />
                         </a>
                         <div class="product-action-vertical">
                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -1140,7 +1146,7 @@
                      <figure class="product-media">
                         <a href="#">
                         <img src="{{asset('productgallery') }}/{{ $categ1->capture_image }}" alt="Product"
-                        style="height: 134px;width: 211px;" />
+                        style="height: 235px;width: 211px;" />
                         </a>
                         <div class="product-action-vertical">
                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -1207,7 +1213,7 @@
                      <figure class="product-media">
                         <a href="#">
                         <img src="{{asset('productgallery') }}/{{ $categ2->capture_image }}" alt="Product"
-                        style="height: 134px;width: 211px;" />
+                        style="height: 235px;width: 211px;" />
                         </a>
                         <div class="product-action-vertical">
                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -1302,7 +1308,7 @@
                      <figure class="product-media">
                         <a href="#">
                         <img src="{{asset('productgallery') }}/{{ $categ3->capture_image }}" alt="Product"
-                        style="height: 134px;width: 211px;" />
+                        style="height: 235px;width: 211px;" />
                         </a>
                         <div class="product-action-vertical">
                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"

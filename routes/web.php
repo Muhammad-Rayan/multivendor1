@@ -41,6 +41,10 @@ Route::group(['prefix' => '/'], function() {
     Route::delete('remove-from-cart', [HomeController::class, 'remove'])->name('remove.from.cart');        
     Route::get('userlogin',[HomeController::class, 'userlogin'])->name('Userlogin');	
     Route::post('/userlogin-data', [HomeController::class, 'userlogindata'])->name('Userlogin-data');
+    Route::get('/user-dashboard', [HomeController::class, 'userdashboard'])->name('user-dashboard');
+    Route::get('/order', [HomeController::class, 'order'])->name('order');
+    Route::get('/account-detail', [HomeController::class, 'accountdetail'])->name('account-detail');
+    
 });
 Route::group(['prefix' => 'seller'], function() {
     Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);

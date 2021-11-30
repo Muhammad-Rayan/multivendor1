@@ -32,7 +32,7 @@
 
 </head>
 
-<body class="home">
+<body class="my-account loaded home">
 <div class="page-wrapper">
         <!-- Start of Header -->
         @include('frontend.includes.header')

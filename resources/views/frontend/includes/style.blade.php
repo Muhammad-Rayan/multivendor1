@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/vendor/fontawesome-free/css/all.min.css')}}">
 
     <!-- Plugins CSS -->
-    <!-- <link rel="stylesheet" href="assets/vendor/swiper/swiper-bundle.min.css"> -->
+    <link rel="stylesheet" href="{{asset('frontend/assets/vendor/swiper/swiper-bundle.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/vendor/animate/animate.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/vendor/magnific-popup/magnific-popup.min.css')}}">
     <!-- Link Swiper's CSS -->
@@ -18,3 +18,4 @@
 
     <!-- Default CSS -->
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/demo1.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/Style.min.css')}}">

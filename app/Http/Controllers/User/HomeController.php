@@ -23,9 +23,9 @@ class HomeController extends Controller
         $best_seller = Productlist::limit(10)->orderby('id','asc')->get();
         $most_popular = Productlist::limit(10)->orderby('updated_at','desc')->get();
         $featured = Productlist::where('featured',1)->limit(10)->orderby('updated_at','desc')->get();
-        $categwise1 = Productlist::where('cat_id',1)->limit(8)->orderby('updated_at','desc')->get();
-        $categwise2= Productlist::where('cat_id',2)->limit(8)->orderby('updated_at','desc')->get();
-        $categwise3= Productlist::where('cat_id',3)->limit(8)->orderby('updated_at','desc')->get();
+        $categwise1 = Productlist::where('cat_id',25)->limit(8)->orderby('updated_at','desc')->get();
+        $categwise2= Productlist::where('cat_id',24)->limit(8)->orderby('updated_at','desc')->get();
+        $categwise3= Productlist::where('cat_id',23)->limit(8)->orderby('updated_at','desc')->get();
         $seller = Seller::limit(10)->orderby('id','desc')->get();
         $brand = Brand::limit(10)->orderby('id','desc')->get();
         
@@ -43,6 +43,19 @@ class HomeController extends Controller
         //
     }
     
+    public function userdashboard()
+    {
+        return view('frontend.pages.dashboard');
+    }
+    public function order()
+    {
+        return view('frontend.pages.order');
+    }
+    public function accountdetail()
+    {
+        return view('frontend.pages.accountdetail');
+    }
+
     public function cart()
     {
         return view('cart');
