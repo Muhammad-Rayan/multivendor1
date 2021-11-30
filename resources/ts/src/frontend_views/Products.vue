@@ -38,7 +38,7 @@
                                     <div class="product-thumbs-wrap swiper-container">
                                         <div class="product-thumbs swiper-wrapper row cols-4 gutter-sm">
                                             <div class="product-thumb swiper-slide" v-for="(images, index) in model.gallery" :key="index">
-                                                <img :src="`/productgallery/${images.image}`"
+                                                <img :src="`/meta_gallery/${images.image}`"
                                                     alt="Product Thumb" width="800" height="900">
                                             </div>
                                         </div>
@@ -68,7 +68,8 @@
 
                                     <hr class="product-divider">
 
-                                    <div class="product-price"><ins class="new-price">$ {{ model.price }}</ins></div>
+                                    <div class="product-price" v-if="model.discount != null" ><ins class="new-price"><span style="font-size: 21px;color: gray;text-decoration: line-through;">${{ model.price }}</span> <span style="color:red"> ${{ model.price - model.discount }} </span></ins></div>
+                                    <div class="product-price" v-else><ins class="new-price">$ {{ model.price }}</ins></div>
 
                                     <div class="ratings-container">
                                         <div class="ratings-full">
@@ -85,7 +86,7 @@
 
                                     <hr class="product-divider">
 
-                                    
+                                    <p style="line-height: 0;color: red;">Size: {{ this.variation_size }}</p>
                                     <div class="product-form product-variation-form product-size-swatch">
                                         <label class="mb-1">Size:</label>
                                         <div class="flex-wrap d-flex align-items-center product-variations"  v-for="(attribute, index) in attributes" :key="index">
@@ -94,6 +95,7 @@
                                         
                                     </div>
                                     <p v-if="attribute_error" style="color:red">Select Attribute First</p>
+                                    <p style="line-height: 0;color: red;">Color: {{ this.color_size }}</p>
                                     <div class="product-form product-variation-form product-color-swatch">
                                         <label>Color:</label>
                                         <div class="d-flex align-items-center product-variations" v-for="(color, index) in colors" :key="index" style="padding-right: 8px;">
@@ -111,36 +113,15 @@
                                             <div class="product-qty-form">
                                                 <div class="input-group">
                                                     <input class="quantity form-control" type="number" min="1"
-                                                        max="10000000">
-                                                    <button class="quantity-plus w-icon-plus"></button>
-                                                    <button class="quantity-minus w-icon-minus"></button>
+                                                        max="10000000" v-model="quantity">
+                                                    <button class="quantity-plus w-icon-plus" @click="quantity_plus"></button>
+                                                    <button class="quantity-minus w-icon-minus" @click="quantity_minus"></button>
                                                 </div>
                                             </div>
                                             <button class="btn btn-primary btn-cart">
                                                 <i class="w-icon-cart"></i>
                                                 <span>Add to Cart</span>
                                             </button>
-                                        </div>
-                                    </div>
-
-                                    <div class="social-links-wrapper">
-                                        <div class="social-links">
-                                            <div class="social-icons social-no-color border-thin">
-                                                <a href="#" class="social-icon social-facebook w-icon-facebook"></a>
-                                                <a href="#" class="social-icon social-twitter w-icon-twitter"></a>
-                                                <a href="#"
-                                                    class="social-icon social-pinterest fab fa-pinterest-p"></a>
-                                                <a href="#" class="social-icon social-whatsapp fab fa-whatsapp"></a>
-                                                <a href="#"
-                                                    class="social-icon social-youtube fab fa-linkedin-in"></a>
-                                            </div>
-                                        </div>
-                                        <span class="divider d-xs-show"></span>
-                                        <div class="product-link-wrapper d-flex">
-                                            <a href="#"
-                                                class="btn-product-icon btn-wishlist w-icon-heart"><span></span></a>
-                                            <a href="#"
-                                                class="btn-product-icon btn-compare btn-icon-left w-icon-compare"><span></span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -169,45 +150,38 @@
                                 </div>
                                 <div class="tab-pane" id="product-tab-vendor">
                                     <div class="row mb-3">
-                                        <div class="col-md-6 mb-4">
-                                            <figure class="vendor-banner br-sm">
-                                                <img src="assets/images/products/vendor-banner.jpg"
-                                                    alt="Vendor Banner" width="610" height="295"
-                                                    style="background-color: #353B55;" />
-                                            </figure>
-                                        </div>
-                                        <div class="col-md-6 pl-2 pl-md-6 mb-4">
+                                        
+                                        <div class="col-md-12 pl-2 pl-md-6 mb-4">
                                             <div class="vendor-user">
                                                 <figure class="vendor-logo mr-4">
-                                                    <a href="#">
+                                                    <a>
                                                         <img src="assets/images/products/vendor-logo.jpg"
                                                             alt="Vendor Logo" width="80" height="80" />
                                                     </a>
                                                 </figure>
                                                 <div>
-                                                    <div class="vendor-name"><a href="#">Jone Doe</a></div>
+                                                    <!-- <div class="vendor-name"><a v-if="users.user">{{ users.user.name }}</a></div> -->
                                                     <div class="ratings-container">
                                                         <div class="ratings-full">
                                                             <span class="ratings" style="width: 90%;"></span>
                                                             <span class="tooltiptext tooltip-top"></span>
                                                         </div>
-                                                        <a href="#" class="rating-reviews">(32 Reviews)</a>
+                                                        <a class="rating-reviews">(32 Reviews)</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <ul class="vendor-info list-style-none">
                                                 <li class="store-name">
                                                     <label>Store Name:</label>
-                                                    <span class="detail">OAIO Store</span>
+                                                    <!-- <span class="detail" v-if="users.user != null"><span v-if="users.user.user_info != null">{{ users.user.user_info.shopname }}</span></span> -->
                                                 </li>
                                                 <li class="store-address">
                                                     <label>Address:</label>
-                                                    <span class="detail">Steven Street, El Carjon, CA 92020, United
-                                                        States (US)</span>
+                                                    <!-- <span class="detail" v-if="users.user != null"><span v-if="users.user.user_info != null">{{ users.user.user_info.address }}</span></span> -->
                                                 </li>
                                                 <li class="store-phone">
                                                     <label>Phone:</label>
-                                                    <a href="#tel:">1234567890</a>
+                                                    <!-- <a v-if="users.user != null"><span v-if="users.user.user_info != null">{{ users.user.user_info.phone }}</span></a> -->
                                                 </li>
                                             </ul>
                                             <a href="vendor-dokan-store.html"
@@ -215,24 +189,7 @@
                                                 Store<i class="w-icon-long-arrow-right"></i></a>
                                         </div>
                                     </div>
-                                    <p class="mb-5"><strong class="text-dark">L</strong>orem ipsum dolor sit amet,
-                                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                                        dolore magna aliqua.
-                                        Venenatis tellus in metus vulputate eu scelerisque felis. Vel pretium
-                                        lectus quam id leo in vitae turpis massa. Nunc id cursus metus aliquam.
-                                        Libero id faucibus nisl tincidunt eget. Aliquam id diam maecenas ultricies
-                                        mi eget mauris. Volutpat ac tincidunt vitae semper quis lectus. Vestibulum
-                                        mattis ullamcorper velit sed. A arcu cursus vitae congue mauris.
-                                    </p>
-                                    <p class="mb-2"><strong class="text-dark">A</strong> arcu cursus vitae congue
-                                        mauris. Sagittis id consectetur purus
-                                        ut. Tellus rutrum tellus pellentesque eu tincidunt tortor aliquam nulla.
-                                        Diam in
-                                        arcu cursus euismod quis. Eget sit amet tellus cras adipiscing enim eu. In
-                                        fermentum et sollicitudin ac orci phasellus. A condimentum vitae sapien
-                                        pellentesque
-                                        habitant morbi tristique senectus et. In dictum non consectetur a erat. Nunc
-                                        scelerisque viverra mauris in aliquam sem fringilla.</p>
+                                    <p class="mb-5"></p>
                                 </div>
                                 <div class="tab-pane" id="product-tab-reviews">
                                     <div class="row mb-4">
@@ -404,7 +361,7 @@
                                                             </figure>
                                                             <div class="comment-content">
                                                                 <h4 class="comment-author">
-                                                                    <a href="#">John Doe</a>
+                                                                    <a >John Doe</a>
                                                                     <span class="comment-date">March 22, 2021 at
                                                                         1:54 pm</span>
                                                                 </h4>
@@ -423,11 +380,11 @@
                                                                     Cras ornare arcu dui vivamus arcu felis bibendum
                                                                     ut tristique.</p>
                                                                 <div class="comment-action">
-                                                                    <a href="#"
+                                                                    <a 
                                                                         class="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
                                                                         <i class="far fa-thumbs-up"></i>Helpful (1)
                                                                     </a>
-                                                                    <a href="#"
+                                                                    <a 
                                                                         class="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
                                                                         <i class="far fa-thumbs-down"></i>Unhelpful
                                                                         (0)
@@ -1203,167 +1160,23 @@
                                 </div>
                                 <!-- End of Widget Icon Box -->
 
-                                <div class="widget widget-banner mb-9">
-                                    <div class="banner banner-fixed br-sm">
-                                        <figure>
-                                            <img src="assets/images/shop/banner3.jpg" alt="Banner" width="266"
-                                                height="220" style="background-color: #1D2D44;" />
-                                        </figure>
-                                        <div class="banner-content">
-                                            <div class="banner-price-info font-weight-bolder text-white lh-1 ls-25">
-                                                40<sup class="font-weight-bold">%</sup><sub
-                                                    class="font-weight-bold text-uppercase ls-25">Off</sub>
-                                            </div>
-                                            <h4
-                                                class="banner-subtitle text-white font-weight-bolder text-uppercase mb-0">
-                                                Ultimate Sale</h4>
+                                <div class="widget widget-icon-box mb-6">
+                                    <div class="icon-box icon-box-side">
+                                        <span class="icon-box-icon text-dark">
+                                            <i class="w-icon-truck"></i>
+                                        </span>
+                                        <div class="icon-box-content">
+                                            <h4 class="icon-box-title" v-if="model.shipping_flatrate == 1" >{{ model.shipping_costrate }}</h4>
+                                            <h4 class="icon-box-title" v-if="model.free_shipping == 1" >Free Shipping</h4>
+                                            <p><b>{{ model.shippingdays }}</b> Shipping Days </p>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- End of Widget Banner -->
-
-                                <div class="widget widget-products">
-                                    <div class="title-link-wrapper mb-2">
-                                        <h4 class="title title-link font-weight-bold">More Products</h4>
-                                    </div>
-
-                                    <div class="swiper nav-top">
-                                        <div class="swiper-container swiper-theme nav-top" data-swiper-options = "{
-                                            'slidesPerView': 1,
-                                            'spaceBetween': 20,
-                                            'navigation': {
-                                                'prevEl': '.swiper-button-prev',
-                                                'nextEl': '.swiper-button-next'
-                                            }
-                                        }">
-                                            <div class="swiper-wrapper">
-                                                <div class="widget-col swiper-slide">
-                                                    <div class="product product-widget">
-                                                        <figure class="product-media">
-                                                            <a href="#">
-                                                                <img src="assets/images/shop/13.jpg" alt="Product"
-                                                                    width="100" height="113" />
-                                                            </a>
-                                                        </figure>
-                                                        <div class="product-details">
-                                                            <h4 class="product-name">
-                                                                <a href="#">Smart Watch</a>
-                                                            </h4>
-                                                            <div class="ratings-container">
-                                                                <div class="ratings-full">
-                                                                    <span class="ratings" style="width: 100%;"></span>
-                                                                    <span class="tooltiptext tooltip-top"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-price">$80.00 - $90.00</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product product-widget">
-                                                        <figure class="product-media">
-                                                            <a href="#">
-                                                                <img src="assets/images/shop/14.jpg" alt="Product"
-                                                                    width="100" height="113" />
-                                                            </a>
-                                                        </figure>
-                                                        <div class="product-details">
-                                                            <h4 class="product-name">
-                                                                <a href="#">Sky Medical Facility</a>
-                                                            </h4>
-                                                            <div class="ratings-container">
-                                                                <div class="ratings-full">
-                                                                    <span class="ratings" style="width: 80%;"></span>
-                                                                    <span class="tooltiptext tooltip-top"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-price">$58.00</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product product-widget">
-                                                        <figure class="product-media">
-                                                            <a href="#">
-                                                                <img src="assets/images/shop/15.jpg" alt="Product"
-                                                                    width="100" height="113" />
-                                                            </a>
-                                                        </figure>
-                                                        <div class="product-details">
-                                                            <h4 class="product-name">
-                                                                <a href="#">Black Stunt Motor</a>
-                                                            </h4>
-                                                            <div class="ratings-container">
-                                                                <div class="ratings-full">
-                                                                    <span class="ratings" style="width: 60%;"></span>
-                                                                    <span class="tooltiptext tooltip-top"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-price">$374.00</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-col swiper-slide">
-                                                    <div class="product product-widget">
-                                                        <figure class="product-media">
-                                                            <a href="#">
-                                                                <img src="assets/images/shop/16.jpg" alt="Product"
-                                                                    width="100" height="113" />
-                                                            </a>
-                                                        </figure>
-                                                        <div class="product-details">
-                                                            <h4 class="product-name">
-                                                                <a href="#">Skate Pan</a>
-                                                            </h4>
-                                                            <div class="ratings-container">
-                                                                <div class="ratings-full">
-                                                                    <span class="ratings" style="width: 100%;"></span>
-                                                                    <span class="tooltiptext tooltip-top"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-price">$278.00</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product product-widget">
-                                                        <figure class="product-media">
-                                                            <a href="#">
-                                                                <img src="assets/images/shop/17.jpg" alt="Product"
-                                                                    width="100" height="113" />
-                                                            </a>
-                                                        </figure>
-                                                        <div class="product-details">
-                                                            <h4 class="product-name">
-                                                                <a href="#">Modern Cooker</a>
-                                                            </h4>
-                                                            <div class="ratings-container">
-                                                                <div class="ratings-full">
-                                                                    <span class="ratings" style="width: 80%;"></span>
-                                                                    <span class="tooltiptext tooltip-top"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-price">$324.00</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product product-widget">
-                                                        <figure class="product-media">
-                                                            <a href="#">
-                                                                <img src="assets/images/shop/18.jpg" alt="Product"
-                                                                    width="100" height="113" />
-                                                            </a>
-                                                        </figure>
-                                                        <div class="product-details">
-                                                            <h4 class="product-name">
-                                                                <a href="#">CT Machine</a>
-                                                            </h4>
-                                                            <div class="ratings-container">
-                                                                <div class="ratings-full">
-                                                                    <span class="ratings" style="width: 100%;"></span>
-                                                                    <span class="tooltiptext tooltip-top"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-price">$236.00</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <button class="swiper-button-next"></button>
-                                            <button class="swiper-button-prev"></button>
+                                    <div class="icon-box icon-box-side" v-if="model.refund == 1">
+                                        <span class="icon-box-icon text-dark">
+                                            <i class="w-icon-bag"></i>
+                                        </span>
+                                        <div class="icon-box-content">
+                                            <h4 class="icon-box-title" v-if="model.refund == 1">Refundable in 10 Days</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -1410,6 +1223,7 @@ export default ({
             },
             attributes:{},
             colors:{},
+            users:{},
             isActive: true,
             hasError: false,
             activeClass: 'size',
@@ -1418,6 +1232,7 @@ export default ({
             attribute_error: false,
             variation_id: null,
             color_size: null,
+            quantity: 1,
         }
     },
     created() {
@@ -1496,11 +1311,18 @@ export default ({
     },
     setData(res) {
       this.model = res.data.results;
-      console.log(this.model);
       this.attributes = res.data.attribute_items;
       this.colors = res.data.colors;
+      this.users = res.data.users;
+      console.log(res.data);
     //   this.testlength = res.data.results.items;
     },
+    quantity_minus(){
+        this.quantity--
+    },
+    quantity_plus(){
+        this.quantity++
+    }
 },
   setup() {
     const toast = useToast();

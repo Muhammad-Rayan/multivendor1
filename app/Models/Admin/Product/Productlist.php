@@ -12,7 +12,7 @@ use App\Models\Admin\Product\Color;
 use App\Models\Admin\Product\Attribute;
 use App\Models\Admin\Product\AttributeItems;
 use App\Models\Admin\Product\GalleryImage;
-
+use App\Models\User;
 
 class Productlist extends Model
 {
@@ -57,6 +57,10 @@ class Productlist extends Model
     public function attribute()
     {
         return $this->belongsTo(Attribute::class, 'color_id', 'id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public function attribute_items()
     {

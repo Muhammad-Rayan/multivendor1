@@ -58,6 +58,8 @@ class ProductController extends Controller
         ->where('deleted',0)->where('active','1')
         ->paginate($request->per_page);
 
+        $users = Productlist::with(['user.user_info'])->first();
+
         $categories = ProductCategory::where('deleted',0)->where('active','1')->orderBy('id','desc')->limit(6)->get();
         $size = AttributeItems::orderBy('id','desc')->limit(6)->get();
         $brand = Brand::where('deleted',0)->where('active','1')->orderBy('id','desc')->limit(6)->get();
@@ -68,7 +70,8 @@ class ProductController extends Controller
             'categories' => $categories,
             'size' => $size,
             'brand' => $brand,
-            'color' => $color
+            'color' => $color,
+            'users' => $users
          ]);  
     }
 
@@ -114,12 +117,15 @@ class ProductController extends Controller
         $attribute_items = $product_items->pluck('attribute_items');
         $attribute_items_code = $attribute_items->pluck('value')->toArray();
         $attribute_items_unique = array_unique($attribute_items_code);
+        $users = Productlist::with(['user.user_info'])->where('parent_id',null)
+        ->findOrFail($id);
 
 
         return response()->json([ 
             'results' => $results,
             'colors' => $colors_unique,
-            'attribute_items' => $attribute_items_unique
+            'attribute_items' => $attribute_items_unique,
+            'users' => $users
          ]);   
     }
     public function variation($id){
