@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Product\ProductCategory;
 use App\Models\Admin\Product\Productlist;
-
+use App\Models\Admin\Product\Brand;
 use App\Models\Admin\Seller\Seller;
 
 class HomeController extends Controller
@@ -27,9 +27,10 @@ class HomeController extends Controller
         $categwise2= Productlist::where('cat_id',2)->limit(8)->orderby('updated_at','desc')->get();
         $categwise3= Productlist::where('cat_id',3)->limit(8)->orderby('updated_at','desc')->get();
         $seller = Seller::limit(10)->orderby('id','desc')->get();
+        $brand = Brand::limit(10)->orderby('id','desc')->get();
         
         return view('frontend.pages.index',compact('top_category','new_seller','best_seller',
-        'most_popular','featured','categwise1','categwise2','categwise3','seller'));
+        'most_popular','featured','categwise1','categwise2','categwise3','seller','brand'));
     }
 
     /**
@@ -40,6 +41,74 @@ class HomeController extends Controller
     public function create()
     {
         //
+    }
+    
+    public function cart()
+    {
+        return view('cart');
+    }
+    public function userlogin()
+    {
+      
+        return view('frontend.pages.login');
+    }
+
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function addToCart($id)
+    {
+        $product = Productlist::findOrFail($id);
+          
+        $cart = session()->get('cart', []);
+  
+        if(isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = [
+                "name" => $product->name,
+                "quantity" => 1,
+                "price" => $product->price,
+                "image" => $product->image
+            ];
+        }
+          
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
+  
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function update(Request $request)
+    {
+        if($request->id && $request->quantity){
+            $cart = session()->get('cart');
+            $cart[$request->id]["quantity"] = $request->quantity;
+            session()->put('cart', $cart);
+            session()->flash('success', 'Cart updated successfully');
+        }
+    }
+  
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function remove(Request $request)
+    {
+        if($request->id) {
+            $cart = session()->get('cart');
+            if(isset($cart[$request->id])) {
+                unset($cart[$request->id]);
+                session()->put('cart', $cart);
+            }
+            session()->flash('success', 'Product removed successfully');
+        }
     }
 
     /**
@@ -75,17 +144,6 @@ class HomeController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.

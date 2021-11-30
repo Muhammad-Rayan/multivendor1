@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+use App\Models\Admin\Product\Productlist;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +24,23 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-    }
+    //     $product = Productlist::findOrFail($id);
+          
+    //     $cart = session()->get('cart', []);
+  
+    //     if(isset($cart[$id])) {
+    //         $cart[$id]['quantity']++;
+    //     } else {
+    //         $cart[$id] = [
+    //             "name" => $product->name,
+    //             "quantity" => 1,
+    //             "price" => $product->price,
+    //             "image" => $product->image
+    //         ];
+    //     }
+          
+    //     session()->put('cart', $cart);
+    //     return redirect()->back()->with('success', 'Product added to cart successfully!');
+
+     }
 }

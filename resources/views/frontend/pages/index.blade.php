@@ -910,12 +910,12 @@
                      <figure class="product-media">
                         <a href="product-default.html">
                         <img src="{{asset('productgallery') }}/{{ $newsell->capture_image }}" alt="Product"
-                           width="300" height="338" />
+                           style="width: 231px;height: 148px;" />
                         <img src="https://portotheme.com/html/wolmart/assets/images/demos/demo1/products/3-1-2.jpg" alt="Product"
-                           width="300" height="338" />
+                        style="width: 231px;height: 148px;" />
                         </a>
                         <div class="product-action-vertical">
-                           <a href="#" class="btn-product-icon btn-cart w-icon-cart"
+                           <a href="{{ route('add.to.cart', $newsell->id) }}" class="btn-product-icon btn-cart w-icon-cart"
                               title="Add to cart"></a>
                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                               title="Add to wishlist"></a>
@@ -952,12 +952,12 @@
                      <figure class="product-media">
                         <a href="product-default.html">
                         <img src="{{asset('productgallery') }}/{{ $bestsell->capture_image }}" alt="Product"
-                           width="300" height="338" />
+                           style="width: 231px;height: 148px;" />
                         <img src="https://portotheme.com/html/wolmart/assets/images/demos/demo1/products/3-1-2.jpg" alt="Product"
-                           width="300" height="338" />
+                           style="width: 231px;height: 148px;" />
                         </a>
                         <div class="product-action-vertical">
-                           <a href="#" class="btn-product-icon btn-cart w-icon-cart"
+                           <a href="{{ route('add.to.cart', $bestsell->id) }}" class="btn-product-icon btn-cart w-icon-cart"
                               title="Add to cart"></a>
                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                               title="Add to wishlist"></a>
@@ -994,9 +994,9 @@
                      <figure class="product-media">
                         <a href="product-default.html">
                         <img src="{{asset('productgallery') }}/{{ $mostpop->capture_image }}" alt="Product"
-                           width="300" height="338" />
+                           style="width: 231px;height: 148px;" />
                         <img src="https://portotheme.com/html/wolmart/assets/images/demos/demo1/products/3-6-2.jpg" alt="Product"
-                           width="300" height="338" />
+                           style="width: 231px;height: 148px;" />
                         </a>
                         <div class="product-action-vertical">
                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -1037,9 +1037,9 @@
                      <figure class="product-media">
                         <a href="product-default.html">
                         <img src="{{asset('productgallery') }}/{{ $feat->capture_image }}" alt="Product"
-                           width="300" height="338" />
+                           style="width: 231px;height: 148px;" />
                         <img src="https://portotheme.com/html/wolmart/assets/images/demos/demo1/products/3-1-2.jpg" alt="Product"
-                           width="300" height="338" />
+                           style="width: 231px;height: 148px;" />
                         </a>
                         <div class="product-action-vertical">
                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -1140,7 +1140,7 @@
                      <figure class="product-media">
                         <a href="#">
                         <img src="{{asset('productgallery') }}/{{ $categ1->capture_image }}" alt="Product"
-                           width="216" height="243" />
+                        style="height: 134px;width: 211px;" />
                         </a>
                         <div class="product-action-vertical">
                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -1207,7 +1207,7 @@
                      <figure class="product-media">
                         <a href="#">
                         <img src="{{asset('productgallery') }}/{{ $categ2->capture_image }}" alt="Product"
-                           width="216" height="243" />
+                        style="height: 134px;width: 211px;" />
                         </a>
                         <div class="product-action-vertical">
                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -1302,7 +1302,7 @@
                      <figure class="product-media">
                         <a href="#">
                         <img src="{{asset('productgallery') }}/{{ $categ3->capture_image }}" alt="Product"
-                           width="216" height="243" />
+                        style="height: 134px;width: 211px;" />
                         </a>
                         <div class="product-action-vertical">
                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -1374,120 +1374,26 @@
          }
          }
          }">
+         
          <div class="swiper-wrapper row cols-xl-8 cols-lg-6 cols-md-4 cols-2">
+         @foreach($brand as $bran) 
             <div class="swiper-slide product-wrap mb-0">
                <div class="product text-center product-absolute">
-                  <figure class="product-media">
+                  <figure class="product-media" style="height: 100px;width: 150px;">
                      <a href="product-defaproduct-default.html">
-                     <img src="https://portotheme.com/html/wolmart/assets/images/demos/demo1/products/7-1.jpg" alt="Category image"
-                        width="130" height="146" style="background-color: #fff" />
+                     <img src="{{asset('brand') }}/{{ $bran->image }}" style="height: 100px;width: 150px;" alt="Category image"
+                        style="background-color: #fff" />
                      </a>
                   </figure>
                   <h4 class="product-name">
-                     <a href="product-default.html">Women's Fashion Handbag</a>
+                     <a href="product-default.html">{{ $bran->name }}</a>
                   </h4>
                </div>
             </div>
-            <!-- End of Product Wrap -->
-            <div class="swiper-slide product-wrap mb-0">
-               <div class="product text-center product-absolute">
-                  <figure class="product-media">
-                     <a href="product-defaproduct-default.html">
-                     <img src="https://portotheme.com/html/wolmart/assets/images/demos/demo1/products/7-2.jpg" alt="Category image"
-                        width="130" height="146" style="background-color: #fff" />
-                     </a>
-                  </figure>
-                  <h4 class="product-name">
-                     <a href="product-default.html">Electric Frying Pan</a>
-                  </h4>
-               </div>
-            </div>
-            <!-- End of Product Wrap -->
-            <div class="swiper-slide product-wrap mb-0">
-               <div class="product text-center product-absolute">
-                  <figure class="product-media">
-                     <a href="product-defaproduct-default.html">
-                     <img src="https://portotheme.com/html/wolmart/assets/images/demos/demo1/products/7-3.jpg" alt="Category image"
-                        width="130" height="146" style="background-color: #fff" />
-                     </a>
-                  </figure>
-                  <h4 class="product-name">
-                     <a href="product-default.html">Black Winter Skating</a>
-                  </h4>
-               </div>
-            </div>
-            <!-- End of Product Wrap -->
-            <div class="swiper-slide product-wrap mb-0">
-               <div class="product text-center product-absolute">
-                  <figure class="product-media">
-                     <a href="product-defaproduct-default.html">
-                     <img src="https://portotheme.com/html/wolmart/assets/images/demos/demo1/products/7-4.jpg" alt="Category image"
-                        width="130" height="146" style="background-color: #fff" />
-                     </a>
-                  </figure>
-                  <h4 class="product-name">
-                     <a href="product-default.html">HD Television</a>
-                  </h4>
-               </div>
-            </div>
-            <!-- End of Product Wrap -->
-            <div class="swiper-slide product-wrap mb-0">
-               <div class="product text-center product-absolute">
-                  <figure class="product-media">
-                     <a href="product-defaproduct-default.html">
-                     <img src="https://portotheme.com/html/wolmart/assets/images/demos/demo1/products/7-5.jpg" alt="Category image"
-                        width="130" height="146" style="background-color: #fff" />
-                     </a>
-                  </figure>
-                  <h4 class="product-name">
-                     <a href="product-default.html">Home Sofa</a>
-                  </h4>
-               </div>
-            </div>
-            <!-- End of Product Wrap -->
-            <div class="swiper-slide product-wrap mb-0">
-               <div class="product text-center product-absolute">
-                  <figure class="product-media">
-                     <a href="product-defaproduct-default.html">
-                     <img src="https://portotheme.com/html/wolmart/assets/images/demos/demo1/products/7-6.jpg" alt="Category image"
-                        width="130" height="146" style="background-color: #fff" />
-                     </a>
-                  </figure>
-                  <h4 class="product-name">
-                     <a href="product-default.html">USB Receipt</a>
-                  </h4>
-               </div>
-            </div>
-            <!-- End of Product Wrap -->
-            <div class="swiper-slide product-wrap mb-0">
-               <div class="product text-center product-absolute">
-                  <figure class="product-media">
-                     <a href="product-defaproduct-default.html">
-                     <img src="https://portotheme.com/html/wolmart/assets/images/demos/demo1/products/7-7.jpg" alt="Category image"
-                        width="130" height="146" style="background-color: #fff" />
-                     </a>
-                  </figure>
-                  <h4 class="product-name">
-                     <a href="product-default.html">Electric Rice-Cooker</a>
-                  </h4>
-               </div>
-            </div>
-            <!-- End of Product Wrap -->
-            <div class="swiper-slide product-wrap mb-0">
-               <div class="product text-center product-absolute">
-                  <figure class="product-media">
-                     <a href="product-defaproduct-default.html">
-                     <img src="https://portotheme.com/html/wolmart/assets/images/demos/demo1/products/7-8.jpg" alt="Category image"
-                        width="130" height="146" style="background-color: #fff" />
-                     </a>
-                  </figure>
-                  <h4 class="product-name">
-                     <a href="product-default.html">Table Lamp</a>
-                  </h4>
-               </div>
-            </div>
-            <!-- End of Product Wrap -->
+            @endforeach
+        
          </div>
+        
          <div class="swiper-pagination"></div>
       </div>
       <!-- End of Reviewed Producs -->
