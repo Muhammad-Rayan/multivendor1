@@ -40,7 +40,7 @@ Route::group(['prefix' => '/'], function() {
     Route::patch('update-cart', [HomeController::class, 'update'])->name('update.cart');
     Route::delete('remove-from-cart', [HomeController::class, 'remove'])->name('remove.from.cart');        
     Route::get('userlogin',[HomeController::class, 'userlogin'])->name('Userlogin');	
-    Route::post('/userlogin-data', [HomeController::class, 'userlogindata'])->name('Userlogin-data')
+    Route::post('/userlogin-data', [HomeController::class, 'userlogindata'])->name('Userlogin-data');
 });
 Route::group(['prefix' => 'seller'], function() {
     Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
