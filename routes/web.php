@@ -35,6 +35,12 @@ Route::group(['prefix' => '/'], function() {
     // Route::resource('/products', ProductController::class);	
     Route::resource('login', AuthController::class);	
     Route::post('/login-data', [AuthController::class, 'show'])->name('login-data');
+    Route::get('cart', [HomeController::class, 'cart'])->name('cart');
+    Route::get('add-to-cart/{id}', [HomeController::class, 'addToCart'])->name('add.to.cart');
+    Route::patch('update-cart', [HomeController::class, 'update'])->name('update.cart');
+    Route::delete('remove-from-cart', [HomeController::class, 'remove'])->name('remove.from.cart');        
+    Route::get('userlogin',[HomeController::class, 'userlogin'])->name('Userlogin');	
+    Route::post('/userlogin-data', [HomeController::class, 'userlogindata'])->name('Userlogin-data')
 });
 Route::group(['prefix' => 'seller'], function() {
     Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
@@ -55,7 +61,10 @@ Auth::routes();
     Route::get('/seller', [App\Http\Controllers\Admin\DashboardController::class,'index']);
 // });
 Route::group(['prefix' => 'api'], function() {
+    Route::get('/users/products', [ProductController::class,'index']);	
     Route::get('/users/products/{id}', [ProductController::class,'show']);	
+    Route::get('/users/products/variation/{id}', [ProductController::class,'variation']);
+    Route::get('/users/products/attribute/{id}', [ProductController::class,'attribute']);	
     Route::group(['prefix' => 'product'], function() {
         
         Route::resource('/', ProductlistController::class);

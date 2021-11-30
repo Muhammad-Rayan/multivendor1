@@ -86,12 +86,12 @@ class ProductlistController extends Controller
         $model->user_id = auth()->user()->id;
         $model->slug = \Str::slug($request->name);
         if($request->capture_image != null){
-            $imageName = time().'.'.$request->capture_image->getClientOriginalExtension();
+            $imageName = uniqid().'.'.$request->capture_image->getClientOriginalExtension();
             $request->capture_image->move(public_path('productgallery'), $imageName);
             $model->capture_image = $imageName;
         }
         if($request->meta_image != null){
-            $imageName = time().'.'.$request->meta_image->getClientOriginalExtension();
+            $imageName = uniqid().'.'.$request->meta_image->getClientOriginalExtension();
             $request->meta_image->move(public_path('meta_gallery'), $imageName);
             $model->meta_image = $imageName;
         }
@@ -100,7 +100,7 @@ class ProductlistController extends Controller
             if($request->gallery_image != null){
                 foreach($request->gallery_image as $gallery_img){
                     $gallery_image = new GalleryImage;
-                    $imageName = time().'.'.$gallery_img->getClientOriginalExtension();
+                    $imageName = uniqid().'.'.$gallery_img->getClientOriginalExtension();
                     $gallery_img->move(public_path('meta_gallery'), $imageName);
                     $gallery_image->image = $imageName;
                     $gallery_image->product_id = $model->id;
@@ -125,9 +125,18 @@ class ProductlistController extends Controller
                     $products->discount = $product_items["discount"];
                     $products->qty = $product_items["qty"];
                     $products->parent_id = $model["id"];
-                    $imageName = time().'.'.$product_items["capture_image"]->getClientOriginalExtension();
+                    $imageName = uniqid().'.'.$product_items["capture_image"]->getClientOriginalExtension();
                     $product_items["capture_image"]->move(public_path('productgallery'), $imageName);
                     $products->capture_image = $imageName;
+
+                    $products->name = $model["name"];
+                    $products->cat_id = $model["cat_id"];
+                    $products->brand_id = $model["brand_id"];
+                    $products->gallery_id = $model["gallery_id"];
+                    $products->description = $model["description"];
+                    $products->user_id = $model["user_id"];
+                    $products->short_description = $model["short_description"];
+
                     $products->save();
                 }
             }
@@ -187,7 +196,7 @@ class ProductlistController extends Controller
         $model->slug = \Str::slug($request->name);
         if($request->capture_image != null){
             if($request->capture_image != $model->capture_image){
-                $imageName = time().'.'.$request->capture_image->getClientOriginalExtension();
+                $imageName = uniqid().'.'.$request->capture_image->getClientOriginalExtension();
                 $request->capture_image->move(public_path('productgallery'), $imageName);
                 $model->capture_image = $imageName;
             }
@@ -195,7 +204,7 @@ class ProductlistController extends Controller
         }
         if($request->meta_image != null){
             if($request->meta_image != $model->meta_image){
-                $imageName = time().'.'.$request->meta_image->getClientOriginalExtension();
+                $imageName = uniqid().'.'.$request->meta_image->getClientOriginalExtension();
                 $request->meta_image->move(public_path('meta_gallery'), $imageName);
                 $model->meta_image = $imageName;
             }
@@ -210,7 +219,7 @@ class ProductlistController extends Controller
                 foreach($request->gallery_image as $gallery_img){
                     $gallery_image = new GalleryImage;
                     
-                    $imageName = time().'.'.$gallery_img->getClientOriginalExtension();
+                    $imageName = uniqid().'.'.$gallery_img->getClientOriginalExtension();
                     $gallery_img->move(public_path('meta_gallery'), $imageName);
                     $gallery_image->image = $imageName;
                     $gallery_image->product_id = $model->id;
@@ -240,7 +249,7 @@ class ProductlistController extends Controller
             //         $products->discount = $product_items["discount"];
             //         $products->qty = $product_items["qty"];
             //         $products->parent_id = $model["id"];
-            //         $imageName = time().'.'.$product_items["capture_image"]->getClientOriginalExtension();
+            //         $imageName = uniqid().'.'.$product_items["capture_image"]->getClientOriginalExtension();
             //         $product_items["capture_image"]->move(public_path('productgallery'), $imageName);
             //         $products->capture_image = $imageName;
             //         $products->save();

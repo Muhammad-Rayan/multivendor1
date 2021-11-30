@@ -16,110 +16,59 @@
                                         <div class="swiper-wrapper row cols-1 gutter-no">
                                             <div class="swiper-slide">
                                                 <figure class="product-image">
-                                                    <img src="https://portotheme.com/html/wolmart/assets/images/products/default/1-800x900.jpg"
-                                                        data-zoom-image="https://portotheme.com/html/wolmart/assets/images/products/default/1-800x900.jpg"
-                                                        alt="Electronics Black Wrist Watch" width="800" height="900">
+                                                    <img :src="`/productgallery/${model.capture_image}`"
+                                                        :alt="model.name" width="800" height="900">
                                                 </figure>
                                             </div>
-                                            <div class="swiper-slide">
-                                                <figure class="product-image">
-                                                    <img src="assets/images/products/default/2-800x900.jpg"
-                                                        data-zoom-image="assets/images/products/default/2-800x900.jpg"
-                                                        alt="Electronics Black Wrist Watch" width="488" height="549">
-                                                </figure>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <figure class="product-image">
-                                                    <img src="assets/images/products/default/3-800x900.jpg"
-                                                        data-zoom-image="assets/images/products/default/3-800x900.jpg"
-                                                        alt="Electronics Black Wrist Watch" width="800" height="900">
-                                                </figure>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <figure class="product-image">
-                                                    <img src="assets/images/products/default/4-800x900.jpg"
-                                                        data-zoom-image="assets/images/products/default/4-800x900.jpg"
-                                                        alt="Electronics Black Wrist Watch" width="800" height="900">
-                                                </figure>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <figure class="product-image">
-                                                    <img src="assets/images/products/default/5-800x900.jpg"
-                                                        data-zoom-image="assets/images/products/default/5-800x900.jpg"
-                                                        alt="Electronics Black Wrist Watch" width="800" height="900">
-                                                </figure>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <figure class="product-image">
-                                                    <img src="assets/images/products/default/6-800x900.jpg"
-                                                        data-zoom-image="assets/images/products/default/6-800x900.jpg"
-                                                        alt="Electronics Black Wrist Watch" width="800" height="900">
-                                                </figure>
-                                            </div>
+                                            <template>
+                                                <div class="swiper-slide">
+                                                    <figure class="product-image">
+                                                        <img src="assets/images/products/default/2-800x900.jpg"
+                                                            data-zoom-image="assets/images/products/default/2-800x900.jpg"
+                                                            alt="Electronics Black Wrist Watch" width="488" height="549">
+                                                    </figure>
+                                                </div>
+                                            </template>
+                                            
                                         </div>
                                         <button class="swiper-button-next"></button>
                                         <button class="swiper-button-prev"></button>
                                         <a href="#" class="product-gallery-btn product-image-full"><i class="w-icon-zoom"></i></a>
                                     </div>
-                                    <div class="product-thumbs-wrap swiper-container" data-swiper-options="{
-                                        'navigation': {
-                                            'nextEl': '.swiper-button-next',
-                                            'prevEl': '.swiper-button-prev'
-                                        }
-                                    }">
+                                    <div class="product-thumbs-wrap swiper-container">
                                         <div class="product-thumbs swiper-wrapper row cols-4 gutter-sm">
-                                            <div class="product-thumb swiper-slide">
-                                                <img src="https://portotheme.com/html/wolmart/assets/images/products/default/1-800x900.jpg"
-                                                    alt="Product Thumb" width="800" height="900">
-                                            </div>
-                                            <div class="product-thumb swiper-slide">
-                                                <img src="assets/images/products/default/2-800x900.jpg"
-                                                    alt="Product Thumb" width="800" height="900">
-                                            </div>
-                                            <div class="product-thumb swiper-slide">
-                                                <img src="assets/images/products/default/3-800x900.jpg"
-                                                    alt="Product Thumb" width="800" height="900">
-                                            </div>
-                                            <div class="product-thumb swiper-slide">
-                                                <img src="assets/images/products/default/4-800x900.jpg"
-                                                    alt="Product Thumb" width="800" height="900">
-                                            </div>
-                                            <div class="product-thumb swiper-slide">
-                                                <img src="assets/images/products/default/5-800x900.jpg"
-                                                    alt="Product Thumb" width="800" height="900">
-                                            </div>
-                                            <div class="product-thumb swiper-slide">
-                                                <img src="assets/images/products/default/6-800x900.jpg"
+                                            <div class="product-thumb swiper-slide" v-for="(images, index) in model.gallery" :key="index">
+                                                <img :src="`/productgallery/${images.image}`"
                                                     alt="Product Thumb" width="800" height="900">
                                             </div>
                                         </div>
-                                        <button class="swiper-button-next"></button>
-                                        <button class="swiper-button-prev"></button>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-4 mb-md-6">
                                 <div class="product-details" data-sticky-options="{'minWidth': 767}">
-                                    <h1 class="product-title">Electronics Black Wrist Watch</h1>
+                                    <h1 class="product-title" style="font-size: 21px;">{{ model.name }}</h1>
                                     <div class="product-bm-wrapper">
-                                        <figure class="brand">
-                                            <img src="assets/images/products/brand/brand-1.jpg" alt="Brand"
+                                        <figure class="brand" v-if="model.brand">
+                                            <img :src="`/brands/${model.brand.image}`" alt="Brand"
                                                 width="102" height="48" />
                                         </figure>
+                                        <figure class="brand" v-else>
+                                        </figure>
                                         <div class="product-meta">
-                                            <div class="product-categories">
+                                            <div class="product-categories" v-if="model.cat">
                                                 Category:
-                                                <span class="product-category"><a href="#">Electronics</a></span>
+                                                <span class="product-category"><a href="#">{{ model.cat.name }}</a></span>
                                             </div>
-                                            <div class="product-sku">
+                                            <!-- <div class="product-sku">
                                                 SKU: <span>MS46891340</span>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
 
                                     <hr class="product-divider">
 
-                                    <div class="product-price"><ins class="new-price">$40.00</ins></div>
+                                    <div class="product-price"><ins class="new-price">$ {{ model.price }}</ins></div>
 
                                     <div class="ratings-container">
                                         <div class="ratings-full">
@@ -131,34 +80,26 @@
                                     </div>
 
                                     <div class="product-short-desc">
-                                        <ul class="list-type-check list-style-none">
-                                            <li>Ultrices eros in cursus turpis massa cursus mattis.</li>
-                                            <li>Volutpat ac tincidunt vitae semper quis lectus.</li>
-                                            <li>Aliquam id diam maecenas ultricies mi eget mauris.</li>
-                                        </ul>
+                                        <p class="mb-4">{{ model.short_description }}</p>
                                     </div>
 
                                     <hr class="product-divider">
 
-                                    <div class="product-form product-variation-form product-color-swatch">
-                                        <label>Color:</label>
-                                        <div class="d-flex align-items-center product-variations">
-                                            <a href="#" class="color" style="background-color: #ffcc01"></a>
-                                            <a href="#" class="color" style="background-color: #ca6d00;"></a>
-                                            <a href="#" class="color" style="background-color: #1c93cb;"></a>
-                                            <a href="#" class="color" style="background-color: #ccc;"></a>
-                                            <a href="#" class="color" style="background-color: #333;"></a>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="product-form product-variation-form product-size-swatch">
                                         <label class="mb-1">Size:</label>
-                                        <div class="flex-wrap d-flex align-items-center product-variations">
-                                            <a href="#" class="size">Small</a>
-                                            <a href="#" class="size">Medium</a>
-                                            <a href="#" class="size">Large</a>
-                                            <a href="#" class="size">Extra Large</a>
+                                        <div class="flex-wrap d-flex align-items-center product-variations"  v-for="(attribute, index) in attributes" :key="index">
+                                            <a class="size border" style="margin-right: 7px;" @click="attributeActive($event , index,model.parent_id,model.id)">{{ attribute }}</a>
                                         </div>
-                                        <a href="#" class="product-variation-clean">Clean All</a>
+                                        
+                                    </div>
+                                    <p v-if="attribute_error" style="color:red">Select Attribute First</p>
+                                    <div class="product-form product-variation-form product-color-swatch">
+                                        <label>Color:</label>
+                                        <div class="d-flex align-items-center product-variations" v-for="(color, index) in colors" :key="index" style="padding-right: 8px;">
+                                            <a class="color bordercolor"  :style="{ background: ['#', color] }" @click="colorActive($event , index,model.parent_id,model.id)"></a>
+                                        </div>
+                                        <a class="product-variation-clean">Clean All</a>
                                     </div>
 
                                     <div class="product-variation-price">
@@ -205,74 +146,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="frequently-bought-together mt-5">
-                            <h2 class="title title-underline">Frequently Bought Together</h2>
-                            <div class="bought-together-products row mt-8 pb-4">
-                                <div class="product product-wrap text-center">
-                                    <figure class="product-media">
-                                        <img src="assets/images/products/default/bought-1.jpg" alt="Product"
-                                            width="138" height="138" />
-                                        <div class="product-checkbox">
-                                            <input type="checkbox" class="custom-checkbox" id="product_check1"
-                                                name="product_check1">
-                                            <label></label>
-                                        </div>
-                                    </figure>
-                                    <div class="product-details">
-                                        <h4 class="product-name">
-                                            <a href="#">Electronics Black Wrist Watch</a>
-                                        </h4>
-                                        <div class="product-price">$40.00</div>
-                                    </div>
-                                </div>
-                                <div class="product product-wrap text-center">
-                                    <figure class="product-media">
-                                        <img src="assets/images/products/default/bought-2.jpg" alt="Product"
-                                            width="138" height="138" />
-                                        <div class="product-checkbox">
-                                            <input type="checkbox" class="custom-checkbox" id="product_check2"
-                                                name="product_check2">
-                                            <label></label>
-                                        </div>
-                                    </figure>
-                                    <div class="product-details">
-                                        <h4 class="product-name">
-                                            <a href="#">Apple Laptop</a>
-                                        </h4>
-                                        <div class="product-price">$1,800.00</div>
-                                    </div>
-                                </div>
-                                <div class="product product-wrap text-center">
-                                    <figure class="product-media">
-                                        <img src="assets/images/products/default/bought-3.jpg" alt="Product"
-                                            width="138" height="138" />
-                                        <div class="product-checkbox">
-                                            <input type="checkbox" class="custom-checkbox" id="product_check3"
-                                                name="product_check3">
-                                            <label></label>
-                                        </div>
-                                    </figure>
-                                    <div class="product-details">
-                                        <h4 class="product-name">
-                                            <a href="#">White Lenovo Headphone</a>
-                                        </h4>
-                                        <div class="product-price">$34.00</div>
-                                    </div>
-                                </div>
-                                <div class="product-button">
-                                    <div class="bought-price font-weight-bolder text-primary ls-50">$1,874.00</div>
-                                    <div class="bought-count">For 3 items</div>
-                                    <a href="cart.html" class="btn btn-dark btn-rounded">Add All To Cart</a>
-                                </div>
-                            </div>
-                        </div>
                         <div class="tab tab-nav-boxed tab-nav-underline product-tabs">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
                                     <a href="#product-tab-description" class="nav-link active">Description</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#product-tab-specification" class="nav-link">Specification</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#product-tab-vendor" class="nav-link">Vendor Info</a>
@@ -284,75 +161,11 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" id="product-tab-description">
                                     <div class="row mb-4">
-                                        <div class="col-md-6 mb-5">
+                                        <div class="col-md-12 mb-5">
                                             <h4 class="title tab-pane-title font-weight-bold mb-2">Detail</h4>
-                                            <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                                sed do eiusmod tempor incididunt arcu cursus vitae congue mauris.
-                                                Sagittis id consectetur purus ut. Tellus rutrum tellus pelle Vel
-                                                pretium lectus quam id leo in vitae turpis massa.</p>
-                                            <ul class="list-type-check">
-                                                <li>Nunc nec porttitor turpis. In eu risus enim. In vitae mollis
-                                                    elit.
-                                                </li>
-                                                <li>Vivamus finibus vel mauris ut vehicula.</li>
-                                                <li>Nullam a magna porttitor, dictum risus nec, faucibus sapien.
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-6 mb-5">
-                                            <div class="banner banner-video product-video br-xs">
-                                                <figure class="banner-media">
-                                                    <a href="#">
-                                                        <img src="assets/images/products/video-banner-610x300.jpg"
-                                                            alt="banner" width="610" height="300"
-                                                            style="background-color: #bebebe;">
-                                                    </a>
-                                                    <a class="btn-play-video btn-iframe"
-                                                        href="assets/video/memory-of-a-woman.mp4"></a>
-                                                </figure>
-                                            </div>
+                                            <div v-html="model.description"></div>
                                         </div>
                                     </div>
-                                    <div class="row cols-md-3">
-                                        <div class="mb-3">
-                                            <h5 class="sub-title font-weight-bold"><span class="mr-3">1.</span>Free
-                                                Shipping &amp; Return</h5>
-                                            <p class="detail pl-5">We offer free shipping for products on orders
-                                                above 50$ and offer free delivery for all orders in US.</p>
-                                        </div>
-                                        <div class="mb-3">
-                                            <h5 class="sub-title font-weight-bold"><span>2.</span>Free and Easy
-                                                Returns</h5>
-                                            <p class="detail pl-5">We guarantee our products and you could get back
-                                                all of your money anytime you want in 30 days.</p>
-                                        </div>
-                                        <div class="mb-3">
-                                            <h5 class="sub-title font-weight-bold"><span>3.</span>Special Financing
-                                            </h5>
-                                            <p class="detail pl-5">Get 20%-50% off items over 50$ for a month or
-                                                over 250$ for a year with our special credit card.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="product-tab-specification">
-                                    <ul class="list-none">
-                                        <li>
-                                            <label>Model</label>
-                                            <p>Skysuite 320</p>
-                                        </li>
-                                        <li>
-                                            <label>Color</label>
-                                            <p>Black</p>
-                                        </li>
-                                        <li>
-                                            <label>Size</label>
-                                            <p>Large, Small</p>
-                                        </li>
-                                        <li>
-                                            <label>Guarantee Time</label>
-                                            <p>3 Months</p>
-                                        </li>
-                                    </ul>
                                 </div>
                                 <div class="tab-pane" id="product-tab-vendor">
                                     <div class="row mb-3">
@@ -1562,3 +1375,144 @@
         </div>
     </main>
 </template>
+<script type="text/javascript">
+import Dropdown2 from "@/components/dropdown/Dropdown2.vue";
+import FileUpload from '@/my_components/form/FileUpload.vue'
+import ErrorText from '@/my_components/form/ErrorText.vue'
+
+import { get,byMethod } from '@/lib/api'
+import { form } from '@/lib/mixins'
+import { useToast } from "vue-toastification";
+
+function initializeUrl (to) {
+    let urls = {
+        'create': `/api/product/categories/create`,
+        'edit': `/api/product/categories/${to.params.id}/edit`,
+        'clone': `/api/product/categories/${to.params.id}/edit?mode=clone`,
+    }
+
+    return (urls[to.meta.mode] || urls['create'])
+}
+
+export default ({
+  name: "kt-widget-12",
+  components: { Dropdown2,FileUpload,ErrorText },
+  mixins: [ form ],
+  data() {
+        return {
+            testlength:{},
+            model: {
+                items: {
+                    product:{},
+                },
+                customer: {},
+                product:{},
+            },
+            attributes:{},
+            colors:{},
+            isActive: true,
+            hasError: false,
+            activeClass: 'size',
+            errorClass: 'size border',
+            variation_size : null,
+            attribute_error: false,
+            variation_id: null,
+            color_size: null,
+        }
+    },
+    created() {
+          this.store = `/api/users/products/${this.$route.params.id}/update`
+          this.method = 'POST'
+  },
+  beforeRouteUpdate (to, from, next) {
+        this.show = false
+        get(`/api/users/products/${to.params.id}`)
+            .then(res => {
+                this.setData(res)
+                next()
+            })
+            //catch 422
+    },
+    beforeRouteEnter(to, from, next) {
+        get(`/api/users/products/${to.params.id}`)
+            .then(res => {
+                next(vm => vm.setData(res))
+            })
+            // catch 422
+    },
+    computed: {
+        // totalItem(){
+        //     let sum = 0;
+        //     for(let i = 0; i < this.testlength.length; i++){
+        //         sum += (parseFloat(this.testlength[i].price) * parseFloat(this.testlength[i].qty));
+        //     }
+        //     return sum;
+        // },
+        // totalTax(){
+        //     let sum = 0;
+        //     for(let i = 0; i < this.testlength.length; i++){
+        //         sum += (parseFloat(this.testlength[i].tax));
+        //     }
+        //     return sum;
+        // }
+    },
+  props: {
+    widgetClasses: String,
+  },
+  totalVuePackages:{
+      type: [String, Number, Array]
+    },
+  methods: {
+    attributeActive(e,index,parent_id,id){
+        this.variation_size = this.attributes[index];
+        this.attribute_error = false;
+        // if(parent_id == null){
+        //         this.variation_id = id;
+        //     }else{
+        //         this.variation_id = parent_id;
+        //     }
+        // get(`/api/users/products/attribute/${this.variation_id}?color=${this.color_size}&attribute=${this.variation_size}`)
+        // .then(res => {
+        //     this.setData(res)
+        // })
+    },
+    colorActive(e,index,parent_id,id){
+        if(this.attributes != null && this.variation_size == null){
+            this.attribute_error = true;
+        }else{
+            console.log(parent_id);
+            console.log(id);
+            this.color_size = this.colors[index];
+            if(parent_id == null){
+                this.variation_id = id;
+            }else{
+                this.variation_id = parent_id;
+            }
+            get(`/api/users/products/variation/${this.variation_id}?color=${this.color_size}&attribute=${this.variation_size}`)
+            .then(res => {
+                this.setData(res)
+            })
+        }
+    },
+    setData(res) {
+      this.model = res.data.results;
+      console.log(this.model);
+      this.attributes = res.data.attribute_items;
+      this.colors = res.data.colors;
+    //   this.testlength = res.data.results.items;
+    },
+},
+  setup() {
+    const toast = useToast();
+    return { toast }
+  },
+});
+</script>
+<style>
+.border{
+    border:2px solid; 
+}
+.bordercolor{
+    border:1px solid black !important;
+}
+</style>

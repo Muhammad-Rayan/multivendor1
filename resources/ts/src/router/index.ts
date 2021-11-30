@@ -241,6 +241,11 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: "/frontend_dashboard",
+        name: "shop",
+        component: () => import("@/frontend_views/Shop.vue"),
+      },
+      {
+        path: "/frontend_dashboard/:id",
         name: "dashboard",
         component: () => import("@/frontend_views/Products.vue"),
       },

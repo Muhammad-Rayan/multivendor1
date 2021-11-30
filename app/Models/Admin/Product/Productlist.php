@@ -11,6 +11,7 @@ use App\Models\Admin\Product\Brand;
 use App\Models\Admin\Product\Color;
 use App\Models\Admin\Product\Attribute;
 use App\Models\Admin\Product\AttributeItems;
+use App\Models\Admin\Product\GalleryImage;
 
 
 class Productlist extends Model
@@ -27,12 +28,16 @@ class Productlist extends Model
         'description', 'meta_tittle', 'meta_description', 'meta_image', 'user_id', 'free_shipping', 
         'shipping_flatrate', 'shipping_costrate', 'shipping_productmultiply', 
         'cashondelivery', 'shippingdays', 'vat', 'vat_rate', 'vat_percent', 'vat_percent','slug','featured','refund',
-        'qty','vat_type','active','deleted','low_qty_alert'
+        'qty','vat_type','active','deleted','low_qty_alert','short_description'
     ];
 
     public function tags()
     {
         return $this->hasMany(Tags::class, 'product_id', 'id');
+    }
+    public function gallery()
+    {
+        return $this->hasMany(GalleryImage::class, 'product_id', 'id');
     }
     public function items() {
         return $this->hasMany(static::class, 'parent_id');
@@ -55,6 +60,6 @@ class Productlist extends Model
     }
     public function attribute_items()
     {
-        return $this->belongsTo(AttributeItems::class, 'color_id', 'id');
+        return $this->belongsTo(AttributeItems::class, 'attribute_items_id', 'id');
     }
 }
