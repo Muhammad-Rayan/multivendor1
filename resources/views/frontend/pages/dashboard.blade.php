@@ -40,17 +40,15 @@
                             <div class="tab-pane active in" id="account-dashboard">
                                 <p class="greeting">
                                     Hello
-                                    <span class="text-dark font-weight-bold">John Doe</span>
-                                    (not
-                                    <span class="text-dark font-weight-bold">John Doe</span>?
-                                    <a href="#" class="text-primary">Log out</a>)
+                                    <span class="text-dark font-weight-bold">Ibrahim Raza</span>
+                                    <!-- (not
+                                    <span class="text-dark font-weight-bold">Ibrahim Raza</span>?
+                                    <a href="#" class="text-primary">Log out</a>) -->
                                 </p>
 
                                 <p class="mb-4">
                                     From your account dashboard you can view your <a href="#account-orders" class="text-primary link-to-tab">recent orders</a>,
-                                    manage your <a href="#account-addresses" class="text-primary link-to-tab">shipping
-                                        and billing
-                                        addresses</a>, and
+                                    and
                                     <a href="#account-details" class="text-primary link-to-tab">edit your password and
                                         account details.</a>
                                 </p>

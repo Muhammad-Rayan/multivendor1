@@ -17,7 +17,7 @@ class Order extends Model
     protected $table = 'orders';
     protected $fillable = [
         'order_number', 'number_of_product', 'customer_id', 'amount', 'delivery_status', 'payment_status', 
-        'refund_status', 'order_date', 'payment_method', 'subtotal', 'tax', 'shipping','item_id'
+        'refund_status', 'order_date', 'payment_method', 'subtotal', 'tax', 'shipping','item_id','created_at'
     ];
 
     public function items() {
