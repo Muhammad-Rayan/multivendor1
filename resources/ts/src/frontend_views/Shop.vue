@@ -15,7 +15,7 @@
                         <div class="sticky-sidebar">
                             <div class="filter-actions">
                                 <label>Filter :</label>
-                                <a href="#" class="btn btn-dark btn-link filter-clean">Clean All</a>
+                                <a @click="refresh" class="btn btn-dark btn-link filter-clean">Clean All</a>
                             </div>
                             <!-- Start of Collapsible widget -->
                             <div class="widget widget-collapsible">
@@ -174,10 +174,10 @@
                                 </figure>
                                 <div class="product-details">
                                     <div class="product-cat">
-                                        <a href="#">Electronics</a>
+                                        <a v-if="products.cat">{{ products.cat.name }}</a>
                                     </div>
                                     <h3 class="product-name">
-                                        <a href="#">3D Television</a>
+                                        <a :href="`/vuepro#/frontend_dashboard/${products.id}`">{{ products.name }}</a>
                                     </h3>
                                     <div class="ratings-container">
                                         <div class="ratings-full">
@@ -188,7 +188,7 @@
                                     </div>
                                     <div class="product-pa-wrapper">
                                         <div class="product-price">
-                                            $220.00 - $230.00
+                                            ${{ products.price }}
                                         </div>
                                     </div>
                                 </div>
@@ -375,6 +375,16 @@ export default ({
         get(`/api/users/products?per_page=${this.params.per_page}&page=${this.params.page}
         &q=${this.params.q}&order_by=${this.params.order_by}&cat=${this.params.cat}&size=${this.params.size_id}
         &brand=${this.params.brand_id}&color=${this.params.color_id}`)
+        .then(res => {
+            this.setData(res)
+        })
+    },
+    refresh(){
+        this.params.cat = '';
+        this.params.size_id = '';
+        this.params.brand_id = '';
+        this.params.color_id = '';
+        get(`/api/users/products`)
         .then(res => {
             this.setData(res)
         })

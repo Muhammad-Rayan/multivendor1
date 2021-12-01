@@ -8,6 +8,7 @@ use App\Models\Admin\Product\ProductCategory;
 use App\Models\Admin\Product\Productlist;
 use App\Models\Admin\Product\Brand;
 use App\Models\Admin\Seller\Seller;
+use App\Models\Admin\Order\Order;
 
 class HomeController extends Controller
 {
@@ -19,13 +20,20 @@ class HomeController extends Controller
     public function index()
     {
         $top_category = ProductCategory::where('top_category',1)->limit(8)->orderby('updated_at','desc')->get();
-        $new_seller = Productlist::limit(10)->orderby('id','desc')->get();
-        $best_seller = Productlist::limit(10)->orderby('id','asc')->get();
-        $most_popular = Productlist::limit(10)->orderby('updated_at','desc')->get();
-        $featured = Productlist::where('featured',1)->limit(10)->orderby('updated_at','desc')->get();
-        $categwise1 = Productlist::where('cat_id',25)->limit(8)->orderby('updated_at','desc')->get();
-        $categwise2= Productlist::where('cat_id',24)->limit(8)->orderby('updated_at','desc')->get();
-        $categwise3= Productlist::where('cat_id',23)->limit(8)->orderby('updated_at','desc')->get();
+        $new_seller = Productlist::with(['gallery'])->limit(10)->orderby('id','desc')
+        ->where('parent_id',null)->get();
+        $best_seller = Productlist::with(['gallery'])->limit(10)->orderby('id','asc')
+        ->where('parent_id',null)->get();
+        $most_popular = Productlist::with(['gallery'])->limit(10)->orderby('updated_at','desc')
+        ->where('parent_id',null)->get();
+        $featured = Productlist::with(['gallery'])->where('featured',1)->limit(10)->orderby('updated_at','desc')
+        ->where('parent_id',null)->get();
+        $categwise1 = Productlist::with(['gallery'])->where('cat_id',25)->limit(8)->orderby('updated_at','desc')
+        ->where('parent_id',null)->get();
+        $categwise2= Productlist::with(['gallery'])->where('cat_id',24)->limit(8)->orderby('updated_at','desc')
+        ->where('parent_id',null)->get();
+        $categwise3= Productlist::with(['gallery'])->where('cat_id',23)->limit(8)->orderby('updated_at','desc')
+        ->where('parent_id',null)->get();
         $seller = Seller::limit(10)->orderby('id','desc')->get();
         $brand = Brand::limit(10)->orderby('id','desc')->get();
         
@@ -49,7 +57,10 @@ class HomeController extends Controller
     }
     public function order()
     {
-        return view('frontend.pages.order');
+        $order = Order::where('id',auth()->user()->id)->orderby('updated_at','desc')->get();
+       
+        
+        return view('frontend.pages.order',compact('order'));
     }
     public function accountdetail()
     {
