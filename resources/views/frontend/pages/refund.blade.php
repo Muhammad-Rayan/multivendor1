@@ -4,7 +4,7 @@
             <!-- Start of Page Header -->
             <div class="page-header">
                 <div class="container">
-                    <h1 class="page-title mb-0">My Account</h1>
+                    <h1 class="page-title mb-0">Refund</h1>
                 </div>
             </div>
             <!-- End of Page Header -->
@@ -18,27 +18,30 @@
                         <div class="tab tab-nav-boxed tab-nav-center tab-nav-underline">
                             <ul class="nav nav-tabs text-uppercase" role="tablist">
                                 <li class="nav-item">
-                                    <a href="#sign-in" class="nav-link active">Sign In</a>
+                                    <a href="#sign-in" class="nav-link active">Refund</a>
                                 </li>
                               
                             </ul>
-                            <div class="tab-content">
-                                <form method="post" action="{{ route('Userlogin-data') }}">
+                                 <form method="post" action="{{ route('refund-post') }}" enctype="multipart/form-data">
                                  @csrf
                                     <div class="form-group">
-                                        <label>Username or email address *</label>
-                                        <input type="text" class="form-control" name="email" id="email" >
+                                        <label>Subject</label>
+                                        <textarea class="form-control" name="subject" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                     
                                     </div>
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        <textarea class="form-control" name="desscription" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                      </div>
                                     <div class="form-group mb-0">
-                                        <label>Password *</label>
-                                        <input type="text" class="form-control" name="password" id="password" >
+                                        <label>Image *</label>
+                                        <input type="file" class="form-control" name="image" id="image" >
                                     </div>
-                                  <button type="submit">
-                                        Sign In
+                                  <button type="submit" class="btn btn-primary" style="margin-left: auto;margin-right: auto;margin-top: 20px;">
+                                        Submit
                                     </button>
                                 </form>
-                            </div>
-                    
+                         
                         </div>
                     </div>
                 </div>
