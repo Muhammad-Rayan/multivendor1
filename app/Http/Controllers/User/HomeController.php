@@ -9,6 +9,9 @@ use App\Models\Admin\Product\Productlist;
 use App\Models\Admin\Product\Brand;
 use App\Models\Admin\Seller\Seller;
 use App\Models\Admin\Order\Order;
+use App\Models\User;
+use App\Models\Admin\Refund\Refund;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -57,7 +60,7 @@ class HomeController extends Controller
     }
     public function order()
     {
-        $order = Order::where('id',auth()->user()->id)->orderby('updated_at','desc')->get();
+        $order = Order::where('customer_id',auth()->user()->id)->orderby('updated_at','desc')->get();
        
         
         return view('frontend.pages.order',compact('order'));
@@ -69,20 +72,14 @@ class HomeController extends Controller
 
     public function cart()
     {
-        return view('cart');
+        return view('frontend.pages.cart');
     }
-    public function userlogin()
-    {
-      
-        return view('frontend.pages.login');
-    }
-
     /**
      * Write code on Method
      *
      * @return response()
      */
-    public function addToCart($id)
+    public function add_to_cart($id)
     {
         $product = Productlist::findOrFail($id);
           
@@ -95,19 +92,14 @@ class HomeController extends Controller
                 "name" => $product->name,
                 "quantity" => 1,
                 "price" => $product->price,
-                "image" => $product->image
+                "capture_image" => $product->capture_image
             ];
         }
           
         session()->put('cart', $cart);
         return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
-  
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
+
     public function update(Request $request)
     {
         if($request->id && $request->quantity){
@@ -134,6 +126,35 @@ class HomeController extends Controller
             session()->flash('success', 'Product removed successfully');
         }
     }
+
+    public function remove_all(Request $request)
+    {
+        
+            $cart = session()->get('cart');
+            
+            if(isset($cart)) {
+                foreach($cart as $key => $cart_remove){
+                    dd($cart_remove);
+                    unset($cart_remove[$key]);
+                }
+            }
+            session()->flash('success', 'Product removed successfully');
+
+    }
+  
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    
+  
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    
 
     /**
      * Store a newly created resource in storage.
@@ -178,5 +199,102 @@ class HomeController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function orderdetail()
+    {
+        $detail = Order::where('customer_id',auth()->user()->id)->orderby('updated_at','desc')->get();
+       
+        
+        return view('frontend.pages.orderdetail',compact('detail'));
+    }
+    public function checkout()
+    {
+        
+        return view('frontend.pages.checkout');
+    }
+    public function userlogin()
+    {
+        return view('frontend.pages.login');
+      
+    }
+    public function userlogindata(Request $request)
+    {
+       
+    $request->validate([
+        'email' => 'required',
+        'password' => 'required',
+
+    ]);
+
+    // $credentials = $request->only('email', 'password');
+    if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'is_user' => 1])) {
+        return redirect()->intended('user-dashboard')
+                    ->withSuccess('Signed in');
+    }
+
+    return redirect("Userlogin")->withSuccess('Login details are not valid');
+    }
+    public function register()
+    {
+  
+      return view('frontend.pages.register');
+    }
+  
+    public function registerstore(Request $request)
+    {
+       
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+  
+        $seller = new Seller;
+        $seller->first_name=$request->first_name;
+        $seller->last_name=$request->last_name;
+        $seller->phone=$request->phone;
+        $seller->email=$request->email;
+        $seller->save();
+
+        $user = new User;
+        $user->email=$request->email;
+        $user->password=$request->password;
+        $user->is_user=1;
+        $user->save();
+
+  
+        return redirect('login');
+    }
+    public function refund()
+    {
+  
+      return view('frontend.pages.refund');
+    }
+  
+    public function refundpost(Request $request)
+    {
+       
+        $request->validate([
+            'subject' => 'required',
+            'desscription' => 'required',
+            'image' => 'required',
+        ]);
+      
+        
+        $refund = new Refund;
+        $refund->subject=$request->subject;
+        $refund->desscription=$request->desscription;
+        if($request->image != null){
+            $imageName = uniqid().'.'.$request->image->getClientOriginalExtension();
+            $request->image->move(public_path('refund'), $imageName);
+            $refund->image = $imageName;
+        }        
+        
+        $refund->save();
+
+     
+        return redirect('login');
     }
 }

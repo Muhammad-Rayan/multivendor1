@@ -810,6 +810,7 @@
 
     <!-- Plugin JS File -->
     @include('frontend.includes.script')
+    @yield('scripts')
    
 </body>
 

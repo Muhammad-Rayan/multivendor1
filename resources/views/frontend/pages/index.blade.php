@@ -335,8 +335,9 @@
                         style="width: 231px;height: 225px;" />
                         </a>
                         <div class="product-action-vertical">
-                           <a href="{{ route('add.to.cart', $newsell->id) }}" class="btn-product-icon btn-cart w-icon-cart"
+                           <a href="{{ route('add-to-cart', $newsell->id) }}" class="btn-product-icon w-icon-cart" role="button"
                               title="Add to cart"></a>
+                              <!-- <a href="{{ route('add-to-cart', $newsell->id) }}" class="btn btn-warning btn-block text-center" role="button">Add to cart</a> -->
                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                               title="Add to wishlist"></a>
                            <a href="#" class="btn-product-icon btn-quickview w-icon-search"
@@ -377,7 +378,7 @@
                            style="width: 231px;height: 225px;" />
                         </a>
                         <div class="product-action-vertical">
-                           <a href="{{ route('add.to.cart', $bestsell->id) }}" class="btn-product-icon btn-cart w-icon-cart"
+                           <a href="#" class="btn-product-icon btn-cart w-icon-cart"
                               title="Add to cart"></a>
                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                               title="Add to wishlist"></a>

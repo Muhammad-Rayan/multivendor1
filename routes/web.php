@@ -36,14 +36,21 @@ Route::group(['prefix' => '/'], function() {
     Route::resource('login', AuthController::class);	
     Route::post('/login-data', [AuthController::class, 'show'])->name('login-data');
     Route::get('cart', [HomeController::class, 'cart'])->name('cart');
-    Route::get('add-to-cart/{id}', [HomeController::class, 'addToCart'])->name('add.to.cart');
+    Route::get('add-to-cart/{id}', [HomeController::class, 'add_to_cart'])->name('add-to-cart');
     Route::patch('update-cart', [HomeController::class, 'update'])->name('update.cart');
-    Route::delete('remove-from-cart', [HomeController::class, 'remove'])->name('remove.from.cart');        
+    Route::delete('remove-from-cart', [HomeController::class, 'remove'])->name('remove.from.cart');
+    Route::delete('remove-all', [HomeController::class, 'remove_all'])->name('remove.all');
     Route::get('userlogin',[HomeController::class, 'userlogin'])->name('Userlogin');	
     Route::post('/userlogin-data', [HomeController::class, 'userlogindata'])->name('Userlogin-data');
     Route::get('/user-dashboard', [HomeController::class, 'userdashboard'])->name('user-dashboard');
     Route::get('/order', [HomeController::class, 'order'])->name('order');
     Route::get('/account-detail', [HomeController::class, 'accountdetail'])->name('account-detail');
+    Route::get('userregister', [HomeController::class, 'register'])->name('user-register');
+    Route::post('userregister', [HomeController::class, 'registerstore'])->name('user-register-post');
+    Route::get('userrefund', [HomeController::class, 'refund'])->name('refund');
+    Route::post('userrefund', [HomeController::class, 'refundpost'])->name('refund-post');
+    Route::get('/orderdetail', [HomeController::class, 'orderdetail'])->name('orderdetail');
+    Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout');
     
 });
 Route::group(['prefix' => 'seller'], function() {

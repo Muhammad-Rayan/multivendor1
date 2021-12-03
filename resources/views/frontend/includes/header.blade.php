@@ -91,6 +91,10 @@
                             <i class="w-icon-compare"></i>
                             <span class="compare-label d-lg-show">Compare</span>
                         </a>
+                        @php $total = 0 @endphp
+                        @foreach((array) session('cart') as $id => $products)
+                        @php $total += $products['price'] * $products['quantity'] @endphp
+                        @endforeach
                         <div class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2">
                             <div class="cart-overlay"></div>
                             <a href="#" class="cart-toggle label-down link">
@@ -108,18 +112,18 @@
                                 
                                 <div class="products">
                                 @if(session('cart'))
-                                  @foreach(session('cart') as $id => $details)
+                                  @foreach(session('cart') as $id => $products)
                                     <div class="product product-cart">
                                         <div class="product-detail">
-                                            <a href="product-default.html" class="product-name">{{ $details['name'] }}</a>
+                                            <a href="product-default.html" class="product-name">{{ $products['name'] }}</a>
                                             <div class="price-box">
-                                                <span class="product-quantity">{{ $details['quantity'] }}</span>
-                                                <span class="product-price">${{ $details['price'] }}</span>
+                                                <span class="product-quantity">{{ $products['quantity'] }}</span>
+                                                <span class="product-price">${{ $products['price'] }}</span>
                                             </div>
                                         </div>
                                         <figure class="product-media">
                                             <a href="product-default.html">
-                                                <img src="{{ $details['image'] }}" alt="product" width="84"
+                                                <img src="{{asset('productgallery') }}/{{ $products['capture_image'] }}" alt="product" width="84"
                                                     height="94" />
                                             </a>
                                         </figure>
@@ -130,10 +134,7 @@
                                    @endforeach
                                 @endif
                                 </div>
-                                @php $total = 0 @endphp
-                                @foreach((array) session('cart') as $id => $details)
-                                @php $total += $details['price'] * $details['quantity'] @endphp
-                                @endforeach
+                                
                                 <div class="cart-total">
                                     <label>Subtotal:</label>
                                     <span class="price">$ {{ $total }}</span>
