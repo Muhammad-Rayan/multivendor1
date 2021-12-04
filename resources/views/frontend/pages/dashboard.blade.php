@@ -68,7 +68,7 @@
                                     </div>
                                     
                                     <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 mb-4">
-                                        <a href="{{route('account-detail')}}" class="link-to-tab">
+                                        <a href="{{route('account-detail',$accountdetail1->id)}}" class="link-to-tab">
                                             <div class="icon-box text-center">
                                                 <span class="icon-box-icon icon-account">
                                                     <i class="w-icon-user"></i>

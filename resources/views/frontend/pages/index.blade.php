@@ -331,8 +331,7 @@
                         <a href="product-default.html">
                         <img src="{{asset('productgallery') }}/{{ $newsell->capture_image }}" alt="Product"
                            style="width: 231px;height: 225px;" />
-                        <img src="{{asset('meta_gallery') }}/{{ $newsell->gallery[0]->image }}" alt="Product"
-                        style="width: 231px;height: 225px;" />
+                     
                         </a>
                         <div class="product-action-vertical">
                            <a href="{{ route('add-to-cart', $newsell->id) }}" class="btn-product-icon w-icon-cart" role="button"
@@ -374,8 +373,7 @@
                         <a href="product-default.html">
                         <img src="{{asset('productgallery') }}/{{ $bestsell->capture_image }}" alt="Product"
                            style="width: 231px;height: 225px;" />
-                        <img src="{{asset('meta_gallery') }}/{{ $bestsell->gallery[0]->image }}" alt="Product"
-                           style="width: 231px;height: 225px;" />
+                      
                         </a>
                         <div class="product-action-vertical">
                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -415,8 +413,6 @@
                      <figure class="product-media">
                         <a href="product-default.html">
                         <img src="{{asset('productgallery') }}/{{ $mostpop->capture_image }}" alt="Product"
-                           style="width: 231px;height: 225px;" />
-                        <img src="{{asset('meta_gallery') }}/{{ $mostpop->gallery[0]->image }}" alt="Product"
                            style="width: 231px;height: 225px;" />
                         </a>
                         <div class="product-action-vertical">
@@ -458,8 +454,6 @@
                      <figure class="product-media">
                         <a href="product-default.html">
                         <img src="{{asset('productgallery') }}/{{ $feat->capture_image }}" alt="Product"
-                           style="width: 231px;height: 225px;" />
-                        <img src="{{asset('meta_gallery') }}/{{ $feat->gallery[0]->image }}" alt="Product"
                            style="width: 231px;height: 225px;" />
                         </a>
                         <div class="product-action-vertical">

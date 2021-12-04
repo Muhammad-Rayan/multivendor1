@@ -25,6 +25,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_seller',
+        'is_user',
         'image',
     ];
 
@@ -51,6 +52,7 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Seller::class, 'user_id', 'id');
     }
+    
 
     public function products()
     {

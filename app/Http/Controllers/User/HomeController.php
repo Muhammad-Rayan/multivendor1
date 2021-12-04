@@ -12,6 +12,7 @@ use App\Models\Admin\Order\Order;
 use App\Models\User;
 use App\Models\Admin\Refund\Refund;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Admin\Order\Item as OrderItems;
 
 class HomeController extends Controller
 {
@@ -56,7 +57,9 @@ class HomeController extends Controller
     
     public function userdashboard()
     {
-        return view('frontend.pages.dashboard');
+        $accountdetail1 =User::where('id',auth()->user()->id)->first();
+   
+        return view('frontend.pages.dashboard',compact('accountdetail1'));
     }
     public function order()
     {
@@ -67,11 +70,31 @@ class HomeController extends Controller
     }
     public function accountdetail()
     {
-        return view('frontend.pages.accountdetail');
+        $accountdetail2 =User::with(['user_info'])->where('id',auth()->user()->id)->first();
+        dd($accountdetail2);
+        return view('frontend.pages.accountdetail',compact('accountdetail2'));
     }
+    public function accountdetailupdate(Request $request,$id)
+    {
+           
 
+        $seller = Seller::where('user_id',$id)->first();
+        $seller->first_name=$request->first_name;
+        $seller->last_name=$request->last_name;
+        $seller->phone=$request->phone;
+        $seller->email=$request->email;
+        $seller->save();
+
+        $user =User::where('id',$id)->first();
+        $user->email=$request->email;
+        $user->password=$request->password;
+        $user->save();
+        return view('frontend.pages.accountdetail',compact('seller','user'));
+    }
+   
     public function cart()
     {
+        
         return view('frontend.pages.cart');
     }
     /**
@@ -92,12 +115,37 @@ class HomeController extends Controller
                 "name" => $product->name,
                 "quantity" => 1,
                 "price" => $product->price,
-                "capture_image" => $product->capture_image
+                "discount" => $product->discount,
+                "free_shipping" => $product->free_shipping,
+                "shipping_flatrate" => $product->shipping_flatrate,
+                "shipping_costrate" => $product->shipping_costrate,  "capture_image" => $product->capture_image
             ];
         }
           
         session()->put('cart', $cart);
         return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
+    public function checkout_post(Request $request){
+        $model = new Order;
+        $model->fill($request->all());
+        $model->save();
+
+        $total = 0;
+        $shipping_rate = 0;
+        $discount = 0;
+        if(session('cart')){
+            foreach(session('cart') as $id => $products){
+                $order_items = new OrderItems;
+                $order_items->product_id = $products->id;
+                $order_items->order_id = $model->id;
+                $order_items->qty = $products->qty;
+                $order_items->price = $products->price;
+                $order_items->discount = $products->discount;
+                $order_items->total = $products->price * $products->qty;
+                $order_items->save();
+            }
+        }
+        return redirect()->back();
     }
 
     public function update(Request $request)
@@ -232,7 +280,7 @@ class HomeController extends Controller
                     ->withSuccess('Signed in');
     }
 
-    return redirect("Userlogin")->withSuccess('Login details are not valid');
+    return redirect("userlogin")->withSuccess('Login details are not valid');
     }
     public function register()
     {

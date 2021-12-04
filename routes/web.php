@@ -44,14 +44,15 @@ Route::group(['prefix' => '/'], function() {
     Route::post('/userlogin-data', [HomeController::class, 'userlogindata'])->name('Userlogin-data');
     Route::get('/user-dashboard', [HomeController::class, 'userdashboard'])->name('user-dashboard');
     Route::get('/order', [HomeController::class, 'order'])->name('order');
-    Route::get('/account-detail', [HomeController::class, 'accountdetail'])->name('account-detail');
+    Route::get('/account-detail/{id}', [HomeController::class, 'accountdetail'])->name('account-detail');
+    Route::post('/account-detailupdate/{id}', [HomeController::class, 'accountdetailupdate'])->name('account-detail-update');
     Route::get('userregister', [HomeController::class, 'register'])->name('user-register');
     Route::post('userregister', [HomeController::class, 'registerstore'])->name('user-register-post');
     Route::get('userrefund', [HomeController::class, 'refund'])->name('refund');
     Route::post('userrefund', [HomeController::class, 'refundpost'])->name('refund-post');
     Route::get('/orderdetail', [HomeController::class, 'orderdetail'])->name('orderdetail');
     Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout');
-    
+    Route::post('/checkout-post', [HomeController::class, 'checkout_post'])->name('checkout-post');
 });
 Route::group(['prefix' => 'seller'], function() {
     Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
