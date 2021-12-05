@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 
 use App\Models\Admin\Product\Productlist;
+use App\Models\Admin\Product\ProductCategory;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -24,7 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-    //     $product = Productlist::findOrFail($id);
+        $cate_menu = ProductCategory::inRandomOrder()->limit(10)->get();
+        \View::share('cate_menu',$cate_menu); 
+        //     $product = Productlist::findOrFail($id);
           
     //     $cart = session()->get('cart', []);
   

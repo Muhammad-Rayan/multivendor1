@@ -3,7 +3,10 @@
 <style>
     .my-account .tab-content {
   width: 100%; 
- 
+}
+ .index{
+   opacity:1 !important;
+   
 }
 </style>
 <main class="main">

@@ -9,11 +9,7 @@
    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
    
     @include('frontend.includes.style')
-    <!-- <style>
-      .header-bottom:not(.fixed) .dropdown-box {
-         opacity: 1 !important;
-      }
-    </style> -->
+    
 </head>
 
 <body data-new-gr-c-s-check-loaded="14.1040.0" data-gr-ext-installed="" class="loaded">

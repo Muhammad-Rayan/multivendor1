@@ -52,6 +52,8 @@ Route::group(['prefix' => '/'], function() {
     Route::post('userrefund', [HomeController::class, 'refundpost'])->name('refund-post');
     Route::get('/orderdetail', [HomeController::class, 'orderdetail'])->name('orderdetail');
     Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout');
+    Route::get('/ordercomplete', [HomeController::class, 'ordercomplete'])->name('ordercomplete');
+    Route::get('/track', [HomeController::class, 'track'])->name('track');
     Route::post('/checkout-post', [HomeController::class, 'checkout_post'])->name('checkout-post');
 });
 Route::group(['prefix' => 'seller'], function() {

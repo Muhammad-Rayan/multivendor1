@@ -14866,7 +14866,6 @@ body .product-popup {
   margin-right: 3.2rem;
 }
 .header-bottom:not(.fixed) .show-dropdown .dropdown-box {
-  opacity: 1;
   visibility: visible;
   -webkit-transform: none;
           transform: none;
@@ -36073,7 +36072,6 @@ body .product-popup {
   margin-left: 3.2rem;
 }
 .header-bottom:not(.fixed) .show-dropdown .dropdown-box {
-  opacity: 1;
   visibility: visible;
   -webkit-transform: none;
           transform: none;
