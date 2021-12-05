@@ -13,11 +13,11 @@ class Order extends Model
     use HasFactory;
     use HasManyRelation;
 
-
     protected $table = 'orders';
     protected $fillable = [
         'order_number', 'number_of_product', 'customer_id', 'amount', 'delivery_status', 'payment_status', 
-        'refund_status', 'order_date', 'payment_method', 'subtotal', 'tax', 'shipping','item_id','created_at'
+        'refund_status', 'order_date', 'payment_method', 'subtotal', 'tax', 'shipping','item_id','first_name',
+        'last_name','company_name','street_address','city','state','zip','email','phone','notes','cash_on_delivery'
     ];
 
     public function items() {

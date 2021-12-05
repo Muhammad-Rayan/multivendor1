@@ -13,6 +13,8 @@ use App\Models\User;
 use App\Models\Admin\Refund\Refund;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin\Order\Item as OrderItems;
+use App\Support\Helpers;
+use DB;
 
 class HomeController extends Controller
 {
@@ -105,13 +107,13 @@ class HomeController extends Controller
     public function add_to_cart($id)
     {
         $product = Productlist::findOrFail($id);
-          
         $cart = session()->get('cart', []);
   
         if(isset($cart[$id])) {
             $cart[$id]['quantity']++;
         } else {
             $cart[$id] = [
+                "id" => $product->id,
                 "name" => $product->name,
                 "quantity" => 1,
                 "price" => $product->price,
@@ -125,28 +127,7 @@ class HomeController extends Controller
         session()->put('cart', $cart);
         return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
-    public function checkout_post(Request $request){
-        $model = new Order;
-        $model->fill($request->all());
-        $model->save();
-
-        $total = 0;
-        $shipping_rate = 0;
-        $discount = 0;
-        if(session('cart')){
-            foreach(session('cart') as $id => $products){
-                $order_items = new OrderItems;
-                $order_items->product_id = $products->id;
-                $order_items->order_id = $model->id;
-                $order_items->qty = $products->qty;
-                $order_items->price = $products->price;
-                $order_items->discount = $products->discount;
-                $order_items->total = $products->price * $products->qty;
-                $order_items->save();
-            }
-        }
-        return redirect()->back();
-    }
+    
 
     public function update(Request $request)
     {
@@ -255,10 +236,64 @@ class HomeController extends Controller
         
         return view('frontend.pages.orderdetail',compact('detail'));
     }
+    public function ordercomplete()
+    {
+        
+        return view('frontend.pages.ordercomplete');
+    }
+    public function track()
+    {
+        
+        return view('frontend.pages.track');
+    }
     public function checkout()
     {
         
         return view('frontend.pages.checkout');
+    }
+    public function checkout_post(Request $request){
+        $model = new Order;
+        $model->fill($request->all());
+        if(auth()->user() && auth()->user()->id){
+            $model->customer_id = auth()->user()->id;
+        }
+        $model->delivery_status = 'unpaid';
+        $model->payment_status = 'Pending';
+        $model->order_number = $this->next('order');
+        
+        $model->save();
+        $this->increment('order');
+        $total = 0;
+        $shipping_rate = 0;
+        $discount = 0;
+        if(session('cart')){
+            foreach(session('cart') as $id => $products){
+                $total += $products['price'] * $products['quantity'];
+                $discount += $products['discount'] * $products['quantity'];
+                if($products['shipping_flatrate'] == 1){
+                    $shipping_rate += $products['shipping_costrate'];
+                }
+                $order_items = new OrderItems;
+                $order_items->product_id = $products["id"];
+                $order_items->order_id = $model->id;
+                $order_items->qty = $products["quantity"];
+                $order_items->price = $products["price"];
+                $order_items->discount = $products["discount"];
+                $order_items->total = $products["price"] * $products["quantity"];
+                $order_items->save();
+            }
+
+            $order_update = Order::findOrFail($model->id);
+            $order_update->number_of_product = count(session('cart'));
+            $order_update->subtotal = $total;
+            $order_update->amount = $total - $discount - $shipping_rate;
+            $order_update->save();
+            
+            \Session::forget('cart');
+            return redirect('/');
+        }
+
+        return redirect()->back();
     }
     public function userlogin()
     {
@@ -344,5 +379,40 @@ class HomeController extends Controller
 
      
         return redirect('login');
+    }
+
+    public function next($key)
+    {
+        $found = $this->db()
+            ->where('key', $key)
+            ->first();
+
+        if(!$found) {
+            throw new Exception('No record for counter found');
+        }
+        return $found->prefix.$found->value;
+    }
+
+    public function increment($key)
+    {
+        $result = $this->db()
+            ->where('key', $key)
+            ->increment('value');
+
+        if(!$result) {
+            throw new Exception('Counter could not increment');
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get new database instance
+     *
+     * @return DB
+     */
+    protected function db()
+    {
+        return DB::table('counters');
     }
 }

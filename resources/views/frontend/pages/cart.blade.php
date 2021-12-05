@@ -28,6 +28,7 @@
                                 @php $total = 0;
                                     $shipping_rate = 0;
                                     $discount = 0;
+                                    
                                 @endphp
                                 @if(session('cart'))
                                     @foreach(session('cart') as $id => $products)
@@ -102,6 +103,11 @@
                                         <span>${{ $discount }}</span>
                                     </div>
                                     
+                                    <div class="cart-subtotal d-flex align-items-center justify-content-between">
+                                        <label class="ls-25">Shipping</label>
+                                        <span>${{ $shipping_rate }}</span>
+                                    </div>
+
                                     <div class="cart-subtotal d-flex align-items-center justify-content-between">
                                         <label class="ls-25">Shipping</label>
                                         <span>${{ $shipping_rate }}</span>
