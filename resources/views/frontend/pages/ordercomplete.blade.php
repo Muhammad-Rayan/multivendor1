@@ -25,23 +25,25 @@
                     <ul class="order-view list-style-none">
                         <li>
                             <label>Order number</label>
-                            <strong>945</strong>
+                            <strong>{{ $order->order_number }}</strong>
                         </li>
                         <li>
                             <label>Status</label>
-                            <strong>On hold</strong>
+                            <strong>{{ $order->delivery_status }}</strong>
                         </li>
                         <li>
                             <label>Date</label>
-                            <strong>April 27, 2021</strong>
+                            <strong>{{ date('d-m-Y', strtotime($order->created_at)) }}</strong>
                         </li>
                         <li>
                             <label>Total</label>
-                            <strong>$1,646.36</strong>
+                            <strong>${{ $order->amount }}</strong>
                         </li>
                         <li>
                             <label>Payment method</label>
-                            <strong>Direct bank transfor</strong>
+                            @if($order->cash_on_delivery == 1)
+                            <strong>Cash On Delivery</strong>
+                            @endif
                         </li>
                     </ul>
                     <!-- End of Order View -->
@@ -56,37 +58,26 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $subtotal = 0  ?>
+                                @foreach($order->items as $products)
+                                <?php $subtotal += $products->total  ?>
                                 <tr>
                                     <td>
-                                        <a href="#">Palm Print Jacket</a>&nbsp;<strong>x 1</strong><br>
-                                        Vendor : <a href="#">Vendor 1</a>
+                                        <a></a>{{ $products->product->name }} &nbsp;<strong>x {{ $products->qty }}</strong>
+                                        
                                     </td>
-                                    <td>$40.00</td>
+                                    <td>${{ $products->total }}</td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <a href="#">Brown Backpack</a>&nbsp;<strong>x 1</strong><br>
-                                        Vendor : <a href="#">Vendor 1</a>
-                                    </td>
-                                    <td>$60.00</td>
-                                </tr>
+                                @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>Subtotal:</th>
-                                    <td>$100.00</td>
-                                </tr>
-                                <tr>
-                                    <th>Shipping:</th>
-                                    <td>Flat rate</td>
-                                </tr>
-                                <tr>
-                                    <th>Payment method:</th>
-                                    <td>Direct bank transfor</td>
+                                    <td>${{ $subtotal }}</td>
                                 </tr>
                                 <tr class="total">
                                     <th class="border-no">Total:</th>
-                                    <td class="border-no">$100.00</td>
+                                    <td class="border-no">${{ $order->amount }}</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -97,7 +88,7 @@
 
                     <div id="account-addresses">
                         <div class="row">
-                            <div class="col-sm-6 mb-8">
+                            <!-- <div class="col-sm-6 mb-8">
                                 <div class="ecommerce-address billing-address">
                                     <h4 class="title title-underline ls-25 font-weight-bold">Billing Address</h4>
                                     <address class="mb-4">
@@ -131,7 +122,7 @@
                                         </table>
                                     </address>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-sm-6 mb-8">
                                 <div class="ecommerce-address shipping-address">
                                     <h4 class="title title-underline ls-25 font-weight-bold">Shipping Address</h4>
@@ -139,22 +130,22 @@
                                         <table class="address-table">
                                             <tbody>
                                                 <tr>
-                                                    <td>John Doe</td>
+                                                    <td>{{ $order->first_name }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Conia</td>
+                                                    <td>{{ $order->last_name }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Wall Street</td>
+                                                    <td>{{ $order->company }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>California</td>
+                                                    <td>{{ $order->street_address }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>United States (US)</td>
+                                                    <td>{{ $order->city }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>92020</td>
+                                                    <td>{{ $order->zip }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>

@@ -22,11 +22,10 @@
                                 </li>
                               
                             </ul>
-                                <form method="post" >
-                                 @csrf
+                                <form method="get" action="{{ route('track-get') }}" >
                                     <div class="form-group" style="margin-top: 15px;">
                                         <label>Enter Tracking Number</label>
-                                        <input type="text" class="form-control" name="email" id="email" >
+                                        <input type="text" class="form-control" name="order_number" id="email" >
                                     </div>
                                     <div class="form-group" >
                                         <label>Email</label>

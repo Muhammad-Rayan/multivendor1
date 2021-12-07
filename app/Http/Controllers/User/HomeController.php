@@ -236,19 +236,29 @@ class HomeController extends Controller
         
         return view('frontend.pages.orderdetail',compact('detail'));
     }
-    public function ordercomplete()
+    public function ordercomplete($ordercomplete)
     {
-        
-        return view('frontend.pages.ordercomplete');
+        $order = Order::with(['items.product'])->where('order_number',$ordercomplete)->first();
+        return view('frontend.pages.ordercomplete',compact('order'));
     }
     public function track()
     {
-        
         return view('frontend.pages.track');
+    }
+    public function track_get()
+    {
+        $order = Order::with(['items.product'])
+        ->when(request('order_number'),function($q){
+            $q->where('order_number',request('order_number'));
+        })
+        ->when(request('email'),function($q){
+            $q->where('email',request('email'));
+        })
+        ->first();
+        return view('frontend.pages.ordercomplete',compact('order'));
     }
     public function checkout()
     {
-        
         return view('frontend.pages.checkout');
     }
     public function checkout_post(Request $request){
@@ -268,6 +278,7 @@ class HomeController extends Controller
         $discount = 0;
         if(session('cart')){
             foreach(session('cart') as $id => $products){
+                
                 $total += $products['price'] * $products['quantity'];
                 $discount += $products['discount'] * $products['quantity'];
                 if($products['shipping_flatrate'] == 1){
@@ -281,6 +292,10 @@ class HomeController extends Controller
                 $order_items->discount = $products["discount"];
                 $order_items->total = $products["price"] * $products["quantity"];
                 $order_items->save();
+                $product = Productlist::findOrFail($products["id"]);
+                $stock_qty = $product->qty - $products['quantity'];
+                $product->qty = $stock_qty;
+                $product->save();
             }
 
             $order_update = Order::findOrFail($model->id);
@@ -290,10 +305,9 @@ class HomeController extends Controller
             $order_update->save();
             
             \Session::forget('cart');
-            return redirect('/');
         }
 
-        return redirect()->back();
+        return redirect()->route('ordercomplete',$model->id);
     }
     public function userlogin()
     {
