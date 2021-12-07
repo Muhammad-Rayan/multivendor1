@@ -618,7 +618,7 @@
     <!-- End of Mobile Menu -->
 
     <!-- Start of Newsletter popup -->
-    <div class="newsletter-popup mfp-hide">
+    <div class="newsletter-popup mfp-hide" style="display:none">
         <div class="newsletter-content">
             <h4 class="text-uppercase font-weight-normal ls-25">Get Up to<span class="text-primary">25% Off</span></h4>
             <h2 class="ls-25">Sign up to Wolmart</h2>
