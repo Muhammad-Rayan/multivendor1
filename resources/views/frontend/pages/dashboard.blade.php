@@ -24,15 +24,15 @@
             <div class="page-content pt-2">
                 <div class="container">
                     <div class="tab tab-vertical row gutter-lg">
-                        <ul class="nav nav-tabs mb-6" role="tablist">
+                    <ul class="nav nav-tabs mb-6" role="tablist">
                             <li class="nav-item">
-                                <a href="#account-dashboard" class="nav-link active">Dashboard</a>
+                                <a href="{{route('user-dashboard')}}" class="nav-new ">Dashboard</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#account-orders" class="nav-link">Orders</a>
+                                <a href="{{route('order')}}" class="nav-new">Orders</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#account-details" class="nav-link">Account details</a>
+                                <a href="{{route('account-detail',$accountdetail1->id)}}" class="nav-new">Account details</a>
                             </li>
                         </ul>
 

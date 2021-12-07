@@ -58,26 +58,53 @@ class HomeController extends Controller
     }
     
     public function userdashboard()
-    {
-        $accountdetail1 =User::where('id',auth()->user()->id)->first();
+    { 
+        $user = auth()->user();
+        
+        if($user == null){
+            return redirect()->route('Userlogin');
+    }
+    else{
+    
+        $accountdetail1 =User::where('id',$user["id"])->first();
    
         return view('frontend.pages.dashboard',compact('accountdetail1'));
-    }
+    }}
     public function order()
-    {
+    {   $user = auth()->user();
+        
+        if($user == null){
+            return redirect()->route('Userlogin');
+    }
+    else{
+    
+    $accountdetail1 =User::where('id',auth()->user()->id)->first();
+   
         $order = Order::where('customer_id',auth()->user()->id)->orderby('updated_at','desc')->get();
        
         
-        return view('frontend.pages.order',compact('order'));
-    }
+        return view('frontend.pages.order',compact('order','accountdetail1'));
+    }}
     public function accountdetail()
-    {
+    {  $user = auth()->user();
+        
+        if($user == null){
+            return redirect()->route('Userlogin');
+    }
+    else{
+    
         $accountdetail2 =User::with(['user_info'])->where('id',auth()->user()->id)->first();
         dd($accountdetail2);
         return view('frontend.pages.accountdetail',compact('accountdetail2'));
-    }
+    }}
     public function accountdetailupdate(Request $request,$id)
-    {
+    {  $user = auth()->user();
+        
+        if($user == null){
+            return redirect()->route('Userlogin');
+    }
+    else{
+    
            
 
         $seller = Seller::where('user_id',$id)->first();
@@ -92,7 +119,7 @@ class HomeController extends Controller
         $user->password=$request->password;
         $user->save();
         return view('frontend.pages.accountdetail',compact('seller','user'));
-    }
+    }}
    
     public function cart()
     {
@@ -231,7 +258,7 @@ class HomeController extends Controller
     }
     public function orderdetail()
     {
-        $detail = Order::where('customer_id',auth()->user()->id)->orderby('updated_at','desc')->get();
+        $detail = Productlist::where('user_id',auth()->user()->id)->orderby('updated_at','desc')->get();
        
         
         return view('frontend.pages.orderdetail',compact('detail'));

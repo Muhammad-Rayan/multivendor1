@@ -340,12 +340,7 @@
                            <a href="{{ route('add-to-cart', $newsell->id) }}" class="btn-product-icon w-icon-cart" role="button"
                               title="Add to cart"></a>
                               <!-- <a href="{{ route('add-to-cart', $newsell->id) }}" class="btn btn-warning btn-block text-center" role="button">Add to cart</a> -->
-                           <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                              title="Add to wishlist"></a>
-                           <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                              title="Quickview"></a>
-                           <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                              title="Add to Compare"></a>
+                           
                         </div>
                      </figure>
                      <div class="product-details">
@@ -381,12 +376,7 @@
                         <div class="product-action-vertical">
                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
                               title="Add to cart"></a>
-                           <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                              title="Add to wishlist"></a>
-                           <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                              title="Quickview"></a>
-                           <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                              title="Add to Compare"></a>
+                           
                         </div>
                      </figure>
                      <div class="product-details">
@@ -421,12 +411,7 @@
                         <div class="product-action-vertical">
                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
                               title="Add to cart"></a>
-                           <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                              title="Add to wishlist"></a>
-                           <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                              title="Quickview"></a>
-                           <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                              title="Add to Compare"></a>
+                           
                         </div>
                      </figure>
                      <div class="product-details">
@@ -462,12 +447,7 @@
                         <div class="product-action-vertical">
                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
                               title="Add to cart"></a>
-                           <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                              title="Add to wishlist"></a>
-                           <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                              title="Quickview"></a>
-                           <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                              title="Add to Compare"></a>
+                           
                         </div>
                      </figure>
                      <div class="product-details">
@@ -561,16 +541,12 @@
                         style="height: 235px;width: 211px;" />
                         </a>
                         <div class="product-action-vertical">
-                           <a href="#" class="btn-product-icon btn-cart w-icon-cart"
+                           <a href="{{ route('add-to-cart', $newsell->id) }}" class="btn-product-icon w-icon-cart" role="button"
                               title="Add to cart"></a>
-                           <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                              title="Add to wishlist"></a>
-                           <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                              title="Quickview"></a>
-                           <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                              title="Add to Compare"></a>
+                              <!-- <a href="{{ route('add-to-cart', $newsell->id) }}" class="btn btn-warning btn-block text-center" role="button">Add to cart</a> -->
+                           
                         </div>
-                     </figure>
+                           </figure>
                      <div class="product-details">
                         <h4 class="product-name"><a href="product-default.html">{{ $categ1->name }}</a>
                         </h4>
@@ -630,12 +606,7 @@
                         <div class="product-action-vertical">
                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
                               title="Add to cart"></a>
-                           <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                              title="Add to wishlist"></a>
-                           <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                              title="Quickview"></a>
-                           <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                              title="Add to Compare"></a>
+                           
                         </div>
                      </figure>
                      <div class="product-details">
@@ -725,12 +696,7 @@
                         <div class="product-action-vertical">
                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
                               title="Add to cart"></a>
-                           <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                              title="Add to wishlist"></a>
-                           <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                              title="Quickview"></a>
-                           <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                              title="Add to Compare"></a>
+                           
                         </div>
                      </figure>
                      <div class="product-details">

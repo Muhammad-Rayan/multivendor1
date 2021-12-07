@@ -49,23 +49,23 @@
                                 </div>
 
                                 <table class="shop-table account-orders-table mb-6">
-                                @foreach($detail as $orde)
-                                                <thead>
+                                    <thead>
                                         <tr>
-                                            <th class="order-id">Order</th>
                                             <th class="order-date">Date</th>
-                                            <th class="order-status">Status</th>
-                                            <th class="order-total">Total</th>
+                                             <th class="order-id">Name</th>
+                                            <th class="order-status">QTY</th>
+                                            <th class="order-total">Price</th>
                                             <th class="order-actions">Actions</th>
                                         </tr>
                                     </thead>
+                                    @foreach($detail as $orde)
                                     <tbody>
                                         <tr>
-                                            <td class="order-id">{{ $orde->order_number }}</td>
-                                            <td class="order-date">{{ $orde->created_at }}1</td>
-                                            <td class="order-status">{{ $orde->delivery_status }}</td>
+                                            <td class="order-date">{{ $orde->created_at->format('d/m/Y') }}</td>
+                                            <td class="order-id">{{ $orde->name }}</td>
+                                            <td class="order-status">{{ $orde->aty }}</td>
                                             <td class="order-total">
-                                                <span class="order-price">{{ $orde->subtotal }}</span>
+                                                <span class="order-price">{{ $orde->price }}</span>
                                             </td>
                                             <td class="order-action">
                                                 <a href="#" class="btn btn-outline btn-default btn-block btn-sm btn-rounded">View</a>

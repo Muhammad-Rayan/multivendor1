@@ -27,7 +27,31 @@
             s.parentNode.insertBefore(wf, s);
         })(document);
     </script> -->
-
+    <style>
+    .nav-new {
+    display: block;
+    position: relative;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: inherit;
+    line-height: 1;
+    letter-spacing: 0;
+    text-align: left;
+    text-transform: uppercase;
+    border-radius: 0;
+    border: 0;
+    padding: 1.5rem 2.85rem;
+    -webkit-transition: border 0.3s, color 0.3s, background-color 0.3s;
+    transition: border 0.3s, color 0.3s, background-color 0.3s;
+}
+.my-account .nav-new {
+    margin-bottom: 0;
+    padding: 1.7rem 0 1.6rem;
+    font-size: 1.6rem;
+    text-transform: none;
+    border-bottom: 1px solid #eee;
+}
+</style>
 @include('frontend.includes.style')
 
 </head>
