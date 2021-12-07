@@ -162,7 +162,7 @@
                                             height="338" />
                                     </a>
                                     <div class="product-action-horizontal">
-                                        <a href="#" class="btn-product-icon btn-cart w-icon-cart"
+                                        <a :href="`add-to-cart/${products.id}`" class="btn-product-icon w-icon-cart"
                                             title="Add to cart"></a>
                                         <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                                             title="Wishlist"></a>
@@ -227,20 +227,30 @@
 import Dropdown2 from "@/components/dropdown/Dropdown2.vue";
 import FileUpload from '@/my_components/form/FileUpload.vue'
 import ErrorText from '@/my_components/form/ErrorText.vue'
-
+import { useRoute, useRouter } from "vue-router";
 import { get,byMethod } from '@/lib/api'
 import { form } from '@/lib/mixins'
 import { useToast } from "vue-toastification";
 import { copyObject } from '@/lib/helpers'
 
 function initializeUrl (to) {
-    let urls = {
-        'create': `/api/product/categories/create`,
-        'edit': `/api/product/categories/${to.params.id}/edit`,
-        'clone': `/api/product/categories/${to.params.id}/edit?mode=clone`,
+    console.log(to.query.cat);
+    if(to.query.cat == undefined){
+        let urls = {
+            'create': `/api/users/products`,
+        }
+        return urls['create']
+    }else{
+        let urls = {
+            'create': `/api/users/products?cat=${to.query.cat}`,
+        }
+        return urls['create']
     }
-
-    return (urls[to.meta.mode] || urls['create'])
+    // let urls = {
+    //     'create': `/api/users/products?cat=${to.query.cat}`,
+    // }
+    
+    return urls['create']
 }
 
 export default ({
@@ -252,6 +262,7 @@ export default ({
             model: {},
             categories:{},
             catClass: false,
+            cat : '',
             params: {
               per_page: 12,
               order_by:'default',
@@ -272,6 +283,7 @@ export default ({
     created() {
           this.store = `/api/users/products/${this.$route.params.id}/update`
           this.method = 'POST'
+          
   },
   beforeRouteUpdate (to, from, next) {
         this.show = false
@@ -283,10 +295,16 @@ export default ({
             //catch 422
     },
     beforeRouteEnter(to, from, next) {
-        get(`/api/users/products`)
-            .then(res => {
-                next(vm => vm.setData(res))
-            })
+        // if (to.query == "undefined"){
+        //     to.query.cat = ''
+        // }
+        get(initializeUrl(to)).then(res => {
+            next(vm => vm.setData(res))
+        })
+        // get(`/api/users/products?per_page=12&cat=`)
+        //     .then(res => {
+        //         next(vm => vm.setData(res))
+        //     })
             // catch 422
     },
     computed: {
@@ -378,6 +396,10 @@ export default ({
         .then(res => {
             this.setData(res)
         })
+    },
+    addToCart(id){
+        console.log("test");
+        window.open = `add-to-cart/${id}`;
     },
     refresh(){
         this.params.cat = '';

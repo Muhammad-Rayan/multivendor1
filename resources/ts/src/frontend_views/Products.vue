@@ -118,10 +118,10 @@
                                                     <button class="quantity-minus w-icon-minus" @click="quantity_minus"></button>
                                                 </div>
                                             </div>
-                                            <button class="btn btn-primary btn-cart">
+                                            <a :href="`add-to-cart/${model.id}`"><button class="btn btn-primary btn-cart">
                                                 <i class="w-icon-cart"></i>
                                                 <span>Add to Cart</span>
-                                            </button>
+                                            </button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -780,7 +780,7 @@
                                 </div>
                             </div>
                         </div>
-                        <section class="vendor-product-section">
+                        <!-- <section class="vendor-product-section">
                             <div class="title-link-wrapper mb-4">
                                 <h4 class="title text-left">More Products From This Vendor</h4>
                                 <a href="#" class="btn btn-dark btn-link btn-slide-right btn-icon-right">More
@@ -1121,7 +1121,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </section>
+                        </section> -->
                     </div>
                     <aside class="sidebar product-sidebar sidebar-fixed right-sidebar sticky-sidebar-wrapper">
                         <div class="sidebar-overlay"></div>

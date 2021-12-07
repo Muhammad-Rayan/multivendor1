@@ -240,8 +240,18 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/layout/FrontLayout.vue"),
     children: [
       {
+        path: "/dashboard",
+        name: "shop-dash",
+        component: () => import("@/frontend_views/Shop.vue"),
+      },
+      {
         path: "/frontend_dashboard",
         name: "shop",
+        component: () => import("@/frontend_views/Shop.vue"),
+      },
+      {
+        path: "/frontend_dashboard?cat_id=:id",
+        name: "product-search",
         component: () => import("@/frontend_views/Shop.vue"),
       },
       {
