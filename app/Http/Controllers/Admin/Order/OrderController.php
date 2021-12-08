@@ -113,12 +113,16 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {   
-        $results = Order::where('id',$id)->first();
-        $results->delivery_status = $request->delivery_status;
-        $results->payment_status = $request->payment_status;
-        $results->save();
+        $update = Order::where('id',$id)->first();
+        $update->delivery_status = $request->delivery_status;
+        $update->payment_status = $request->payment_status;
+        $update->save();
+
+        $results = Order::with(['items.product','customer'])->findOrFail($id);
+
         return response()->json([
             'saved' => true,
+            'results' => $results 
         ]);
     }
     public function delivery_status(Request $request, $id)

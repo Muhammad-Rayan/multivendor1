@@ -14,7 +14,7 @@
                   </label>
                   <el-form-item prop="assign">
                     <el-select
-                        v-model="model.payment_status"
+                        v-model="model.payment_status" @change="deliveryStatus()"
                     >
                     <el-option label="Unpaid" value="Unpaid"
                       >Unpaid</el-option
@@ -66,9 +66,9 @@
                         <!--begin::Table head-->
                         <thead>
                             <tr class="fw-bolder text-muted">
-                            <th>Photo</th>
-                            <th>Description</th>
+                            <th>Product Name</th>
                             <th>Qty</th>
+                            <th>Shipping</th>
                             <th>Price</th>
                             <th>Total</th>
                             </tr>
@@ -81,9 +81,9 @@
                             <tr>
                                 <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="item.product != null">{{ item.product.name }}</td>
                                 <td class="text-dark fw-bolder text-hover-primary fs-6" v-else>-</td>
-                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="item.product != null" v-html="item.product.description"></td>
-                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-else>-</td>
                                 <td class="text-dark fw-bolder text-hover-primary fs-6">{{ item.qty }}</td>
+                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="item.product != null && item.product.shipping_costrate != null">{{ item.product.shipping_costrate }}</td>
+                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-else>0</td>
                                 <td class="text-dark fw-bolder text-hover-primary fs-6">{{ item.price }}</td>
                                 <td>{{ item.price }}</td>
                                 
@@ -98,15 +98,13 @@
             </div>
             <div class="col-2">
                 <p><b>Sub Total :</b></p>
-                <p><b>Tax :</b></p>
-                <p><b>Shipping :</b></p>
+                <!-- <p><b>Shipping :</b></p> -->
                 <p><b>Total :</b></p>
             </div>
             <div class="col-2">
                 <p>{{ totalItem }}</p>
-                <p>{{ totalTax }}</p>
-                <p>{{ model.shipping }}</p>
-                <p>{{ totalItem + totalTax + model.shipping}}</p>
+                <!-- <p>{{ totalShipping }}</p> -->
+                <p>{{ model.amount }}</p>
             </div>
             
         </div>
@@ -117,6 +115,7 @@
 import Dropdown2 from "@/components/dropdown/Dropdown2.vue";
 import FileUpload from '@/my_components/form/FileUpload.vue'
 import ErrorText from '@/my_components/form/ErrorText.vue'
+import { objectToFormData } from '@/lib/helpers'
 
 import { get,byMethod } from '@/lib/api'
 import { form } from '@/lib/mixins'
@@ -176,6 +175,14 @@ export default ({
             }
             return sum;
         },
+        // totalShipping(){
+        //     let sum = 0;
+        //     for(let i = 0; i < this.testlength.length; i++){
+        //         console.log(this.testlength);
+        //         sum += (parseFloat(this.testlength[i].shipping_costrate));
+        //     }
+        //     return sum;
+        // },
         totalTax(){
             let sum = 0;
             for(let i = 0; i < this.testlength.length; i++){
@@ -192,15 +199,20 @@ export default ({
     },
   methods: {
       deliveryStatus(id){
-        byMethod('POST', `/api/order/${this.model.id}/update`,this.model)
-        .then(({data}) => {
-            this.toast.success("Order Deliver Successfully");
-            get(`/api/order`)
+          byMethod('POST', `/api/order/${this.model.id}/update`, objectToFormData(this.model))
             .then(res => {
+                this.toast.success("Status Change Successfully");
                 this.setData(res)
             })
-        })
-        .catch((err) => {})
+        // byMethod('POST', `/api/order/${this.model.id}/update`,this.model)
+        // .then(({data}) => {
+        //     this.toast.success("Order Deliver Successfully");
+        //     get(`/api/order`)
+        //     .then(res => {
+        //         this.setData(res)
+        //     })
+        // })
+        // .catch((err) => {})
       },
     setData(res) {
       this.model = res.data.results;
