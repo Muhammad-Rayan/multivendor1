@@ -154,6 +154,33 @@ class HomeController extends Controller
         session()->put('cart', $cart);
         return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
+
+
+    public function add_to_cart_vue($id)
+    {
+        $product = Productlist::findOrFail($id);
+        $cart = session()->get('cart', []);
+  
+        if(isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = [
+                "id" => $product->id,
+                "name" => $product->name,
+                "quantity" => 1,
+                "price" => $product->price,
+                "discount" => $product->discount,
+                "free_shipping" => $product->free_shipping,
+                "shipping_flatrate" => $product->shipping_flatrate,
+                "shipping_costrate" => $product->shipping_costrate,  "capture_image" => $product->capture_image
+            ];
+        }
+          
+        session()->put('cart', $cart);
+        return response()->json([ 
+            'results' => true
+        ]);
+    }
     
 
     public function update(Request $request)
@@ -395,6 +422,12 @@ class HomeController extends Controller
     {
   
       return view('frontend.pages.refund');
+    }
+
+    public function logout(){
+        session()->flush();
+        session()->save();
+        return redirect()->route('Userlogin');
     }
   
     public function refundpost(Request $request)

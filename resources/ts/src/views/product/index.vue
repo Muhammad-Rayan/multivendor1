@@ -81,13 +81,13 @@
                     {{ item.name }}
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
-              Color
+                  Color
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
-                   Price
+                   {{ item.price }}
                 </td>
                  <td class="text-dark fw-bolder text-hover-primary fs-6">
-                   Stock
+                   {{item.qty}}
                 </td>
                 <td v-if="item.active == 1">
                   <span class="badge badge-light-primary">Active</span>

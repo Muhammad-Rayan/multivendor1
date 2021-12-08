@@ -118,7 +118,7 @@
                                                     <button class="quantity-minus w-icon-minus" @click="quantity_minus"></button>
                                                 </div>
                                             </div>
-                                            <a :href="`add-to-cart/${model.id}`"><button class="btn btn-primary btn-cart">
+                                            <a  @click="addToCart(model.id)" ><button class="btn btn-primary btn-cart">
                                                 <i class="w-icon-cart"></i>
                                                 <span>Add to Cart</span>
                                             </button></a>
@@ -1295,8 +1295,6 @@ export default ({
         if(this.attributes != null && this.variation_size == null){
             this.attribute_error = true;
         }else{
-            console.log(parent_id);
-            console.log(id);
             this.color_size = this.colors[index];
             if(parent_id == null){
                 this.variation_id = id;
@@ -1314,8 +1312,15 @@ export default ({
       this.attributes = res.data.attribute_items;
       this.colors = res.data.colors;
       this.users = res.data.users;
-      console.log(res.data);
     //   this.testlength = res.data.results.items;
+    },
+    addToCart(id){
+        get(`/api/add-to-cart/${id}`)
+        .then(res => {
+            if(res.data.results){
+                location.reload();
+            }
+        })
     },
     quantity_minus(){
         this.quantity--

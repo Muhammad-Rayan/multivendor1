@@ -9,9 +9,9 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/layout/Layout.vue"),
     children: [
       {
-        path: "/dashboard",
+        path: "/all-dashboard",
         name: "dashboard",
-        component: () => import("@/views/Dashboard.vue"),
+        component: () => import("@/views/product/form.vue"),
       },
       // Product
       {
@@ -239,11 +239,11 @@ const routes: Array<RouteRecordRaw> = [
     redirect: "/frontend_dashboard",
     component: () => import("@/layout/FrontLayout.vue"),
     children: [
-      {
-        path: "/dashboard",
-        name: "shop-dash",
-        component: () => import("@/frontend_views/Shop.vue"),
-      },
+      // {
+      //   path: "/dashboard",
+      //   name: "shop-dash",
+      //   component: () => import("@/frontend_views/Shop.vue"),
+      // },
       {
         path: "/frontend_dashboard",
         name: "shop",
