@@ -42,6 +42,7 @@ Route::group(['prefix' => '/'], function() {
     Route::delete('remove-all', [HomeController::class, 'remove_all'])->name('remove.all');
     Route::get('userlogin',[HomeController::class, 'userlogin'])->name('Userlogin');	
     Route::post('/userlogin-data', [HomeController::class, 'userlogindata'])->name('Userlogin-data');
+    Route::get('logout',[HomeController::class, 'logout'])->name('logout');
     Route::get('/user-dashboard', [HomeController::class, 'userdashboard'])->name('user-dashboard');
     Route::get('/order', [HomeController::class, 'order'])->name('order');
     Route::get('/account-detail/{id}', [HomeController::class, 'accountdetail'])->name('account-detail');
@@ -79,7 +80,8 @@ Route::group(['prefix' => 'api'], function() {
     Route::get('/users/products', [ProductController::class,'index']);	
     Route::get('/users/products/{id}', [ProductController::class,'show']);	
     Route::get('/users/products/variation/{id}', [ProductController::class,'variation']);
-    Route::get('/users/products/attribute/{id}', [ProductController::class,'attribute']);	
+    Route::get('/users/products/attribute/{id}', [ProductController::class,'attribute']);
+    Route::get('/add-to-cart/{id}', [HomeController::class, 'add_to_cart_vue'])->name('add-to-cart-vue');	
     Route::group(['prefix' => 'product'], function() {
         
         Route::resource('/', ProductlistController::class);

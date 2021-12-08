@@ -162,7 +162,8 @@
                                             height="338" />
                                     </a>
                                     <div class="product-action-horizontal">
-                                        <a :href="`add-to-cart/${products.id}`" class="btn-product-icon w-icon-cart"
+                                        <!-- :href="`add-to-cart/${products.id}`" -->
+                                        <a @click="addToCart(products.id)"  class="btn-product-icon w-icon-cart"
                                             title="Add to cart"></a>
                                         <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                                             title="Wishlist"></a>
@@ -398,8 +399,12 @@ export default ({
         })
     },
     addToCart(id){
-        console.log("test");
-        window.open = `add-to-cart/${id}`;
+        get(`/api/add-to-cart/${id}`)
+        .then(res => {
+            if(res.data.results){
+                location.reload();
+            }
+        })
     },
     refresh(){
         this.params.cat = '';
