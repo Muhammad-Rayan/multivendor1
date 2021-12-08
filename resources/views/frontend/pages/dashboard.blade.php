@@ -40,7 +40,7 @@
                             <div class="tab-pane active in" id="account-dashboard">
                                 <p class="greeting">
                                     Hello
-                                    <span class="text-dark font-weight-bold">Ibrahim Raza</span>
+                                    <span class="text-dark font-weight-bold">{{auth()->user()->name}}</span>
                                     <!-- (not
                                     <span class="text-dark font-weight-bold">Ibrahim Raza</span>?
                                     <a href="#" class="text-primary">Log out</a>) -->
@@ -81,9 +81,9 @@
                                     </div>
                                     
                                     <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 mb-4">
-                                        <a href="#">
+                                        <a href="{{ route('logout') }}">
                                             <div class="icon-box text-center">
-                                                <s  pan class="icon-box-icon icon-logout">
+                                                <span class="icon-box-icon icon-logout">
                                                     <i class="w-icon-logout"></i>
                                                 </span>
                                                 <div class="icon-box-content">

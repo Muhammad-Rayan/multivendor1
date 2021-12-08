@@ -510,8 +510,8 @@
       <!-- End of Category Cosmetic Lifestyle -->
       <div class="product-wrapper-1 appear-animate mb-5">
          <div class="title-link-wrapper pb-1 mb-4">
-            <h2 class="title ls-normal mb-0">Clothing & Apparel</h2>
-            <a href="shop-boxed-banner.html" class="font-size-normal font-weight-bold ls-25 mb-0">More
+            <h2 class="title ls-normal mb-0">Sweater</h2>
+            <a href="/vuepro#/frontend_dashboard" class="font-size-normal font-weight-bold ls-25 mb-0">More
             Products<i class="w-icon-long-arrow-right"></i></a>
          </div>
          <div class="row">
@@ -573,8 +573,8 @@
       <!-- End of Product Wrapper 1 -->
       <div class="product-wrapper-1 appear-animate mb-8">
          <div class="title-link-wrapper pb-1 mb-4">
-            <h2 class="title ls-normal mb-0">Consumer Electric</h2>
-            <a href="shop-boxed-banner.html" class="font-size-normal font-weight-bold ls-25 mb-0">More
+            <h2 class="title ls-normal mb-0">Jacket</h2>
+            <a href="/vuepro#/frontend_dashboard" class="font-size-normal font-weight-bold ls-25 mb-0">More
             Products<i class="w-icon-long-arrow-right"></i></a>
          </div>
          <div class="row">
@@ -663,8 +663,8 @@
       <!-- End of Banner Fashion -->
       <div class="product-wrapper-1 appear-animate mb-7">
          <div class="title-link-wrapper pb-1 mb-4">
-            <h2 class="title ls-normal mb-0">Home Garden & Kitchen</h2>
-            <a href="shop-boxed-banner.html" class="font-size-normal font-weight-bold ls-25 mb-0">More
+            <h2 class="title ls-normal mb-0">Coat</h2>
+            <a href="/vuepro#/frontend_dashboard" class="font-size-normal font-weight-bold ls-25 mb-0">More
             Products<i class="w-icon-long-arrow-right"></i></a>
          </div>
          <div class="row">
