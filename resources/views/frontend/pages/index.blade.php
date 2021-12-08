@@ -331,7 +331,7 @@
                <div class="product-wrap">
                   <div class="product text-center">
                      <figure class="product-media">
-                        <a href="product-default.html">
+                        <a href="vuepro#/frontend_dashboard/{{ $newsell->id }}">
                         <img src="{{asset('productgallery') }}/{{ $newsell->capture_image }}" alt="Product"
                            style="width: 231px;height: 225px;" />
                      
@@ -344,13 +344,13 @@
                         </div>
                      </figure>
                      <div class="product-details">
-                        <h4 class="product-name"><a href="product-default.html">{{ $newsell->name }}</a></h4>
+                        <h4 class="product-name"><a href="vuepro#/frontend_dashboard/{{ $newsell->id }}">{{ $newsell->name }}</a></h4>
                         <div class="ratings-container">
                            <div class="ratings-full">
                               <span class="ratings" style="width: 60%;"></span>
                               <span class="tooltiptext tooltip-top"></span>
                            </div>
-                           <a href="product-default.html" class="rating-reviews">(1 Reviews)</a>
+                           <a href="#" class="rating-reviews">(1 Reviews)</a>
                         </div>
                         <div class="product-price">
                            <ins class="new-price">{{ $newsell->price }}$</ins>
@@ -368,7 +368,7 @@
                <div class="product-wrap">
                   <div class="product text-center">
                      <figure class="product-media">
-                        <a href="product-default.html">
+                        <a href="vuepro#/frontend_dashboard/{{ $bestsell->id }}">
                         <img src="{{asset('productgallery') }}/{{ $bestsell->capture_image }}" alt="Product"
                            style="width: 231px;height: 225px;" />
                       
@@ -380,13 +380,13 @@
                         </div>
                      </figure>
                      <div class="product-details">
-                        <h4 class="product-name"><a href="product-default.html">{{ $bestsell->name }}</a></h4>
+                        <h4 class="product-name"><a href="vuepro#/frontend_dashboard/{{ $bestsell->id }}">{{ $bestsell->name }}</a></h4>
                         <div class="ratings-container">
                            <div class="ratings-full">
                               <span class="ratings" style="width: 60%;"></span>
                               <span class="tooltiptext tooltip-top"></span>
                            </div>
-                           <a href="product-default.html" class="rating-reviews">(1 Reviews)</a>
+                           <a href="#" class="rating-reviews">(1 Reviews)</a>
                         </div>
                         <div class="product-price">
                            <ins class="new-price">{{ $bestsell->price }}$</ins>
@@ -404,7 +404,7 @@
                <div class="product-wrap">
                   <div class="product text-center">
                      <figure class="product-media">
-                        <a href="product-default.html">
+                        <a href="vuepro#/frontend_dashboard/{{ $mostpop->id }}">
                         <img src="{{asset('productgallery') }}/{{ $mostpop->capture_image }}" alt="Product"
                            style="width: 231px;height: 225px;" />
                         </a>
@@ -415,14 +415,14 @@
                         </div>
                      </figure>
                      <div class="product-details">
-                        <h4 class="product-name"><a href="product-default.html">{{ $mostpop->name }}</a>
+                        <h4 class="product-name"><a href="vuepro#/frontend_dashboard/{{ $mostpop->id }}">{{ $mostpop->name }}</a>
                         </h4>
                         <div class="ratings-container">
                            <div class="ratings-full">
                               <span class="ratings" style="width: 100%;"></span>
                               <span class="tooltiptext tooltip-top"></span>
                            </div>
-                           <a href="product-default.html" class="rating-reviews">(10 reviews)</a>
+                           <a href="#" class="rating-reviews">(10 reviews)</a>
                         </div>
                         <div class="product-price">
                            <ins class="new-price">{{ $mostpop->price }}$</ins>
@@ -440,7 +440,7 @@
                <div class="product-wrap">
                   <div class="product text-center">
                      <figure class="product-media">
-                        <a href="product-default.html">
+                        <a href="vuepro#/frontend_dashboard/{{ $feat->id }}">
                         <img src="{{asset('productgallery') }}/{{ $feat->capture_image }}" alt="Product"
                            style="width: 231px;height: 225px;" />
                         </a>
@@ -451,13 +451,13 @@
                         </div>
                      </figure>
                      <div class="product-details">
-                        <h4 class="product-name"><a href="product-default.html">{{ $feat->name }}</a></h4>
+                        <h4 class="product-name"><a href="vuepro#/frontend_dashboard/{{ $feat->id }}">{{ $feat->name }}</a></h4>
                         <div class="ratings-container">
                            <div class="ratings-full">
                               <span class="ratings" style="width: 60%;"></span>
                               <span class="tooltiptext tooltip-top"></span>
                            </div>
-                           <a href="product-default.html" class="rating-reviews">(1 Reviews)</a>
+                           <a href="#" class="rating-reviews">(1 Reviews)</a>
                         </div>
                         <div class="product-price">
                            <ins class="new-price">{{ $feat->price }}$</ins>
@@ -536,7 +536,7 @@
                   @foreach($categwise1 as $categ1) 
                   <div class="product-wrap product-col-3">
                      <figure class="product-media">
-                        <a href="#">
+                        <a href="vuepro#/frontend_dashboard/{{ $categ1->id }}">
                         <img src="{{asset('productgallery') }}/{{ $categ1->capture_image }}" alt="Product"
                         style="height: 235px;width: 211px;" />
                         </a>
@@ -548,7 +548,7 @@
                         </div>
                            </figure>
                      <div class="product-details">
-                        <h4 class="product-name"><a href="product-default.html">{{ $categ1->name }}</a>
+                        <h4 class="product-name"><a href="vuepro#/frontend_dashboard/{{ $categ1->id }}">{{ $categ1->name }}</a>
                         </h4>
                         <div class="ratings-container">
                            <div class="ratings-full">
@@ -599,7 +599,7 @@
                   @foreach($categwise2 as $categ2) 
                   <div class="product-wrap product-col-3">
                      <figure class="product-media">
-                        <a href="#">
+                        <a href="vuepro#/frontend_dashboard/{{ $categ2->id }}">
                         <img src="{{asset('productgallery') }}/{{ $categ2->capture_image }}" alt="Product"
                         style="height: 235px;width: 211px;" />
                         </a>
@@ -610,7 +610,7 @@
                         </div>
                      </figure>
                      <div class="product-details">
-                        <h4 class="product-name"><a href="product-default.html">{{ $categ2->name }}</a>
+                        <h4 class="product-name"><a href="vuepro#/frontend_dashboard/{{ $categ2->id }}">{{ $categ2->name }}</a>
                         </h4>
                         <div class="ratings-container">
                            <div class="ratings-full">
@@ -689,7 +689,7 @@
                   @foreach($categwise3 as $categ3) 
                   <div class="product-wrap product-col-3">
                      <figure class="product-media">
-                        <a href="#">
+                        <a href="vuepro#/frontend_dashboard/{{ $categ3->id }}">
                         <img src="{{asset('productgallery') }}/{{ $categ3->capture_image }}" alt="Product"
                         style="height: 235px;width: 211px;" />
                         </a>
@@ -700,7 +700,7 @@
                         </div>
                      </figure>
                      <div class="product-details">
-                        <h4 class="product-name"><a href="product-default.html">{{ $categ3->name }}</a>
+                        <h4 class="product-name"><a href="vuepro#/frontend_dashboard/{{ $categ3->id }}">{{ $categ3->name }}</a>
                         </h4>
                         <div class="ratings-container">
                            <div class="ratings-full">
