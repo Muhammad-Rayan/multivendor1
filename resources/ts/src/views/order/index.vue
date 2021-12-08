@@ -69,8 +69,11 @@
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
                     {{ item.number_of_product }}
                 </td>
-                <td class="text-dark fw-bolder text-hover-primary fs-6">
+                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="item.customer != null">
                     {{ item.customer.name }}
+                </td>
+                <td class="text-dark fw-bolder text-hover-primary fs-6" v-else>
+                    -
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
                     {{ item.amount }}

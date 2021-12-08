@@ -62,7 +62,6 @@
             <tr class="fw-bolder text-muted">
               <th>ID</th>
               <th>Name</th>
-              <th>Color</th>
               <th>Price</th>
               <th>Stock</th>
               <th>Action</th>
@@ -79,9 +78,6 @@
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
                     {{ item.name }}
-                </td>
-                <td class="text-dark fw-bolder text-hover-primary fs-6">
-                  Color
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
                    {{ item.price }}

@@ -71,20 +71,18 @@ class HomeController extends Controller
         return view('frontend.pages.dashboard',compact('accountdetail1'));
     }}
     public function order()
-    {   $user = auth()->user();
-        
+    {
+        $user = auth()->user();
         if($user == null){
             return redirect()->route('Userlogin');
+        }
+        else
+        {
+            $accountdetail1 =User::where('id',auth()->user()->id)->first();
+            $order = Order::where('customer_id',auth()->user()->id)->orderby('updated_at','desc')->get();
+            return view('frontend.pages.order',compact('order','accountdetail1'));
+        }
     }
-    else{
-    
-    $accountdetail1 =User::where('id',auth()->user()->id)->first();
-   
-        $order = Order::where('customer_id',auth()->user()->id)->orderby('updated_at','desc')->get();
-       
-        
-        return view('frontend.pages.order',compact('order','accountdetail1'));
-    }}
     public function accountdetail()
     {  $user = auth()->user();
         
@@ -321,8 +319,8 @@ class HomeController extends Controller
         if(auth()->user() && auth()->user()->id){
             $model->customer_id = auth()->user()->id;
         }
-        $model->delivery_status = 'unpaid';
-        $model->payment_status = 'Pending';
+        $model->delivery_status = 'Pending';
+        $model->payment_status = 'Unpaid';
         $model->order_number = $this->next('order');
         
         $model->save();

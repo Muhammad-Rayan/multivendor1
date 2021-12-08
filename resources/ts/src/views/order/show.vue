@@ -41,7 +41,8 @@
             </div>
             <div class="col-8" style="margin-bottom: 22px;">
                 <h3>Customer</h3>
-                <p style="margin-bottom: 0px;">{{ model.customer.name }}</p>
+                <p style="margin-bottom: 0px;" v-if="model.customer != null">{{ model.customer.name }}</p>
+                <p style="margin-bottom: 0px;" v-else></p>
                 <p style="margin-bottom: 0px;">number</p>
                 <p style="margin-bottom: 0px;">address</p>
             </div>
@@ -78,8 +79,10 @@
                         <tbody style="border-bottom: 1px solid #a1a5b7;">
                             <template v-for="(item, index) in model.items" :key="index">
                             <tr>
-                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="item.product">{{ item.product.name }}</td>
-                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="item.product" v-html="item.product.description"></td>
+                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="item.product != null">{{ item.product.name }}</td>
+                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-else>-</td>
+                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="item.product != null" v-html="item.product.description"></td>
+                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-else>-</td>
                                 <td class="text-dark fw-bolder text-hover-primary fs-6">{{ item.qty }}</td>
                                 <td class="text-dark fw-bolder text-hover-primary fs-6">{{ item.price }}</td>
                                 <td>{{ item.price }}</td>

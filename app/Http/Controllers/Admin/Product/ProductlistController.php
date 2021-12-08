@@ -24,7 +24,8 @@ class ProductlistController extends Controller
             $request->per_page = 12;
         }
         if(auth()->user()->is_admin == 1){
-            $results = Productlist::when(request('q') ,function($q){
+            $results = Productlist::with(['items.color'])
+            ->when(request('q') ,function($q){
                 $q->where('name','like', '%'.request('q').'%');
             })->where('deleted',0)->where('active','1')->paginate($request->per_page);
         }else{
