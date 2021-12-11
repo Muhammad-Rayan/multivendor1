@@ -136,34 +136,19 @@ const DocMenuConfig = [
     ],
 
   },
- 
-   {
+  {
     pages: 
     [
       {
-        sectionTitle: "Reports",
+        heading: "Reports",
         route: "/reports",
-        svgIcon: "media/icons/duotune/general/gen025.svg",
-        fontIcon: "bi-layers",
-        sub: [
-          {
-            heading: "InHouse Product Sale",
-            route: "/reports/inhouseproduct-sale",
-          },
-          {
-            heading: "Seller Product Sale",
-            route: "/reports/sellerproduct-sale",
-          },
-          {
-            heading: "Product Stock",
-            route: "/reports/product-stock",
-          },
-          
-        ],
+        svgIcon: "media/icons/duotune/art/art002.svg",
+        fontIcon: "bi-app-indicator",
       },
     ],
 
   },
+  
   {
     pages: 
     [

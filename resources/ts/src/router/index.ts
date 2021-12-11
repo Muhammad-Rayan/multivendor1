@@ -201,20 +201,11 @@ const routes: Array<RouteRecordRaw> = [
 
 
       {
-        path: "/reports/inhouseproduct-sale",
-        name: "inhouseproduct-sale",
-        component: () => import("@/views/reports/inhouseproduct_sale/index.vue"),
+        path: "/reports/",
+        name: "reports",
+        component: () => import("@/views/reports/index.vue"),
       },
-      {
-        path: "/reports/sellerproduct-sale",
-        name: "sellerproduct-sale",
-        component: () => import("@/views/reports/sellerproduct_sale/index.vue"),
-      },
-      {
-        path: "/reports/product-stock",
-        name: "product-stock",
-        component: () => import("@/views/reports/product-stock/index.vue"),
-      },
+      
       {
         path: "/all_sellers",
         name: "selller-list",
