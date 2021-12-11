@@ -28,7 +28,7 @@ const DocMenuConfig = [
           },
           {
             heading: "In House Product",
-            route: "/products/inhouse-product",
+            route: "/products/inhouse_product",
           },
            {
             heading: "Seller Product",

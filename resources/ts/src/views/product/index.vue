@@ -74,7 +74,7 @@
             <template v-for="(item, index) in model.data" :key="index">
               <tr>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
-                    {{ item.id }}
+                  {{ item.id }}
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
                     {{ item.name }}
@@ -96,6 +96,9 @@
                    <i class="far fa-edit"></i>
 
 
+                  </a>
+                  <a @click="showItems(item.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                   <i class="far fa-eye"></i>
                   </a>
                   <a @click="deleteItems(item.id)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                 <i class="far fa-trash-alt"></i>
@@ -259,6 +262,9 @@ export default ({
     },
     editItems(id){
       window.location.href="/admin#/products/"+id+"/edit/"
+    },
+    showItems(id){
+      window.location.href="/admin#/products/"+id
     },
 },
   setup() {

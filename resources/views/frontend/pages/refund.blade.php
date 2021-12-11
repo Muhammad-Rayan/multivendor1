@@ -22,7 +22,7 @@
                                 </li>
                               
                             </ul>
-                                 <form method="post" action="{{ route('refund-post') }}" enctype="multipart/form-data">
+                                 <form method="post" action="{{ route('refund-post',$id) }}" enctype="multipart/form-data">
                                  @csrf
                                     <div class="form-group">
                                         <label>Subject</label>

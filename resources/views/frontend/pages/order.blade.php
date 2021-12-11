@@ -72,6 +72,7 @@
                                             </td>
                                             <td class="order-action">
                                                 <a href="{{route('ordercomplete',$orde->order_number)}}" class="btn btn-outline btn-default btn-block btn-sm btn-rounded">View</a>
+                                                <a href="{{route('orderproducts',$orde->order_number)}}" class="btn btn-outline btn-default btn-block btn-sm btn-rounded">Refund</a>
                                             </td>
                                         </tr>
                                        
@@ -79,7 +80,7 @@
                                     @endforeach
                                 </table>
 
-                                     </div>
+                            </div>
 
                            
 

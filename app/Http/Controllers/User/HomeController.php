@@ -84,17 +84,21 @@ class HomeController extends Controller
         }
     }
     public function accountdetail()
-    {  $user = auth()->user();
+    {  
+        // dd(auth()->user()->id);
+        $user = auth()->user();
         
         if($user == null){
             return redirect()->route('Userlogin');
+        }
+        else{
+        
+            $accountdetail2 = User::with('cat')->where('id',auth()->user()->id)->first();
+            $order = User::with(['cat'])->first();
+            dd($order);
+            return view('frontend.pages.accountdetail',compact('accountdetail2'));
+        }
     }
-    else{
-    
-        $accountdetail2 =User::with(['user_info'])->where('id',auth()->user()->id)->first();
-        dd($accountdetail2);
-        return view('frontend.pages.accountdetail',compact('accountdetail2'));
-    }}
     public function accountdetailupdate(Request $request,$id)
     {  $user = auth()->user();
         
@@ -293,6 +297,11 @@ class HomeController extends Controller
         $order = Order::with(['items.product'])->where('order_number',$ordercomplete)->first();
         return view('frontend.pages.ordercomplete',compact('order'));
     }
+    public function order_products($ordercomplete)
+    {
+        $order = Order::with(['items.product'])->where('order_number',$ordercomplete)->first();
+        return view('frontend.pages.orderproducts',compact('order'));
+    }
     public function track()
     {
         return view('frontend.pages.track');
@@ -359,7 +368,7 @@ class HomeController extends Controller
             \Session::forget('cart');
         }
 
-        return redirect()->route('ordercomplete',$model->id);
+        return redirect()->route('ordercomplete',$model->order_number);
     }
     public function userlogin()
     {
@@ -414,12 +423,12 @@ class HomeController extends Controller
         $user->save();
 
   
-        return redirect('login');
+        return redirect()->route('Userlogin');
     }
-    public function refund()
+    public function refund($id)
     {
-  
-      return view('frontend.pages.refund');
+        $id = $id;
+      return view('frontend.pages.refund',compact('id'));
     }
 
     public function logout(){
@@ -428,19 +437,22 @@ class HomeController extends Controller
         return redirect()->route('Userlogin');
     }
   
-    public function refundpost(Request $request)
+    public function refundpost(Request $request,$id)
     {
        
         $request->validate([
             'subject' => 'required',
             'desscription' => 'required',
-            'image' => 'required',
+            'image' => 'nullable',
         ]);
       
-        
+        $product = Productlist::where('id',$id)->first();
         $refund = new Refund;
         $refund->subject=$request->subject;
+        $refund->product_id=$product->id;
         $refund->desscription=$request->desscription;
+        $refund->status=1;
+        $refund->customer_id=auth()->user()->id;
         if($request->image != null){
             $imageName = uniqid().'.'.$request->image->getClientOriginalExtension();
             $request->image->move(public_path('refund'), $imageName);
@@ -450,7 +462,12 @@ class HomeController extends Controller
         $refund->save();
 
      
-        return redirect('login');
+        return redirect('user-dashboard');
+    }
+
+    public function refund_show($id){
+        $refund = Refund::with(['product'])->where('customer_id',$id)->get();
+        return view('frontend.pages.refund_show',compact('refund'));
     }
 
     public function next($key)

@@ -9,9 +9,9 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/layout/Layout.vue"),
     children: [
       {
-        path: "/all-dashboard",
+        path: "/dashboard",
         name: "dashboard",
-        component: () => import("@/views/product/form.vue"),
+        component: () => import("@/views/Dashboard.vue"),
       },
       // Product
       {
@@ -24,11 +24,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "product-list",
         component: () => import("@/views/product/index.vue"),
       },
-      {
-        path: "/products/show",
-        name: "product-show",
-        component: () => import("@/views/product/show.vue"),
-      },
+      
       {
         path: "/products/inhouse_product",
         name: "inhouse-product",
@@ -49,6 +45,11 @@ const routes: Array<RouteRecordRaw> = [
         name: "product-edit",
         meta: {mode: 'edit'},
         component: () => import("@/views/product/form.vue"),
+      },
+      {
+        path: "/products/:id",
+        name: "product-show",
+        component: () => import("@/views/product/show.vue"),
       },
       // Category Route
       {
@@ -261,7 +262,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: "/frontend_dashboard/:id",
-        name: "dashboard",
+        name: "dashboard_shop",
         component: () => import("@/frontend_views/Products.vue"),
       },
     ],

@@ -14,20 +14,20 @@
                       <span class="required">Refund Status</span>
                   </label>
                   <el-form-item prop="assign">
-                    <el-select v-model="model.delivery_status" @change="deliveryStatus()">
-                    <el-option label="Pending" value="Pending">Pending</el-option>
-                    <el-option label="Confirmed" value="Confirmed">Confirmed</el-option>
-                    <el-option label="Picked Up" value="Picked Up">Picked Up</el-option>
-                    <el-option label="On The Way" value="On The Way">On The Way</el-option>
-                    <el-option label="Delivered" value="Delivered">Delivered</el-option>
+                    <el-select v-model="model.status" @change="deliveryStatus()">
+                    <el-option label="Pending" value="1">Pending</el-option>
+                    <el-option label="Confirmed" value="2">Approve</el-option>
+                    <el-option label="Picked Up" value="0">Cancel</el-option>
                   </el-select>
                 </el-form-item>
             </div>
             <div class="col-3" style="margin-bottom: 22px;">
                 <h3>Customer</h3>
-                <p style="margin-bottom: 0px;">{{ model.customer.name }}</p>
-                <p style="margin-bottom: 0px;">number</p>
-                <p style="margin-bottom: 0px;">address</p>
+                <p style="margin-bottom: 0px;" v-if="model.customer != null">{{ model.customer.name }}</p>
+                <p style="margin-bottom: 0px;" v-else>-</p>
+                <p style="margin-bottom: 0px;" v-if="model.status == 1">Status : Pending</p>
+                <p style="margin-bottom: 0px;" v-if="model.status == 2">Status : Approve</p>
+                <p style="margin-bottom: 0px;" v-if="model.status == 3">Status : Cancel</p>
             </div>
             <div class="col-2">
                 <p style="margin-bottom: 0px;"><b>Subject : </b></p>
@@ -43,7 +43,6 @@
                         <!--begin::Table head-->
                         <thead>
                             <tr class="fw-bolder text-muted">
-                            <th>Product Photo</th>
                             <th>Product Name</th>
                             <th>Product Description</th>
                             <th>Product Price</th>
@@ -54,10 +53,12 @@
                         <!--begin::Table body-->
                         <tbody>
                             <tr>
-                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="model.product">{{ model.product.photo }}</td>
-                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="model.product">{{ model.product.name }}</td>
-                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="model.product" v-html="model.product.description"></td>
-                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="model.product">{{ model.product.price }}</td>
+                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="model.product != null">{{ model.product.name }}</td>
+                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-else>-</td>
+                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="model.product != null" v-html="model.product.description"></td>
+                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-else>-</td>
+                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="model.product != null ">{{ model.product.price }}</td>
+                                <td class="text-dark fw-bolder text-hover-primary fs-6" v-else>-</td>
                                 
                             </tr>
                         </tbody>
@@ -77,6 +78,7 @@ import ErrorText from '@/my_components/form/ErrorText.vue'
 
 import { get,byMethod } from '@/lib/api'
 import { form } from '@/lib/mixins'
+import { objectToFormData } from '@/lib/helpers'
 import { useToast } from "vue-toastification";
 
 function initializeUrl (to) {
@@ -133,15 +135,11 @@ export default ({
     },
   methods: {
       deliveryStatus(id){
-        byMethod('POST', `/api/refund/${this.model.id}/update`,this.model)
-        .then(({data}) => {
-            this.toast.success("Product Delete Successfully");
-            get(`/api/product`)
-            .then(res => {
-                this.setData(res)
-            })
+        byMethod('POST', `/api/refund/${this.model.id}/update`, objectToFormData(this.model))
+        .then(res => {
+            this.toast.success("Status Change Successfully");
+            this.setData(res)
         })
-        .catch((err) => {})
       },
     setData(res) {
       this.model = res.data.results;

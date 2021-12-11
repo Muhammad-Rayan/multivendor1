@@ -79,6 +79,19 @@
                                             </div>
                                         </a>
                                     </div>
+
+                                    <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 mb-4">
+                                        <a href="{{ route('refund-show',$accountdetail1->id) }}">
+                                            <div class="icon-box text-center">
+                                                <span class="icon-box-icon icon-logout">
+                                                    <i class="w-icon-download"></i>
+                                                </span>
+                                                <div class="icon-box-content">
+                                                    <p class="text-uppercase mb-0">Refund</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
                                     
                                     <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 mb-4">
                                         <a href="{{ route('logout') }}">

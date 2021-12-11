@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Order\Order;
 
-
 class OrderController extends Controller
 {
     /**

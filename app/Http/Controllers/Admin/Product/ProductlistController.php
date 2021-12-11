@@ -157,7 +157,29 @@ class ProductlistController extends Controller
      */
     public function show($id)
     {
-        
+        $results = Productlist::with(['items','brand','cat','items.color','items.attribute_items','gallery'])
+        ->where('parent_id',$id)
+        ->get();
+
+
+        $product = Productlist::
+        where('parent_id',null)
+        ->findOrFail($id);
+
+        $colors = $results->pluck('color');
+        $colors_code = $colors->pluck('code')->toArray();
+        $colors_unique = array_unique($colors_code);
+
+        $attribute_items = $results->pluck('attribute_items');
+        $attribute_items_code = $attribute_items->pluck('value')->toArray();
+        $attribute_items_unique = array_unique($attribute_items_code);
+
+        return response()->json([ 
+            'results' => $results,
+            'colors' => $colors_unique,
+            'attribute_items' => $attribute_items_unique,
+            'product' => $product
+         ]);  
     }
 
     /**

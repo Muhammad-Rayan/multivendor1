@@ -53,6 +53,7 @@ class User extends Authenticatable
         return $this->belongsTo(Seller::class, 'user_id', 'id');
     }
     
+    
 
     public function products()
     {
@@ -61,5 +62,9 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class, 'customer_id', 'id');
+    }
+    public function cat()
+    {
+        return $this->belongsTo(Seller::class, 'user_id', 'id');
     }
 }

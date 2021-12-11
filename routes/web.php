@@ -49,11 +49,13 @@ Route::group(['prefix' => '/'], function() {
     Route::post('/account-detailupdate/{id}', [HomeController::class, 'accountdetailupdate'])->name('account-detail-update');
     Route::get('userregister', [HomeController::class, 'register'])->name('user-register');
     Route::post('userregister', [HomeController::class, 'registerstore'])->name('user-register-post');
-    Route::get('userrefund', [HomeController::class, 'refund'])->name('refund');
-    Route::post('userrefund', [HomeController::class, 'refundpost'])->name('refund-post');
+    Route::get('userrefund/{id}', [HomeController::class, 'refund'])->name('refund');
+    Route::post('userrefund/{id}', [HomeController::class, 'refundpost'])->name('refund-post');
+    Route::get('refund/{id}', [HomeController::class, 'refund_show'])->name('refund-show');
     Route::get('/orderdetail', [HomeController::class, 'orderdetail'])->name('orderdetail');
     Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout');
     Route::get('/ordercomplete/{ordernumber}', [HomeController::class, 'ordercomplete'])->name('ordercomplete');
+    Route::get('/order_products/{ordernumber}', [HomeController::class, 'order_products'])->name('orderproducts');
     Route::get('/track', [HomeController::class, 'track'])->name('track');
     Route::get('/track-get', [HomeController::class, 'track_get'])->name('track-get');
     Route::post('/checkout-post', [HomeController::class, 'checkout_post'])->name('checkout-post');
@@ -108,6 +110,8 @@ Route::group(['prefix' => 'api'], function() {
         Route::resource('review', ReviewController::class);
         Route::resource('sellerproduct', SellerproductController::class);
         Route::resource('attributeitem', AttributeItemsController::class);
+        
+        Route::get('/{id}', [ProductlistController::class,'show']);
     });
     Route::group(['prefix' => 'order'], function() {
         Route::get('/inhouseorder',[OrderController::class,'inhouse']);
@@ -122,6 +126,7 @@ Route::group(['prefix' => 'api'], function() {
 
     Route::group(['prefix' => 'refund'], function() {
         Route::get('/{id}', [RefundController::class,'show']);
+        Route::post('/{id}/update', [RefundController::class,'update']);
         Route::resource('/', RefundController::class);
     });
 

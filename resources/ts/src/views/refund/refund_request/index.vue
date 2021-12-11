@@ -49,7 +49,6 @@
             <tr class="fw-bolder text-muted">
               <th>Customer Name</th>
               <th>Product Name</th>
-              <th>Order Number</th>
               <th>Subject</th>
               <th>Status</th>
               <th>Actions</th>
@@ -61,17 +60,17 @@
           <tbody>
             <template v-for="(item, index) in model.data" :key="index">
               <tr>
-                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="item.customer">
+                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="item.customer != null">
                     {{ item.customer.name }}
                 </td>
                   <td class="text-dark fw-bolder text-hover-primary fs-6" v-else>
                     -
                 </td>
-                <td class="text-dark fw-bolder text-hover-primary fs-6">
+                <td class="text-dark fw-bolder text-hover-primary fs-6" v-if="item.product != null">
                     {{ item.product.name }}
                 </td>
-                <td class="text-dark fw-bolder text-hover-primary fs-6">
-                    {{ item.order_number }}
+                <td class="text-dark fw-bolder text-hover-primary fs-6" v-else>
+                    -
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
                     {{ item.subject }}

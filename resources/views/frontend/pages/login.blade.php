@@ -31,12 +31,16 @@
                                     </div>
                                     <div class="form-group mb-0">
                                         <label>Password *</label>
-                                        <input type="text" class="form-control" name="password" id="password" >
+                                        <input type="password" class="form-control" name="password" id="password" >
                                     </div>
-                                  <button type="submit">
+                                  <button type="submit" class="btn btn-primary">
                                         Sign In
                                     </button>
                                 </form>
+                                <hr>
+                                <a href="{{ route('user-register') }}" class="btn btn-primary" style="margin-top: 20px;">
+                                        Create New Account
+                                    </a>
                             </div>
                     
                         </div>

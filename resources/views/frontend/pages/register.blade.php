@@ -43,10 +43,10 @@
                                     </div>
                                     <div class="form-group mb-0">
                                         <label>Password *</label>
-                                        <input type="text" class="form-control" name="password" id="password" >
+                                        <input type="password" class="form-control" name="password" id="password" >
                                     </div>
-                                  <button type="submit">
-                                        Sign In
+                                  <button type="submit" class="btn btn-primary" style="margin-top: 20px;">
+                                        Sign Up
                                     </button>
                                 </form>
                             </div>

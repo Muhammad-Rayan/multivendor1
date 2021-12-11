@@ -79,8 +79,12 @@ class RefundController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
-        
+    {
+        $results = Refund::with(['customer','order','product'])->findOrFail($id);
+        $results->status = $request->status;
+        $results->save();
+        return response()->json([ 'results' => $results ]);
+
     }
     
     /**
