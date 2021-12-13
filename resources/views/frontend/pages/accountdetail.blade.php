@@ -8,8 +8,7 @@
                 </div>
             </div>
             <!-- End of Page Header -->
-
-            <!-- Start of Breadcrumb -->
+             <!-- Start of Breadcrumb -->
             <nav class="breadcrumb-nav">
                 <div class="container">
                     <ul class="breadcrumb">
@@ -32,14 +31,23 @@
                                 <a href="{{route('order')}}" class="nav-new">Orders</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('account-detail',$accountdetail1->id)}}" class="nav-new">Account details</a>
+                                <a href="{{route('account-detail',$accountdetail2['id'])}}" class="nav-new">Account details</a>
                             </li>
                         </ul>
                         <div class="tab-content mb-6">
                             
 
                           
-
+                        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+          
                             <div class="tab-pane active in" id="account-details">
                                 <div class="icon-box icon-box-side icon-box-light">
                                     <span class="icon-box-icon icon-account mr-2">
@@ -49,25 +57,8 @@
                                         <h4 class="icon-box-title mb-0 ls-normal">Account Details</h4>
                                     </div>
                                 </div>
-                                <form class="form account-details-form" action="{{route('account-detail-update',$accountdetail2->id) }}" method="post">
+                                <form class="form account-details-form" action="{{route('account-detail-update',$accountdetail2['id']) }}" method="post">
                               @csrf
-                                <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="firstname">First name *</label>
-                                                <input type="text" id="firstname" name="first_name" value="{{$accountdetail2['first_name']}}" placeholder="John" class="form-control form-control-md">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="lastname">Last name *</label>
-                                                <input type="text" id="lastname" name="last_name" value="{{$accountdetail2['last_name']}}" class="form-control form-control-md">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                   
-
                                     <div class="form-group mb-6">
                                         <label for="email_1">Email address *</label>
                                         <input type="email" id="email_1" name="email" value="{{$accountdetail2['email']}}" class="form-control form-control-md">

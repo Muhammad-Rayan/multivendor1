@@ -17,7 +17,8 @@
                         
                             @else
                             
-                 <a href="{{route('Userlogin')}}" class=""><i class="w-icon-account"></i>Sign In</a>
+                 <a href="{{route('Userlogin')}}" class=""><i class="w-icon-account"></i>User Login</a>
+                 <a href="/login" class=""><i class="w-icon-account"></i>Seller Login</a>
                              
                        @endif
              </div>

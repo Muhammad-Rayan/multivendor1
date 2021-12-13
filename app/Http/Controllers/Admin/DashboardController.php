@@ -67,6 +67,12 @@ class DashboardController extends Controller
     {
         //
     }
+    public function adminlogout(){
+        session()->flush();
+        session()->save();
+        return redirect()->route('login');
+    }
+  
 
     /**
      * Update the specified resource in storage.

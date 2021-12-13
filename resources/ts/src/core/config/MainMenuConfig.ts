@@ -50,33 +50,33 @@ const DocMenuConfig = [
             heading: "Color",
             route: "/products/color",
           },         
-           {
-            heading: "Review",
-            route: "/products/review",
-          },
+          //  {
+          //   heading: "Review",
+          //   route: "/products/review",
+          // },
         ],
       },
     ],
   },
- {
-    pages: 
-    [
-      {
-        sectionTitle: "Customers",
-        route: "/customers",
-        svgIcon: "media/icons/duotune/general/gen025.svg",
-        fontIcon: "bi-layers",
-        sub: [
-          {
-            heading: "Customer list",
-            route: "/customers/customer-list",
-          },
+//  {
+//     pages: 
+//     [
+//       {
+//         sectionTitle: "Customers",
+//         route: "/customers",
+//         svgIcon: "media/icons/duotune/general/gen025.svg",
+//         fontIcon: "bi-layers",
+//         sub: [
+//           {
+//             heading: "Customer list",
+//             route: "/customers/customer-list",
+//           },
           
-        ],
-      },
-    ],
+//         ],
+//       },
+//     ],
 
-  },
+//   },
  {
     pages: 
     [
@@ -90,18 +90,18 @@ const DocMenuConfig = [
             heading: "All Order",
             route: "/all_orders",
           },
-          {
-            heading: "In House Order",
-            route: "/orders/inhouse-orders",
-          },
-          {
-            heading: "Seller Order",
-            route: "/orders/seller-order",
-          },
-          {
-            heading: "Pickup-point Order",
-            route: "/orders/pickuppoint-order",
-          },
+          // {
+          //   heading: "In House Order",
+          //   route: "/orders/inhouse-orders",
+          // },
+          // {
+          //   heading: "Seller Order",
+          //   route: "/orders/seller-order",
+          // },
+          // {
+          //   heading: "Pickup-point Order",
+          //   route: "/orders/pickuppoint-order",
+          // },
           
         ],
       },

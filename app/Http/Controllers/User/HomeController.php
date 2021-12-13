@@ -14,6 +14,7 @@ use App\Models\Admin\Refund\Refund;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin\Order\Item as OrderItems;
 use App\Support\Helpers;
+use Hash;
 use DB;
 
 class HomeController extends Controller
@@ -95,32 +96,28 @@ class HomeController extends Controller
         
             $accountdetail2 = User::with('cat')->where('id',auth()->user()->id)->first();
             $order = User::with(['cat'])->first();
-            dd($order);
             return view('frontend.pages.accountdetail',compact('accountdetail2'));
         }
     }
     public function accountdetailupdate(Request $request,$id)
-    {  $user = auth()->user();
+    {  
+        $this->validate($request, [
+            'email' => 'required|min:3|max:50',
+            'password' => 'min:6|required_with:conf_password|same:conf_password',
+'conf_password' => 'min:6',
+        ]);
+        $user = auth()->user();
         
         if($user == null){
             return redirect()->route('Userlogin');
     }
     else{
-    
-           
-
-        $seller = Seller::where('user_id',$id)->first();
-        $seller->first_name=$request->first_name;
-        $seller->last_name=$request->last_name;
-        $seller->phone=$request->phone;
-        $seller->email=$request->email;
-        $seller->save();
 
         $user =User::where('id',$id)->first();
         $user->email=$request->email;
         $user->password=$request->password;
         $user->save();
-        return view('frontend.pages.accountdetail',compact('seller','user'));
+        return view('frontend.pages.accountdetail',compact('user'));
     }}
    
     public function cart()
@@ -418,7 +415,7 @@ class HomeController extends Controller
 
         $user = new User;
         $user->email=$request->email;
-        $user->password=$request->password;
+        $user->password=Hash::make($request['password']);
         $user->is_user=1;
         $user->save();
 

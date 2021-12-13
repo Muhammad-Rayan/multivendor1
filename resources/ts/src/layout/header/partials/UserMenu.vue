@@ -57,7 +57,7 @@
 
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-      <a @click="signOut()" class="menu-link px-5"> Sign Out </a>
+      <a href="/logout" class="menu-link px-5"> Sign Out </a>
     </div>
     <!--end::Menu item-->
   </div>

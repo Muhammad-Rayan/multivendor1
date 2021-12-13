@@ -56,8 +56,7 @@
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
                     {{ item.name }}
                 </td>
-                <td class="text-dark fw-bolder text-hover-primary fs-6">
-                    {{ item.description }}
+                <td class="text-dark fw-bolder text-hover-primary fs-6" v-html="item.description">
                 </td>
                 <td class="text-dark fw-bolder text-hover-primary fs-6">
                     Stock
