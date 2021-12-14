@@ -27,8 +27,11 @@ import "@/core/plugins/prismjs";
 import "bootstrap";
 import '@/lib/filters'
 
+import { SquareSpinner } from 'vue-spinners'
+
 const app = createApp(App);
 app.component('QuillEditor', QuillEditor)
+app.component('square', SquareSpinner)
 const toastoption: PluginOptions = {
     // You can set your default options here
 };
@@ -64,6 +67,7 @@ app.use(Toast, toastoption);
 app.use(store);
 app.use(router);
 app.use(ElementPlus);
+app.use(SquareSpinner);
 
 ApiService.init(app);
 // MockAdapter.init(app);

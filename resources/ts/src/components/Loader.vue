@@ -33,7 +33,7 @@ import { useStore } from "vuex";
 export default defineComponent({
   name: "Loader",
   props: {
-    logo: String,
+    logo: String,loaderType:String,
   },
   setup() {
     const store = useStore();

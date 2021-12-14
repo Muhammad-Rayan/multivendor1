@@ -171,6 +171,7 @@ export default ({
   data() {
         return {
             model: [],
+            isLoading: true,
             resource:'/api/product',
             params: {
               per_page: 12,
