@@ -1,5 +1,5 @@
 <template>
-  <KTLoader v-if="loaderEnabled" :logo="loaderLogo"></KTLoader>
+  <!-- <KTLoader v-if="loaderEnabled" :logo="loaderLogo"></KTLoader> -->
 
   <!-- begin:: Body -->
   <div class="page d-flex flex-row flex-column-fluid">

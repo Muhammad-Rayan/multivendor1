@@ -690,7 +690,7 @@ export default ({
     },
     save() {
         this.submitMultipartForm(this.form,(data) => {
-            this.$Progress.start();
+            
             this.toast.success(this.message);
             this.$router.push({ name: 'product-list' });
         })
