@@ -690,8 +690,17 @@ export default ({
     },
     save() {
         this.submitMultipartForm(this.form,(data) => {
-            
-            this.toast.success(this.message);
+                 let loader = this.$loading.show({
+              color : '#009ef7',
+              height: 40,
+              width: 40, 
+              zIndex: 999,
+              blur:'12px',
+            });
+          this.toast.success(this.message);
+          setTimeout(() => {
+            loader.hide()
+        }, 1000)
             this.$router.push({ name: 'product-list' });
         })
     },
@@ -706,8 +715,18 @@ export default ({
         this.form.document = e.target.value;
     },
     setData(res) {
+      let loader = this.$loading.show({
+            color : '#009ef7',
+            height: 40,
+            width: 40,
+            zIndex: 999,
+            blur:'12px',
+        });
       this.form = res.data.form;
-    },
+      setTimeout(() => {
+            loader.hide()
+        }, 1000)
+     },
     onCategoryUpdate(e) {
         const cat = e.target.value
 

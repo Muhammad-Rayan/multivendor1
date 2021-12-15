@@ -364,7 +364,14 @@
        },
      methods: {
        setData(res) {
-         this.model = res.data.results;
+           let loader = this.$loading.show({
+            color : '#009ef7',
+            height: 40,
+            width: 40,
+            zIndex: 999,
+            blur:'12px',
+        });
+      this.model = res.data.results;
          this.successful_order = this.model.data.successful_order
          this.total_earning = this.model.data.total_earning
          this.total_orders = this.model.data.total_orders
@@ -372,7 +379,10 @@
          console.log(this.model.data);
          this.params.per_page = this.model.per_page
          this.params.page = this.model.current_page
-       },
+     setTimeout(() => {
+            loader.hide()
+        }, 1000)
+           },
        updatePerPage() {
          const query = copyObject(this.$route.query)
          

@@ -209,10 +209,20 @@ export default ({
     },
   methods: {
     setData(res) {
-      this.model = res.data.results;
-      this.params.per_page = this.model.per_page
+        let loader = this.$loading.show({
+            color : '#009ef7',
+            height: 40,
+            width: 40,
+            zIndex: 999,
+            blur:'12px',
+        });
+       this.params.per_page = this.model.per_page
       this.params.page = this.model.current_page
-    },
+       this.model = res.data.results;
+      setTimeout(() => {
+            loader.hide()
+        }, 1000)
+      },
    
     updatePerPage() {
       const query = copyObject(this.$route.query)

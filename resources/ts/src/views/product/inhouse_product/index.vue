@@ -134,7 +134,17 @@ export default ({
     },
   methods: {
     setData(res) {
-      this.model = res.data;
+        let loader = this.$loading.show({
+            color : '#009ef7',
+            height: 40,
+            width: 40,
+            zIndex: 999,
+            blur:'12px',
+        });
+      this.form = res.data;
+      setTimeout(() => {
+            loader.hide()
+        }, 1000)
     }
 },
   setup() {

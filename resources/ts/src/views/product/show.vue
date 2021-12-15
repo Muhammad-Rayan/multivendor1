@@ -168,11 +168,21 @@ export default ({
     },
   methods: {
     setData(res) {
-      console.log(res);
-      this.model = res.data.results;
+         let loader = this.$loading.show({
+            color : '#009ef7',
+            height: 40,
+            width: 40,
+            zIndex: 999,
+            blur:'12px',
+        }); console.log(res);
+       this.model = res.data.results;
       this.attributes = res.data.attribute_items;
       this.colors = res.data.colors
       this.product = res.data.product
+      setTimeout(() => {
+            loader.hide()
+        }, 1000)
+    
     },
     
 },

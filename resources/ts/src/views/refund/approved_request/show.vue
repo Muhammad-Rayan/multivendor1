@@ -142,8 +142,18 @@ export default ({
         })
       },
     setData(res) {
-      this.model = res.data.results;
+      let loader = this.$loading.show({
+            color : '#009ef7',
+            height: 40,
+            width: 40,
+            zIndex: 999,
+            blur:'12px',
+        });
+       this.model = res.data.results;
       this.testlength = res.data.results.items;
+       setTimeout(() => {
+            loader.hide()
+        }, 1000)
     },
 },
   setup() {
