@@ -263,20 +263,20 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
 
-router.beforeEach(() => {
-  // reset config to initial state
-  store.commit(Mutations.RESET_LAYOUT_CONFIG);
+// router.beforeEach(() => {
+//   // reset config to initial state
+//   store.commit(Mutations.RESET_LAYOUT_CONFIG);
 
-  store.dispatch(Actions.VERIFY_AUTH);
+//   store.dispatch(Actions.VERIFY_AUTH);
 
-  // Scroll page to top on every route change
-  setTimeout(() => {
-    window.scrollTo(0, 0);
-  }, 100);
-});
+//   // Scroll page to top on every route change
+//   setTimeout(() => {
+//     window.scrollTo(0, 0);
+//   }, 100);
+// });
 
 export default router;
