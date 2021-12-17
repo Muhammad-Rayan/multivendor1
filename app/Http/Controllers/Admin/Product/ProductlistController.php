@@ -79,7 +79,14 @@ class ProductlistController extends Controller
         //     $attr_result = array_unique($attribute_id);
         //     dd($color_result);
         // }
-
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'cat_id' => 'required',
+            'brand_id' => 'required',
+            'barcode' => 'required',
+            
+        ]);
         $model = new Productlist;
         $model->fill($request->except('tags','items'));
         $model->active = 1;
@@ -115,7 +122,7 @@ class ProductlistController extends Controller
                     $tags->product_id = $model->id;
                     $tags->save();
                 }
-            }
+            } 
             if($request->items != null){
                 foreach($request->items as $product_items){
                     $products = new Productlist;

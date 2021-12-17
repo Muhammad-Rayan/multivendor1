@@ -144,6 +144,7 @@
                       <span class="required">Thumbnail Image</span>
                   </label>
                   <input type="file" class="form-control" @change="onThumbnailChange">
+                  
                   <!-- <input type="file" @change='upload_avatar' name="avatar">
                         
                     <div class="avatar img-fluid img-circle" style="margin-top:10px">
@@ -557,6 +558,8 @@ import Dropdown2 from "@/components/dropdown/Dropdown2.vue";
 import FileUpload from '@/my_components/form/FileUpload.vue'
 import Typeahead from '@/my_components/form/Typeahead.vue'
 
+import ErrorText from '@/my_components/form/ErrorText.vue'
+
 import { get,byMethod } from '@/lib/api'
 import { form } from '@/lib/mixins'
 import { useToast } from "vue-toastification"
@@ -589,7 +592,7 @@ export default ({
     },
     
   components: {
-    Dropdown2,FileUpload,Typeahead
+    Dropdown2,FileUpload,Typeahead,ErrorText
   },
   created() {
       if(this.mode === 'edit') {
