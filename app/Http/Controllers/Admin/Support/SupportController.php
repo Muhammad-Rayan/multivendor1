@@ -22,7 +22,7 @@ class SupportController extends Controller
         }
         $results = Support::with(['customer'])
         ->when(request('q') ,function($q){
-            $q->where('name','like', '%'.request('q').'%');
+            $q->where('subject','like', '%'.request('q').'%');
         })->paginate($request->per_page);
         return response()->json([ 'results' => $results ]);
     }

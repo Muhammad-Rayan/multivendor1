@@ -20,7 +20,7 @@ class OrderController extends Controller
         }
         $results = Order::with(['items','customer'])
         ->when(request('q') ,function($q){
-            $q->where('name','like', '%'.request('q').'%');
+            $q->where('order_number','like', '%'.request('q').'%');
         })->paginate($request->per_page);
         return response()->json([ 'results' => $results ]);
     }
