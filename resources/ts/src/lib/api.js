@@ -1,6 +1,9 @@
 import axios from 'axios'
+import VueLoading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
-export function get (url, params) {
+export function get (url, params,loader) {
+    console.log(loader)
     return axios({
         method: 'GET',
         url: url,

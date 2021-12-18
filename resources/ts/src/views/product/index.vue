@@ -182,7 +182,19 @@ export default ({
             },
         }
     },
+    created() {
+      if(this.isLoading == true){
+        this.loader = this.$loading.show({
+            color : '#009ef7',
+            height: 40,
+            width: 40,
+            zIndex: 999,
+            blur:'12px',
+          });
+      }
+  },
     beforeRouteUpdate (to, from, next) {
+      this.isLoading = true;
         get(`/api/product`)
             .then(res => {
                 this.setData(res)
@@ -209,20 +221,23 @@ export default ({
     },
   methods: {
     setData(res) {
+      if(this.isLoading == false){
+          this.loader = this.$loading.show({
+          color : '#009ef7',
+          height: 40,
+          width: 40,
+          zIndex: 999,
+          blur:'12px',
+        });
+      }
       
-      let loader = this.$loading.show({
-        color : '#009ef7',
-        height: 40,
-        width: 40,
-        zIndex: 999,
-        blur:'12px',
-      });
       
       this.model = res.data.results;
       this.params.per_page = this.model.per_page
       this.params.page = this.model.current_page
+      this.isLoading = false;
       setTimeout(() => {
-            loader.hide()
+            this.loader.hide()
         }, 1000)
     },
     updatePerPage() {

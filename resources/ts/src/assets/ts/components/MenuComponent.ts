@@ -735,6 +735,7 @@ class MenuComponent {
   // ** Public API  ** //
   ///////////////////////
   public click = (element: HTMLElement, e: Event) => {
+    console.log("test")
     return this._click(element, e)
   }
 
