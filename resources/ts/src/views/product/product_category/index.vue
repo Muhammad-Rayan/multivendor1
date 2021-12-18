@@ -165,6 +165,7 @@ export default ({
   data() {
         return {
             model: [],
+             isLoading: true,
             resource:'/api/product/categories',
             params: {
               per_page: 12,
@@ -175,9 +176,20 @@ export default ({
             },
         }
     },
+    created() {
+      if(this.isLoading == true){
+        this.loader = this.$loading.show({
+            color : '#009ef7',
+            height: 40,
+            width: 40,
+            zIndex: 999,
+            blur:'12px',
+          });
+      }
+  },
     beforeRouteUpdate (to, from, next) {
-        this.show = false
-        get(`/api/product/categories`)
+       this.isLoading = true;
+       get(`/api/product/categories`)
             .then(res => {
                 this.setData(res)
                 next()
@@ -203,17 +215,20 @@ export default ({
     },
   methods: {
     setData(res) {
-      let loader = this.$loading.show({
-            color : '#009ef7',
-            height: 40,
-            width: 40,
-            zIndex: 999,
-            blur:'12px',
+      if(this.isLoading == false){
+          this.loader = this.$loading.show({
+          color : '#009ef7',
+          height: 40,
+          width: 40,
+          zIndex: 999,
+          blur:'12px',
         });
+      }
       this.model = res.data.results;
       this.params.per_page = this.model.per_page
       this.params.page = this.model.current_page
-      setTimeout(() => {
+     this.isLoading = false;
+       setTimeout(() => {
             loader.hide()
         }, 1000)
     },

@@ -162,7 +162,8 @@ export default ({
   data() {
         return {
             model: [],
-            resource:'/api/product/color',
+             isLoading: true,
+             resource:'/api/product/color',
             params: {
               per_page: 12,
               page: 1,
@@ -172,8 +173,20 @@ export default ({
             },
         }
     },
+     created() { 
+      if(this.isLoading == true){
+        this.loader = this.$loading.show({
+            color : '#009ef7',
+            height: 40,
+            width: 40,
+            zIndex: 999,
+            blur:'12px',
+          });
+      }
+      
+  },
     beforeRouteUpdate (to, from, next) {
-        this.show = false
+       this.isLoading = true;
         get(`/api/product/color`)
             .then(res => {
                 this.setData(res)
@@ -181,6 +194,8 @@ export default ({
             })
             //catch 422
     },
+    
+    
     beforeRouteEnter(to, from, next) {
         get(`/api/product/color`)
             .then(res => {
@@ -199,16 +214,20 @@ export default ({
       type: [String, Number, Array]
     },
   methods: {
-    setData(res) {let loader = this.$loading.show({
-            color : '#009ef7',
-            height: 40,
-            width: 40,
-            zIndex: 999,
-            blur:'12px',
+       setData(res) {
+      if(this.isLoading == false){
+          this.loader = this.$loading.show({
+          color : '#009ef7',
+          height: 40,
+          width: 40,
+          zIndex: 999,
+          blur:'12px',
         });
+      }
       this.model = res.data.results;
       this.params.per_page = this.model.per_page
       this.params.page = this.model.current_page
+       this.isLoading = false;
       setTimeout(() => {
             loader.hide()
         }, 1000)
