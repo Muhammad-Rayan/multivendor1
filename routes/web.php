@@ -110,6 +110,7 @@ Route::group(['prefix' => 'api'], function() {
         Route::resource('review', ReviewController::class);
         Route::resource('sellerproduct', SellerproductController::class);
         Route::resource('attributeitem', AttributeItemsController::class);
+        Route::post('attributeitem/{id}/edit', [AttributeItemsController::class,'edit']);
         
         Route::get('/{id}', [ProductlistController::class,'show']);
     });

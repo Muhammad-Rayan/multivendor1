@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Admin\Product\AttributeItems;
+use App\Models\Admin\Product\Attribute;
 
 class AttributeItemsController extends Controller
 {
@@ -60,7 +61,8 @@ class AttributeItemsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $items = AttributeItems::where('attribute_id',$id)->get();
+        return response()->json([ 'results' => $items ]);
     }
 
     /**
@@ -72,7 +74,15 @@ class AttributeItemsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $model = new AttributeItems();
+        $model->attribute_id = $id;
+        $model->fill($request->all());
+        $model->save();
+
+        $form = AttributeItems::where('attribute_id',$id)->get();
+        return response()->json([
+            'results' => $form
+        ]);
     }
 
     /**
