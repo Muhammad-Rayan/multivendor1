@@ -229,7 +229,7 @@ export default ({
       this.params.page = this.model.current_page
      this.isLoading = false;
        setTimeout(() => {
-            loader.hide()
+            this.loader.hide()
         }, 1000)
     },
    

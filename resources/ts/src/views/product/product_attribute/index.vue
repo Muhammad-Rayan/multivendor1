@@ -41,7 +41,7 @@
                 <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black"></rect>
               </svg>
             </span>
-            <!--end::Svg Icon-->New Product</router-link>
+            <!--end::Svg Icon-->New Attribute</router-link>
           </div>
         </div>
       
@@ -167,7 +167,8 @@ export default ({
   data() {
         return {
             model: [],
-            resource:'/api/product/attribute',
+             isLoading: true,
+           resource:'/api/product/attribute',
             params: {
               per_page: 12,
               page: 1,
@@ -177,8 +178,19 @@ export default ({
             },
         }
     },
+     created() {
+      if(this.isLoading == true){
+        this.loader = this.$loading.show({
+            color : '#009ef7',
+            height: 40,
+            width: 40,
+            zIndex: 999,
+            blur:'12px',
+          });
+      }
+  },
     beforeRouteUpdate (to, from, next) {
-        this.show = false
+      this.isLoading = true;
         get(`/api/product/attribute`)
             .then(res => {
                 this.setData(res)
@@ -204,23 +216,26 @@ export default ({
       type: [String, Number, Array]
     },
   methods: {
-    setData(res) {
-        let loader = this.$loading.show({
-            color : '#009ef7',
-            height: 40,
-            width: 40,
-            zIndex: 999,
-            blur:'12px',
+   setData(res) {
+      if(this.isLoading == false){
+          this.loader = this.$loading.show({
+          color : '#009ef7',
+          height: 40,
+          width: 40,
+          zIndex: 999,
+          blur:'12px',
         });
+      }
        this.model = res.data.results;
       this.params.per_page = this.model.per_page
       this.params.page = this.model.current_page
-   setTimeout(() => {
-            loader.hide()
+      this.isLoading = false;
+      setTimeout(() => {
+            this.loader.hide()
         }, 1000)
-      },
+    },
     attribute_item(id){
-      window.location.href="/#/products/"+id+"/attribute-item/"
+      window.location.href="/admin#/products/"+id+"/attribute-item/"
     },
     updatePerPage() {
       const query = copyObject(this.$route.query)

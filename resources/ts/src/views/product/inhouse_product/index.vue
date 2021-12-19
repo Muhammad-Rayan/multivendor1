@@ -104,10 +104,23 @@ export default ({
   data() {
         return {
             model: [],
+               isLoading: true,
+          
         }
     },
+      created() {
+      if(this.isLoading == true){
+        this.loader = this.$loading.show({
+            color : '#009ef7',
+            height: 40,
+            width: 40,
+            zIndex: 999,
+            blur:'12px',
+          });
+      }
+  },
     beforeRouteUpdate (to, from, next) {
-        this.show = false
+       this.isLoading = true;
         get(`/api/product/inhouseproduct`)
             .then(res => {
                 this.setData(res)
@@ -133,17 +146,20 @@ export default ({
       type: [String, Number, Array]
     },
   methods: {
-    setData(res) {
-        let loader = this.$loading.show({
-            color : '#009ef7',
-            height: 40,
-            width: 40,
-            zIndex: 999,
-            blur:'12px',
+   setData(res) {
+      if(this.isLoading == false){
+          this.loader = this.$loading.show({
+          color : '#009ef7',
+          height: 40,
+          width: 40,
+          zIndex: 999,
+          blur:'12px',
         });
+      }
       this.form = res.data;
+       this.isLoading = false;
       setTimeout(() => {
-            loader.hide()
+            this.loader.hide()
         }, 1000)
     }
 },

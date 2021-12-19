@@ -152,7 +152,8 @@ export default ({
   data() {
         return {
             model: [],
-            resource:'/api/refund?status=1',
+           isLoading: true,
+             resource:'/api/refund?status=1',
             params: {
               per_page: 12,
               page: 1,
@@ -162,9 +163,20 @@ export default ({
             },
         }
     },
+     created() {
+      if(this.isLoading == true){
+        this.loader = this.$loading.show({
+            color : '#009ef7',
+            height: 40,
+            width: 40,
+            zIndex: 999,
+            blur:'12px',
+          });
+      }
+  },
     beforeRouteUpdate (to, from, next) {
-        this.show = false
-        get(`/api/refund?status=1`)
+        this.isLoading = true;
+      get(`/api/refund?status=1`)
             .then(res => {
                 this.setData(res)
                 next()
@@ -190,20 +202,23 @@ export default ({
     },
   methods: {
     setData(res) {
-        let loader = this.$loading.show({
-            color : '#009ef7',
-            height: 40,
-            width: 40,
-            zIndex: 999,
-            blur:'12px',
+      if(this.isLoading == false){
+          this.loader = this.$loading.show({
+          color : '#009ef7',
+          height: 40,
+          width: 40,
+          zIndex: 999,
+          blur:'12px',
         });
+      }
       this.model = res.data.results;
       this.params.per_page = this.model.per_page
       this.params.page = this.model.current_page
-    setTimeout(() => {
-            loader.hide()
+    this.isLoading = false;
+      setTimeout(() => {
+            this.loader.hide()
         }, 1000)
-      },
+    },
     updatePerPage() {
       const query = copyObject(this.$route.query)
       

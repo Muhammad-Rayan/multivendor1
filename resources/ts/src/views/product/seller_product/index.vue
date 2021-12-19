@@ -101,12 +101,24 @@ export default ({
   name: "kt-widget-12",
   data() {
         return {
-            model: [],
+            model: [],            
+           isLoading: true,
         }
     },
+     created() {
+      if(this.isLoading == true){
+        this.loader = this.$loading.show({
+            color : '#009ef7',
+            height: 40,
+            width: 40,
+            zIndex: 999,
+            blur:'12px',
+          });
+      }
+  },
     beforeRouteUpdate (to, from, next) {
-        this.show = false
-        get(`/api/product/sellerproduct`)
+      this.isLoading = true;
+         get(`/api/product/sellerproduct`)
             .then(res => {
                 this.setData(res)
                 next()
@@ -131,17 +143,21 @@ export default ({
       type: [String, Number, Array]
     },
   methods: {
-    setData(res) {
-      let loader = this.$loading.show({
-            color : '#009ef7',
-            height: 40,
-            width: 40,
-            zIndex: 999,
-            blur:'12px',
+     setData(res) {
+      if(this.isLoading == false){
+          this.loader = this.$loading.show({
+          color : '#009ef7',
+          height: 40,
+          width: 40,
+          zIndex: 999,
+          blur:'12px',
         });
+      }
+  
       this.model = res.data;
+       this.isLoading = false;
       setTimeout(() => {
-            loader.hide()
+            this.loader.hide()
         }, 1000)
     }
 },
